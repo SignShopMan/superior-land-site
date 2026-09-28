@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CTABand from '../components/CTABand.astro';
+import TrustChips from '../components/TrustChips.astro';
+import { site } from '../data/site';
+import fleet from '../assets/photos/fleet-truck-gooseneck-excavator.jpg';
+import trucks from '../assets/photos/fleet-pickup-dump-trailer.jpg';
+---
+
+<Base title="About" description={`${site.name}: owner-run land and site work in ${site.region}.`}>
+  <PageHero
+    eyebrow="About"
+    title="Built for tough ground"
+    lede="An owner-run crew with our own equipment and a clean finish on every job."
+  />
+  <section class="container-site grid items-center gap-12 py-16 lg:grid-cols-2">
+    <div class="prose-site">
+      <!-- TODO: owner story, years in business, insurance, owner photo -->
+      <p>
+        {site.name} handles land and site work across {site.region}: driveways, clearing, grading,
+        ponds and drainage. When you call, you talk to the person who'll be running the machine.
+      </p>
+      <p>
+        We haul our own equipment, including a compact track loader with a forestry mulcher and a
+        Deere 60G excavator, so we can show up and get it done without waiting on rentals.
+      </p>
+      <TrustChips class="pt-2" />
+    </div>
+    <div class="grid gap-4">
+      <Image
+        src={fleet}
+        alt="Green Peterbilt hauling a compact track loader on a gooseneck trailer, next to a Deere 60G excavator"
+        widths={[640, 1024]}
+        width={1024}
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        class="w-full rounded-(--radius-card)"
+      />
+      <Image
+        src={trucks}
+        alt="Superior pickup truck with a dump trailer"
+        widths={[640, 1024]}
+        width={1024}
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        class="w-full rounded-(--radius-card)"
+      />
+    </div>
+  </section>
+  <CTABand />
+</Base>

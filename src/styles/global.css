@@ -1,0 +1,111 @@
+@import 'tailwindcss';
+
+@import '@fontsource/barlow/400.css';
+@import '@fontsource/barlow/500.css';
+@import '@fontsource/barlow/600.css';
+@import '@fontsource/barlow/700.css';
+@import '@fontsource/barlow-condensed/800-italic.css';
+@import '@fontsource/barlow-condensed/900-italic.css';
+
+/* Design tokens — source of truth: brand/tokens.css (sampled from the logo sketch) */
+@theme {
+  --color-orange: #f96607;
+  --color-green: #32b50d;
+  --color-lime: #75dc40;
+  --color-blackout: #0b0f0f;
+  --color-chrome: #b6bbb2;
+
+  --color-orange-50: #fff4ec;
+  --color-orange-100: #ffe3cc;
+  --color-orange-200: #fec193;
+  --color-orange-300: #fd9a55;
+  --color-orange-400: #fb7c2a;
+  --color-orange-500: #f96607;
+  --color-orange-600: #de5205;
+  --color-orange-700: #c2410c;
+  --color-orange-800: #9a3412;
+  --color-orange-900: #7b2d19;
+
+  --color-green-50: #f0fce9;
+  --color-green-100: #ddf8cc;
+  --color-green-200: #b9ee98;
+  --color-green-300: #8fe061;
+  --color-green-400: #75dc40;
+  --color-green-500: #32b50d;
+  --color-green-600: #1f9a0b;
+  --color-green-700: #0a7e09;
+  --color-green-800: #146b12;
+  --color-green-900: #0e4a0d;
+
+  --color-ink: #0b0f0f;
+  --color-charcoal: #1c2222;
+  --color-graphite: #2e3534;
+  --color-steel: #5b625e;
+  --color-chrome-300: #b6bbb2;
+  --color-chrome-100: #e3e6e1;
+  --color-paper: #f6f7f4;
+
+  --font-display: 'Barlow Condensed', 'Arial Narrow', system-ui, sans-serif;
+  --font-sans: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --radius-btn: 0.375rem;
+  --radius-card: 0.75rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-paper font-sans text-[17px] leading-relaxed text-ink antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display leading-none font-extrabold tracking-[0.01em] uppercase italic;
+  }
+  a {
+    @apply underline-offset-4;
+  }
+  :focus-visible {
+    @apply outline-3 outline-offset-2 outline-orange;
+  }
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+  .eyebrow {
+    @apply mb-3 text-[0.8rem] font-bold tracking-[0.14em] text-orange-700 uppercase;
+  }
+  .prose-site {
+    @apply max-w-[68ch] space-y-4 text-lg text-graphite;
+  }
+  .prose-site h2 {
+    @apply pt-4 text-3xl text-ink;
+  }
+  .prose-site ul {
+    @apply list-disc space-y-1 pl-6;
+  }
+  .prose-site a {
+    @apply font-semibold text-orange-700 underline;
+  }
+}
+
+@utility skew-brand {
+  transform: skewX(-12deg);
+}
+@utility unskew-brand {
+  transform: skewX(12deg);
+}
+@utility brand-stripe {
+  height: 10px;
+  background: linear-gradient(
+    90deg,
+    var(--color-orange) 0 62%,
+    var(--color-ink) 62% 64%,
+    var(--color-green) 64% 100%
+  );
+}

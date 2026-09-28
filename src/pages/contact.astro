@@ -1,0 +1,43 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import PhoneIcon from '../components/PhoneIcon.astro';
+import { site } from '../data/site';
+---
+
+<Base
+  title="Get a Free Quote"
+  description={`Request a free quote for driveway, land clearing, grading, pond or site work in ${site.region}. Call ${site.phone}.`}
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Get a free quote"
+    lede="Tell us about the job and we'll call you back to set up a time to look at it."
+  />
+  <section class="container-site grid gap-10 py-16 lg:grid-cols-[1fr_1.6fr]">
+    <div class="space-y-6">
+      <div class="rounded-(--radius-card) bg-ink p-7 text-white">
+        <p class="eyebrow text-lime!">Fastest way</p>
+        <a
+          href={site.phoneHref}
+          class="flex items-center gap-3 font-display text-4xl font-black text-lime italic no-underline"
+        >
+          <PhoneIcon class="size-8" />
+          {site.phone}
+        </a>
+        <p class="mt-3 text-chrome-300">{site.hours}</p>
+      </div>
+      <div class="rounded-(--radius-card) border border-chrome-100 bg-white p-7">
+        <h2 class="text-2xl">Helpful to include</h2>
+        <ul class="mt-3 list-disc space-y-1 pl-5 text-graphite">
+          <li>Where the job is (town or road)</li>
+          <li>Rough size: feet of driveway, acres to clear</li>
+          <li>What's there now, and what you want when we're done</li>
+          <li>Any deadline, like a build date or closing</li>
+        </ul>
+      </div>
+    </div>
+    <QuoteForm />
+  </section>
+</Base>

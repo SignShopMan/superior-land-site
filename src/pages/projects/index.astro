@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import CTABand from '../../components/CTABand.astro';
+import hero from '../../assets/photos/commercial-site-prep-drone.jpg';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => Number(b.data.featured) - Number(a.data.featured),
+);
+---
+
+<Base
+  title="Projects"
+  description="Recent driveway, land clearing, pond, drainage and site work projects."
+>
+  <PageHero
+    eyebrow="Our work"
+    title="Recent projects"
+    lede="Real jobs, shot on site. Before and after wherever we have them."
+    image={hero}
+    imageAlt="Drone view of a graded commercial site"
+  />
+  <section class="container-site py-16">
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {projects.map((p) => (
+        <ProjectCard project={p} />
+      ))}
+    </div>
+  </section>
+  <CTABand />
+</Base>

@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import { url } from '../lib/url';
+---
+
+<Base title="Page not found">
+  <section class="container-site py-24 text-center">
+    <p class="eyebrow">404</p>
+    <h1 class="text-5xl md:text-7xl">Nothing graded here yet</h1>
+    <p class="mt-5 text-lg text-graphite">That page doesn't exist. Try one of these instead.</p>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <Button href={url()}>Home</Button>
+      <Button href={url('services/')} variant="ghost">
+        Services
+      </Button>
+    </div>
+  </section>
+</Base>

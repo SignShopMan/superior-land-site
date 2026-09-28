@@ -1,0 +1,20 @@
+---
+// Text wordmark used until the logo is vectorized (the raster sketch clips the final "R").
+interface Props {
+  class?: string;
+  tone?: 'dark' | 'light';
+}
+const { class: className = '', tone = 'dark' } = Astro.props;
+---
+
+<span class:list={['inline-flex flex-col font-display leading-[0.85] uppercase italic', className]}>
+  <span class="text-[1.65em] font-black tracking-tight text-orange">Superior</span>
+  <span
+    class:list={[
+      'text-[0.78em] font-extrabold tracking-wide',
+      tone === 'dark' ? 'text-white' : 'text-ink',
+    ]}
+  >
+    Land &amp; Site <span class="text-green">Services</span>
+  </span>
+</span>

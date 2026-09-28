@@ -1,0 +1,19 @@
+---
+import { site } from '../data/site';
+interface Props {
+  class?: string;
+}
+---
+
+<ul class:list={['flex flex-wrap gap-2', Astro.props.class]}>
+  {site.trust.map((t, i) => (
+    <li
+      class:list={[
+        'skew-brand px-3 py-1.5 text-xs font-bold tracking-widest uppercase',
+        i === 0 ? 'bg-orange text-ink' : 'bg-green-700 text-white',
+      ]}
+    >
+      <span class="unskew-brand inline-block">{t}</span>
+    </li>
+  ))}
+</ul>

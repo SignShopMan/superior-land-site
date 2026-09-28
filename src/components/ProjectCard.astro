@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+import { getEntry, type CollectionEntry } from 'astro:content';
+import { url } from '../lib/url';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const { data } = project;
+const service = await getEntry(data.service);
+---
+
+<a
+  href={url(`projects/${project.id}/`)}
+  class="group relative block overflow-hidden rounded-(--radius-card) bg-ink no-underline"
+>
+  <Image
+    src={data.cover}
+    alt={data.coverAlt}
+    widths={[480, 800]}
+    width={800}
+    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+    class="aspect-[4/3] w-full object-cover opacity-90 transition group-hover:scale-[1.03] group-hover:opacity-100"
+  />
+  <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/95 via-ink/70 to-transparent p-5 pt-16">
+    {service && (
+      <span class="text-xs font-bold tracking-widest text-lime uppercase">
+        {service.data.short}
+      </span>
+    )}
+    <h3 class="mt-1 text-2xl text-white">{data.title}</h3>
+    {data.town && <p class="text-sm text-chrome-300">{data.town}</p>}
+  </div>
+</a>

@@ -1,0 +1,120 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Button from '../../components/Button.astro';
+import PhoneIcon from '../../components/PhoneIcon.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import CTABand from '../../components/CTABand.astro';
+import { site } from '../../data/site';
+import { url } from '../../lib/url';
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+  return services.map((service) => ({ params: { id: service.id }, props: { service } }));
+}
+
+interface Props {
+  service: CollectionEntry<'services'>;
+}
+const { service } = Astro.props;
+const { data } = service;
+const { Content } = await render(service);
+const projects = await getCollection('projects', (p) => p.data.service.id === service.id);
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: data.title,
+    description: data.summary,
+    provider: { '@id': new URL(url('#business'), Astro.site).href },
+    areaServed: site.region,
+  },
+  ...(data.faqs.length
+    ? [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: data.faqs.map((f) => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: { '@type': 'Answer', text: f.a },
+          })),
+        },
+      ]
+    : []),
+];
+---
+
+<Base title={data.metaTitle ?? data.title} description={data.summary} schema={schema}>
+  <PageHero
+    eyebrow="Services"
+    title={data.title}
+    lede={data.summary}
+    image={data.hero}
+    imageAlt={data.heroAlt}
+  >
+    <div class="mt-8 flex flex-wrap gap-3">
+      <Button href={url('contact/')} size="lg">
+        Get a Free Quote
+      </Button>
+      <Button href={site.phoneHref} variant="phone" size="lg">
+        <PhoneIcon /> {site.phone}
+      </Button>
+    </div>
+  </PageHero>
+
+  <section class="container-site grid gap-12 py-16 lg:grid-cols-[1.5fr_1fr]">
+    <div class="prose-site">
+      <Content />
+    </div>
+    {data.benefits.length > 0 && (
+      <aside class="self-start rounded-(--radius-card) bg-ink p-7 text-white">
+        <h2 class="text-2xl text-orange">What's included</h2>
+        <ul class="mt-4 space-y-3">
+          {data.benefits.map((b) => (
+            <li class="flex gap-3">
+              <span class="mt-2 size-2.5 shrink-0 skew-brand bg-green" aria-hidden="true" />
+              <span>{b}</span>
+            </li>
+          ))}
+        </ul>
+      </aside>
+    )}
+  </section>
+
+  {data.faqs.length > 0 && (
+    <section class="bg-white py-16">
+      <div class="container-site max-w-3xl">
+        <h2 class="text-4xl">Common questions</h2>
+        <div class="mt-6 divide-y divide-chrome-100 border-y border-chrome-100">
+          {data.faqs.map((f) => (
+            <details class="group py-5">
+              <summary class="flex cursor-pointer list-none justify-between gap-4 text-lg font-bold [&::-webkit-details-marker]:hidden">
+                {f.q}
+                <span class="text-orange-700 transition group-open:rotate-45" aria-hidden="true">
+                  +
+                </span>
+              </summary>
+              <p class="mt-3 text-graphite">{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {projects.length > 0 && (
+    <section class="container-site py-16">
+      <h2 class="text-4xl">{data.short} projects</h2>
+      <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {projects.map((p) => (
+          <ProjectCard project={p} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <CTABand heading={`Need ${data.short.toLowerCase()} work?`} />
+</Base>

@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CTABand from '../components/CTABand.astro';
+import { site } from '../data/site';
+import hero from '../assets/photos/brush-clearing-roadside-berm.jpg';
+---
+
+<Base title="Service Area" description={`Where ${site.name} works: ${site.region}.`}>
+  <PageHero
+    eyebrow="Service area"
+    title={`Serving ${site.region}`}
+    lede="Not sure if you're in range? Call us. If we can get the trailer there, we'll talk."
+    image={hero}
+    imageAlt="Roadside berm cleared and seeded along a farm field"
+  />
+  <section class="container-site py-16">
+    {site.serviceArea.length > 0 ? (
+      <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {site.serviceArea.map((town) => (
+          <li class="rounded-md border border-chrome-100 bg-white px-4 py-3 font-semibold">
+            {town}
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="text-lg text-steel">
+        Town list coming soon. Call {site.phone} to check your location.
+      </p>
+    )}
+  </section>
+  <CTABand />
+</Base>

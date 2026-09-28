@@ -1,0 +1,68 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileCallBar from '../components/MobileCallBar.astro';
+import { site } from '../data/site';
+import { url } from '../lib/url';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Extra JSON-LD objects for this page (Service, FAQPage, …) */
+  schema?: Record<string, unknown>[];
+}
+const { title, description = site.description, schema = [] } = Astro.props;
+
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | ${site.tagline}`;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+
+const business = {
+  '@context': 'https://schema.org',
+  '@type': 'HomeAndConstructionBusiness',
+  '@id': new URL(url('#business'), Astro.site).href,
+  name: site.name,
+  description: site.description,
+  url: new URL(url(), Astro.site).href,
+  telephone: `+1-${site.phone}`,
+  sameAs: [site.facebook],
+  areaServed: site.serviceArea.length
+    ? site.serviceArea.map((name) => ({ '@type': 'City', name }))
+    : { '@type': 'State', name: 'Ohio' },
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
+    <link rel="sitemap" href={url('sitemap-index.xml')} />
+    <meta name="theme-color" content="#0b0f0f" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="generator" content={Astro.generator} />
+    <script type="application/ld+json" set:html={JSON.stringify([business, ...schema])} />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a
+      href="#main"
+      class="sr-only z-50 bg-orange px-4 py-2 font-bold text-ink focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
+    >
+      Skip to content
+    </a>
+    <Header />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <MobileCallBar />
+  </body>
+</html>

@@ -1,0 +1,65 @@
+---
+import Wordmark from './Wordmark.astro';
+import Button from './Button.astro';
+import PhoneIcon from './PhoneIcon.astro';
+import { nav, site } from '../data/site';
+import { url } from '../lib/url';
+
+const current = Astro.url.pathname;
+const isActive = (href: string) => current.startsWith(url(href));
+---
+
+<header class="sticky top-0 z-40 bg-ink text-white shadow-lg">
+  <div class="container-site flex h-18 items-center justify-between gap-4">
+    <a href={url()} class="text-[17px] no-underline md:text-lg" aria-label={`${site.name} home`}>
+      <Wordmark />
+    </a>
+
+    <nav class="hidden items-center gap-6 lg:flex" aria-label="Main">
+      {nav.map((item) => (
+        <a
+          href={url(item.href)}
+          class:list={[
+            'font-semibold no-underline hover:text-orange',
+            isActive(item.href) ? 'text-orange' : 'text-white',
+          ]}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden items-center gap-3 md:flex">
+      <a href={site.phoneHref} class="flex items-center gap-2 font-bold text-lime no-underline">
+        <PhoneIcon />
+        {site.phone}
+      </a>
+      <Button href={url('contact/')}>Free Quote</Button>
+    </div>
+
+    <details class="group relative lg:hidden">
+      <summary class="flex cursor-pointer list-none items-center gap-2 rounded-md border border-graphite px-3 py-2 font-semibold [&::-webkit-details-marker]:hidden">
+        <span class="group-open:hidden">Menu</span>
+        <span class="hidden group-open:inline">Close</span>
+      </summary>
+      <nav
+        class="absolute right-0 mt-3 w-64 rounded-(--radius-card) border border-graphite bg-charcoal p-2 shadow-2xl"
+        aria-label="Mobile"
+      >
+        {nav.map((item) => (
+          <a
+            href={url(item.href)}
+            class="block rounded-md px-4 py-3 font-semibold text-white no-underline hover:bg-graphite"
+          >
+            {item.label}
+          </a>
+        ))}
+        <Button href={url('contact/')} class="mt-2 w-full">
+          Get a Free Quote
+        </Button>
+      </nav>
+    </details>
+  </div>
+  <div class="brand-stripe" aria-hidden="true"></div>
+</header>

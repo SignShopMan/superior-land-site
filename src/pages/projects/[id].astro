@@ -1,0 +1,68 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, getEntry, render, type CollectionEntry } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTABand from '../../components/CTABand.astro';
+import { url } from '../../lib/url';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({ params: { id: project.id }, props: { project } }));
+}
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+const { project } = Astro.props;
+const { data } = project;
+const { Content } = await render(project);
+const service = await getEntry(data.service);
+
+const groups = [
+  { label: 'Before', photos: data.before },
+  { label: 'After', photos: data.after },
+].filter((g) => g.photos.length > 0);
+---
+
+<Base title={data.title} description={data.summary}>
+  <PageHero
+    eyebrow={service?.data.short ?? 'Project'}
+    title={data.title}
+    lede={data.summary}
+    image={data.cover}
+    imageAlt={data.coverAlt}
+  />
+  <section class="container-site py-16">
+    <div class="prose-site">
+      <Content />
+    </div>
+    {groups.map((g) => (
+      <div class="mt-12">
+        <h2 class:list={['text-3xl', g.label === 'Before' ? 'text-steel' : 'text-green-700']}>
+          {g.label}
+        </h2>
+        <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {g.photos.map((p) => (
+            <Image
+              src={p.src}
+              alt={p.alt}
+              widths={[480, 800]}
+              width={800}
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              class="aspect-[4/3] w-full rounded-(--radius-card) object-cover"
+            />
+          ))}
+        </div>
+      </div>
+    ))}
+    {service && (
+      <p class="mt-12">
+        <a href={url(`services/${service.id}/`)} class="font-bold text-orange-700">
+          More about {service.data.short.toLowerCase()} →
+        </a>
+      </p>
+    )}
+  </section>
+  <CTABand />
+</Base>

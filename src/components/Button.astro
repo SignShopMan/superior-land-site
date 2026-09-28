@@ -1,0 +1,31 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Variant = 'primary' | 'secondary' | 'ghost' | 'ghost-light' | 'phone';
+interface Props extends HTMLAttributes<'a'> {
+  variant?: Variant;
+  size?: 'md' | 'lg';
+}
+const { variant = 'primary', size = 'md', class: className, ...rest } = Astro.props;
+
+// Orange buttons take ink text: white on #F96607 fails WCAG contrast (3.0:1).
+const variants: Record<Variant, string> = {
+  primary: 'bg-orange text-ink hover:bg-orange-400',
+  secondary: 'bg-green-700 text-white hover:bg-green-800',
+  ghost: 'border-2 border-ink text-ink hover:bg-ink hover:text-white',
+  'ghost-light': 'border-2 border-white text-white hover:bg-white hover:text-ink',
+  phone: 'border-2 border-lime bg-ink text-lime hover:bg-charcoal',
+};
+---
+
+<a
+  class:list={[
+    'inline-flex items-center justify-center gap-2 rounded-(--radius-btn) font-display font-extrabold tracking-wide whitespace-nowrap uppercase italic no-underline transition-colors',
+    size === 'lg' ? 'px-7 py-4 text-xl' : 'px-5 py-3 text-lg',
+    variants[variant],
+    className,
+  ]}
+  {...rest}
+>
+  <slot />
+</a>

@@ -1,0 +1,69 @@
+---
+import { getCollection } from 'astro:content';
+import Wordmark from './Wordmark.astro';
+import { nav, site } from '../data/site';
+import { url } from '../lib/url';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-ink pb-24 text-chrome-100 md:pb-0">
+  <div class="brand-stripe" aria-hidden="true"></div>
+  <div class="container-site grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
+    <div>
+      <Wordmark class="text-lg" />
+      <p class="mt-4 max-w-sm text-chrome-300">
+        {site.tagline} {site.description}
+      </p>
+      <a
+        href={site.phoneHref}
+        class="mt-5 inline-block font-display text-3xl font-black text-lime italic no-underline"
+      >
+        {site.phone}
+      </a>
+      <p class="mt-1 text-sm text-chrome-300">{site.hours}</p>
+    </div>
+    <div>
+      <h2 class="mb-4 text-xl text-white">Services</h2>
+      <ul class="space-y-2">
+        {services.map((s) => (
+          <li>
+            <a
+              href={url(`services/${s.id}/`)}
+              class="text-chrome-100 no-underline hover:text-orange"
+            >
+              {s.data.short}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h2 class="mb-4 text-xl text-white">Company</h2>
+      <ul class="space-y-2">
+        {nav.map((n) => (
+          <li>
+            <a href={url(n.href)} class="text-chrome-100 no-underline hover:text-orange">
+              {n.label}
+            </a>
+          </li>
+        ))}
+        <li>
+          <a
+            href={site.facebook}
+            class="text-chrome-100 no-underline hover:text-orange"
+            rel="noopener"
+          >
+            Facebook
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-graphite">
+    <p class="container-site py-5 text-sm text-chrome-300">
+      © {year} {site.legalName}. Serving {site.region}.
+    </p>
+  </div>
+</footer>

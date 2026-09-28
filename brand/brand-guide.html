@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Superior Brand Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,800;1,800;1,900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #F96607; --orange-700: #C2410C; --orange-900: #7B2D19;
+    --green: #32B50D; --green-700: #0A7E09; --green-900: #0E4A0D; --lime: #75DC40;
+    --ink: #0B0F0F; --charcoal: #1C2222; --graphite: #2E3534; --steel: #5B625E;
+    --chrome: #B6BBB2; --chrome-100: #E3E6E1; --paper: #F6F7F4; --white: #FFFFFF;
+    --bg: var(--paper); --fg: var(--ink); --muted: var(--steel); --card: var(--white); --line: var(--chrome-100);
+    --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+    --sans: "Barlow", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #111615; --fg: #EEF0EC; --muted: #A3AAA5; --card: var(--charcoal); --line: var(--graphite); }
+  }
+  :root[data-theme="dark"] { --bg: #111615; --fg: #EEF0EC; --muted: #A3AAA5; --card: var(--charcoal); --line: var(--graphite); }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 400 17px/1.6 var(--sans); }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 720px) { .wrap { padding: 0 32px; } }
+
+  h1, h2, h3 { font-family: var(--display); font-weight: 800; font-style: italic; text-transform: uppercase; letter-spacing: .01em; line-height: 1; margin: 0; }
+  h2 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: .35em; }
+  h3 { font-size: 1.35rem; margin-bottom: .4em; }
+  p { margin: 0 0 1em; }
+  .muted { color: var(--muted); }
+  .eyebrow { font: 700 .8rem/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--orange-700); margin-bottom: .75rem; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .eyebrow { color: var(--orange); } }
+  :root[data-theme="dark"] .eyebrow { color: var(--orange); }
+
+  /* Hero */
+  .hero { background: var(--ink); color: #fff; position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: 0; background: url("../assets-source/photos/fb-058-1020412520747414.jpg") center/cover; opacity: .28; }
+  .hero .wrap { position: relative; padding-top: 56px; padding-bottom: 64px; display: grid; gap: 32px; align-items: center; }
+  @media (min-width: 860px) { .hero .wrap { grid-template-columns: 1.1fr .9fr; } }
+  .hero h1 { font-size: clamp(2.8rem, 8vw, 5.5rem); }
+  .hero h1 span { color: var(--orange); display: block; }
+  .hero p { color: #D6DAD4; max-width: 34em; }
+  .hero .logo { background: #fff; border-radius: 12px; padding: 12px; box-shadow: 0 20px 50px rgba(0,0,0,.45); }
+  .stripe { height: 14px; background: linear-gradient(90deg, var(--orange) 0 62%, var(--ink) 62% 64%, var(--green) 64% 100%); }
+
+  section { padding: 64px 0; border-bottom: 1px solid var(--line); }
+  .grid { display: grid; gap: 20px; }
+  @media (min-width: 720px) { .g2 { grid-template-columns: 1fr 1fr; } .g3 { grid-template-columns: repeat(3, 1fr); } .g4 { grid-template-columns: repeat(4, 1fr); } }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+
+  /* Swatches */
+  .sw { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: var(--card); }
+  .sw .chip { height: 112px; display: flex; align-items: flex-end; padding: 12px; font: 800 italic 1.3rem/1 var(--display); text-transform: uppercase; }
+  .sw .meta { padding: 12px 14px; font-size: .88rem; }
+  .sw .meta b { display: block; font-size: 1rem; }
+  .sw code { font: 600 .85rem/1 ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+  .ratio { display: flex; height: 44px; border-radius: 8px; overflow: hidden; margin: 12px 0 6px; font: 600 .8rem/44px var(--sans); color: #fff; text-align: center; }
+  table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+  th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  th { font-weight: 700; color: var(--muted); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+  .pill { display: inline-block; padding: 4px 10px; border-radius: 6px; font-weight: 700; }
+  .pass { color: var(--green-700); font-weight: 700; } .fail { color: #B42318; font-weight: 700; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .pass { color: var(--lime); } :root:not([data-theme="light"]) .fail { color: #FF8A80; } }
+  .scroll { overflow-x: auto; }
+
+  /* Buttons */
+  .btn { display: inline-flex; align-items: center; gap: 8px; font: 800 italic 1.15rem/1 var(--display); text-transform: uppercase; letter-spacing: .03em; padding: 14px 22px; border-radius: 6px; text-decoration: none; border: 2px solid transparent; }
+  .btn-primary { background: var(--orange); color: var(--ink); }
+  .btn-secondary { background: var(--green-700); color: #fff; }
+  .btn-ghost { border-color: currentColor; color: var(--fg); }
+  .btn-phone { background: var(--ink); color: var(--lime); }
+  .demo-dark { background: var(--ink); border-radius: 12px; padding: 24px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .demo-light { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 24px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .demo-light .btn-ghost { color: var(--ink); } .demo-dark .btn-ghost { color: #fff; }
+
+  .tag { display: inline-block; background: var(--green-700); color: #fff; font: 700 .75rem/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; padding: 7px 10px; transform: skewX(-12deg); }
+  .tag > span { display: inline-block; transform: skewX(12deg); }
+  .band { background: var(--ink); color: #fff; padding: 22px 24px; border-radius: 12px; position: relative; overflow: hidden; }
+  .band::after { content: ""; position: absolute; right: -40px; top: 0; bottom: 0; width: 160px; background: linear-gradient(90deg, var(--green) 0 50%, var(--orange) 50%); transform: skewX(-12deg); }
+  .band h3 { position: relative; z-index: 1; font-size: 1.8rem; margin: 0; }
+
+  /* Type specimen */
+  .spec { border-left: 4px solid var(--orange); padding-left: 18px; margin-bottom: 22px; }
+  .spec small { display: block; color: var(--muted); font: 600 .78rem/1.4 ui-monospace, Menlo, monospace; margin-bottom: 6px; }
+
+  /* Photos */
+  .photos { display: grid; gap: 10px; grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: 720px) { .photos { grid-template-columns: repeat(4, 1fr); } }
+  .photos figure { margin: 0; }
+  .photos img { aspect-ratio: 4/3; object-fit: cover; width: 100%; border-radius: 8px; }
+  .photos figcaption { font-size: .8rem; color: var(--muted); padding-top: 4px; }
+
+  ul.check { list-style: none; padding: 0; margin: 0; }
+  ul.check li { padding: 6px 0 6px 28px; position: relative; }
+  ul.check li::before { content: ""; position: absolute; left: 0; top: 12px; width: 14px; height: 8px; border-left: 3px solid var(--green); border-bottom: 3px solid var(--green); transform: rotate(-45deg); }
+  ul.x li::before { border-color: #D92D20; border-left: 3px solid #D92D20; border-bottom: 0; width: 3px; height: 16px; top: 8px; left: 6px; transform: rotate(45deg); box-shadow: none; }
+  ul.x li::after { content: ""; position: absolute; left: 6px; top: 8px; width: 3px; height: 16px; background: #D92D20; transform: rotate(-45deg); }
+  .note { border-left: 4px solid var(--orange); background: var(--card); padding: 14px 18px; border-radius: 0 8px 8px 0; font-size: .95rem; }
+  footer { padding: 40px 0 60px; font-size: .85rem; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow" style="color:var(--lime)">Brand Guide · v0.1 draft</div>
+      <h1>Superior <span>Land &amp; Site</span> Services</h1>
+      <p style="margin-top:1.2rem">Driveways, land clearing, grading, ponds and site work across the 937. This guide turns the new logo sketch into a working system for the website, trucks, signs and social.</p>
+    </div>
+    <img class="logo" src="../assets-source/brand/logo-sketch.jpg" alt="Superior Land & Site Services logo sketch">
+  </div>
+</header>
+<div class="stripe" aria-hidden="true"></div>
+
+<main>
+<!-- 1. Brand essence -->
+<section>
+  <div class="wrap grid g2">
+    <div>
+      <div class="eyebrow">01 · Who we are</div>
+      <h2>Built for tough ground.</h2>
+      <p>Superior is an owner-run heavy-equipment outfit. They show up with the right machine, move a lot of dirt fast, and leave the site clean: graded, seeded and strawed. The brand should feel like the equipment: heavy, direct, and well kept.</p>
+      <p class="muted">Tagline options (pick one): <b>Built for tough ground.</b> · <b>Clear it. Grade it. Finish it.</b> · <b>Superior work from the ground up.</b></p>
+    </div>
+    <div class="grid" style="gap:14px">
+      <div class="card"><h3>Heavy-duty</h3><p class="muted" style="margin:0">Real machines and real jobs. Show the Deere, the CTL and the gooseneck. No stock photos.</p></div>
+      <div class="card"><h3>Straight talk</h3><p class="muted" style="margin:0">Plain words and short sentences. Say what gets done, how fast, and where.</p></div>
+      <div class="card"><h3>Clean finish</h3><p class="muted" style="margin:0">Every job ends graded, seeded and strawed. Lead with the "after" photo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. Logo -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">02 · Logo</div>
+    <h2>The badge</h2>
+    <div class="grid g2" style="align-items:start">
+      <div class="card" style="padding:12px;background:#fff"><img src="../assets-source/brand/logo-sketch.jpg" alt="Primary badge sketch"></div>
+      <div>
+        <p>The sketch sets the look: a chrome-edged chevron badge, a slanted orange <b>SUPERIOR</b> wordmark, a pine-tree mark and a green <b>SERVICES</b> band. Before it goes on the web, vinyl or embroidery it needs a <b>vector redraw</b>:</p>
+        <ul class="check">
+          <li>Fix the wordmark. The final "R" is cut off at the right edge.</li>
+          <li>Make a version without the phone number. Numbers change, and at small sizes they turn to noise.</li>
+          <li>Make a flat 2–3 color version with no chrome, glow or gradient for screen printing, favicons and decals.</li>
+          <li>Export SVG, plus PNG at 512 and 1024 px, plus a 1-color white knockout.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:36px">Lockups needed</h3>
+    <div class="grid g3">
+      <div class="card"><b>Primary badge</b><p class="muted" style="margin:.3em 0 0">Full chevron with trees and SERVICES band. For the hero, truck doors, yard signs and social avatars.</p></div>
+      <div class="card"><b>Horizontal wordmark</b><p class="muted" style="margin:.3em 0 0">SUPERIOR over LAND &amp; SITE, no badge. For the site header (≤ 56px tall), invoices and email signatures.</p></div>
+      <div class="card"><b>Icon</b><p class="muted" style="margin:.3em 0 0">Pine trees in a small chevron. For the favicon, app icon and watermark on job photos.</p></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:28px">
+      <div class="card">
+        <h3>Do</h3>
+        <ul class="check">
+          <li>Leave clear space at least as tall as the "S" in SUPERIOR on every side.</li>
+          <li>Keep the badge at least 120px wide on screen and 1.5" in print.</li>
+          <li>Place it on white, Blackout, or a darkened photo.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Don't</h3>
+        <ul class="check x">
+          <li>Stretch it, rotate it or add another skew. The lean is already built in.</li>
+          <li>Recolor the wordmark green, or the band orange.</li>
+          <li>Put the full-color badge on a busy photo without a dark scrim.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note" style="margin-top:24px"><b>Seasonal variant:</b> a red, white and blue "250" badge is in the Facebook photos (<code>assets-source/brand/logo-america250-variant.jpg</code>). Save it for 2026 celebration posts only. It is not part of the core identity.</p>
+  </div>
+</section>
+
+<!-- 3. Color -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">03 · Color</div>
+    <h2>Palette</h2>
+    <p class="muted">Sampled straight from the logo sketch. Orange drives action. Green says "land." Blackout and chrome carry the equipment feel.</p>
+
+    <div class="grid g4" style="margin-top:20px">
+      <div class="sw"><div class="chip" style="background:#F96607;color:#0B0F0F">Superior Orange</div><div class="meta"><b>orange-500</b><code>#F96607</code><br>RGB 249 102 7 · CTAs, highlights</div></div>
+      <div class="sw"><div class="chip" style="background:#32B50D;color:#0B0F0F">Site Green</div><div class="meta"><b>green-500</b><code>#32B50D</code><br>RGB 50 181 13 · accents, icons</div></div>
+      <div class="sw"><div class="chip" style="background:#0B0F0F;color:#fff">Blackout</div><div class="meta"><b>ink</b><code>#0B0F0F</code><br>RGB 11 15 15 · header, footer, bands</div></div>
+      <div class="sw"><div class="chip" style="background:#B6BBB2;color:#0B0F0F">Chrome</div><div class="meta"><b>chrome-300</b><code>#B6BBB2</code><br>RGB 182 187 178 · borders, trim</div></div>
+    </div>
+    <div class="grid g4" style="margin-top:20px">
+      <div class="sw"><div class="chip" style="background:#C2410C;color:#fff">Burnt Orange</div><div class="meta"><b>orange-700</b><code>#C2410C</code><br>Orange <i>text</i> on light</div></div>
+      <div class="sw"><div class="chip" style="background:#0A7E09;color:#fff">Deep Green</div><div class="meta"><b>green-700</b><code>#0A7E09</code><br>Green text, secondary buttons</div></div>
+      <div class="sw"><div class="chip" style="background:#75DC40;color:#0B0F0F">Lime Flash</div><div class="meta"><b>lime</b><code>#75DC40</code><br>Phone number on dark only</div></div>
+      <div class="sw"><div class="chip" style="background:#F6F7F4;color:#0B0F0F">Paper</div><div class="meta"><b>paper</b><code>#F6F7F4</code><br>Page background</div></div>
+    </div>
+
+    <h3 style="margin-top:36px">Balance</h3>
+    <div class="ratio" role="img" aria-label="Color balance: 55% neutrals, 25% dark, 12% green, 8% orange">
+      <div style="flex:55;background:#E3E6E1;color:#0B0F0F">Paper / white 55%</div>
+      <div style="flex:25;background:#0B0F0F">Blackout 25%</div>
+      <div style="flex:12;background:#0A7E09">Green 12%</div>
+      <div style="flex:8;background:#F96607;color:#0B0F0F">Orange 8%</div>
+    </div>
+    <p class="muted" style="font-size:.9rem">Keep orange scarce so every orange thing on a page reads as "tap here." One primary orange button per screen.</p>
+
+    <h3 style="margin-top:32px">Contrast rules (WCAG 2.2 AA)</h3>
+    <div class="scroll card" style="padding:4px 12px">
+    <table>
+      <thead><tr><th>Pairing</th><th>Sample</th><th>Ratio</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><td>Blackout text on Orange</td><td><span class="pill" style="background:#F96607;color:#0B0F0F">Get a Quote</span></td><td>6.4 : 1</td><td class="pass">Primary buttons ✓</td></tr>
+        <tr><td>White text on Orange</td><td><span class="pill" style="background:#F96607;color:#fff">Get a Quote</span></td><td>3.0 : 1</td><td class="fail">Don't use for body or buttons ✗</td></tr>
+        <tr><td>Burnt Orange text on white</td><td><span class="pill" style="background:#fff;color:#C2410C;border:1px solid #E3E6E1">Links &amp; eyebrows</span></td><td>5.2 : 1</td><td class="pass">Text ✓</td></tr>
+        <tr><td>White text on Deep Green</td><td><span class="pill" style="background:#0A7E09;color:#fff">Our Services</span></td><td>5.3 : 1</td><td class="pass">Secondary buttons ✓</td></tr>
+        <tr><td>Site Green text on white</td><td><span class="pill" style="background:#fff;color:#32B50D;border:1px solid #E3E6E1">Services</span></td><td>2.7 : 1</td><td class="fail">Icons/graphics only ✗</td></tr>
+        <tr><td>Lime on Blackout</td><td><span class="pill" style="background:#0B0F0F;color:#75DC40">937-539-3002</span></td><td>11.1 : 1</td><td class="pass">Phone callouts ✓</td></tr>
+        <tr><td>Orange on Blackout</td><td><span class="pill" style="background:#0B0F0F;color:#F96607">SUPERIOR</span></td><td>6.4 : 1</td><td class="pass">Headlines on dark ✓</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Type -->
+<section>
+  <div class="wrap grid g2">
+    <div>
+      <div class="eyebrow">04 · Typography</div>
+      <h2>Type</h2>
+      <p>The logo uses heavy, slanted, condensed capitals. <b>Barlow Condensed ExtraBold Italic</b> is the closest free match for headlines. Its sister family <b>Barlow</b> keeps body copy easy to read. Both are free on Google Fonts, and the site will self-host them.</p>
+      <div class="card" style="font-size:.9rem">
+        <b>Rules</b>
+        <ul class="check" style="margin-top:6px">
+          <li>Headlines: uppercase, 800 italic, line-height 1.0</li>
+          <li>Body: 17–18px, 400, line-height 1.6, max 70 characters per line</li>
+          <li>Buttons: display face, 800 italic, uppercase</li>
+          <li>Keep italics for display text. Don't set body copy in italic.</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="spec"><small>Display · Barlow Condensed 900 italic · 64/64</small><div style="font:900 italic clamp(2.6rem,7vw,4rem)/1 var(--display);text-transform:uppercase">Clear it. Grade it.</div></div>
+      <div class="spec"><small>H2 · Barlow Condensed 800 italic · 40/40</small><div style="font:800 italic 2.5rem/1 var(--display);text-transform:uppercase">Gravel Driveways</div></div>
+      <div class="spec"><small>H3 · Barlow Condensed 800 italic · 24/28</small><div style="font:800 italic 1.5rem/1.15 var(--display);text-transform:uppercase">Forestry Mulching &amp; Brush Clearing</div></div>
+      <div class="spec"><small>Body · Barlow 400 · 17/27</small><p style="margin:0">We haul in, spread and compact stone for new drives and rebuild washed-out ones, with the drainage and culverts done right the first time.</p></div>
+      <div class="spec"><small>Label · Barlow 700 · 13 · tracking .14em</small><div style="font:700 .8rem/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Serving Western Ohio</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. UI -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">05 · Interface elements</div>
+    <h2>Components</h2>
+    <div class="grid g2">
+      <div class="demo-light">
+        <a class="btn btn-primary" href="#">Get a Free Quote</a>
+        <a class="btn btn-secondary" href="#">Our Services</a>
+        <a class="btn btn-ghost" href="#">See Our Work</a>
+      </div>
+      <div class="demo-dark">
+        <a class="btn btn-primary" href="#">Get a Free Quote</a>
+        <a class="btn btn-phone" href="#" style="border:2px solid var(--lime)">☎ 937-539-3002</a>
+        <a class="btn btn-ghost" href="#">See Our Work</a>
+      </div>
+    </div>
+    <div class="grid g2" style="margin-top:20px">
+      <div class="band"><h3>Seeding · Clearing · Driveways</h3></div>
+      <div class="card" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <span class="tag"><span>Driveways</span></span>
+        <span class="tag" style="background:var(--orange);color:var(--ink)"><span>Free Estimates</span></span>
+        <span class="tag" style="background:var(--ink)"><span>Fully Insured</span></span>
+      </div>
+    </div>
+    <p class="muted" style="margin-top:18px;font-size:.92rem"><b>Signature motif:</b> the <b>−12° skew</b> taken from the lean of the lettering. Use it on tags, section dividers and the orange-and-green "stripe" under the header. Keep it for accents only. Cards and photos stay square.</p>
+  </div>
+</section>
+
+<!-- 6. Photography -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">06 · Photography</div>
+    <h2>Real jobs, real iron</h2>
+    <p>93 job photos were pulled from the Facebook page into <code>assets-source/photos/</code>, each tagged by service in <code>manifest.tsv</code>. Some strong candidates for the hero and service cards:</p>
+    <div class="photos">
+      <figure><img src="../assets-source/photos/hero-fleet.jpg" alt=""><figcaption>Fleet lineup · cover</figcaption></figure>
+      <figure><img src="../assets-source/photos/fb-058-1020412520747414.jpg" alt=""><figcaption>Pond + pad · drone</figcaption></figure>
+      <figure><img src="../assets-source/photos/fb-048-1031335622988437.jpg" alt=""><figcaption>Forestry mulching</figcaption></figure>
+      <figure><img src="../assets-source/photos/fb-086-1014947731293893.jpg" alt=""><figcaption>Pond finish grade</figcaption></figure>
+      <figure><img src="../assets-source/photos/fb-023-1040390012082998.jpg" alt=""><figcaption>Driveway regrade</figcaption></figure>
+      <figure><img src="../assets-source/photos/fb-052-1031330826322250.jpg" alt=""><figcaption>Commercial site · drone</figcaption></figure>
+      <figure><img src="../assets-source/photos/fb-010-1064435539678445.jpg" alt=""><figcaption>Downspout drainage</figcaption></figure>
+      <figure><img src="../assets-source/photos/fb-065-1020411457414187.jpg" alt=""><figcaption>Culvert / crossing</figcaption></figure>
+    </div>
+    <div class="grid g2" style="margin-top:24px">
+      <div class="card"><h3>Shoot &amp; pick</h3><ul class="check">
+        <li>Blue-sky, landscape shots for heroes. Portrait shots go in the gallery.</li>
+        <li>Get a machine in frame whenever you can, with the Deere yellow against green grass.</li>
+        <li>Take before and after from the same spot. It's the strongest proof there is.</li>
+        <li>Fly the drone over every pond, lot or commercial job.</li>
+      </ul></div>
+      <div class="card"><h3>Treatment</h3><ul class="check">
+        <li>Warm the color a little and don't over-saturate. Keep it looking real.</li>
+        <li>Behind hero text, add a Blackout gradient at 55–70%.</li>
+        <li>Crop out customer plates, house numbers and faces unless you have a release.</li>
+        <li>Rename files by job and town (<code>pond-grading-troy-oh.jpg</code>) for SEO.</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Voice -->
+<section>
+  <div class="wrap grid g2">
+    <div>
+      <div class="eyebrow">07 · Voice</div>
+      <h2>How we talk</h2>
+      <table>
+        <thead><tr><th>Say</th><th>Not</th></tr></thead>
+        <tbody>
+          <tr><td>"We'll clear it, grade it and seed it."</td><td class="muted">"Comprehensive land-management solutions."</td></tr>
+          <tr><td>"Free quote, usually within 48 hours."</td><td class="muted">"Contact us to learn more."</td></tr>
+          <tr><td>"Washed-out driveway? We fix those."</td><td class="muted">"We leverage industry-leading equipment."</td></tr>
+          <tr><td>"Owner on every job."</td><td class="muted">"Our dedicated team of professionals."</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="eyebrow">Service lineup (from the job photos)</div>
+      <div class="grid g2" style="gap:10px">
+        <div class="card">Gravel driveways &amp; regrades</div>
+        <div class="card">Land clearing &amp; forestry mulching</div>
+        <div class="card">Roadside &amp; fence-line brush clearing</div>
+        <div class="card">Grading, seeding &amp; straw</div>
+        <div class="card">Pond digging &amp; restoration</div>
+        <div class="card">Drainage, downspouts &amp; culverts</div>
+        <div class="card">Commercial site prep &amp; stone</div>
+        <div class="card">Demolition &amp; debris haul-off</div>
+      </div>
+      <p class="muted" style="font-size:.85rem;margin-top:12px">Confirm with the owner. The truck door reads "Seeding · Clearing · Driveways," and the Facebook page is still named "Superior Bobcat Services LLC."</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap">Superior Land &amp; Site Services · Brand guide v0.1 draft · Tokens: <code>brand/tokens.css</code></div></footer>
+</body>
+</html>

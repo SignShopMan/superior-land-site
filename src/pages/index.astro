@@ -1,0 +1,160 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import PhoneIcon from '../components/PhoneIcon.astro';
+import TrustChips from '../components/TrustChips.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import CTABand from '../components/CTABand.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import { site } from '../data/site';
+import { url } from '../lib/url';
+import heroImg from '../assets/photos/pond-construction-drone.jpg';
+import fleetImg from '../assets/photos/fleet-truck-gooseneck-excavator.jpg';
+
+const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const featured = (await getCollection('projects', (p) => p.data.featured)).slice(0, 3);
+
+const steps = [
+  {
+    n: '01',
+    title: 'Call or send photos',
+    text: 'Tell us what you have and what you want it to look like.',
+  },
+  {
+    n: '02',
+    title: 'Free on-site quote',
+    text: 'We walk the ground with you and give you a clear price.',
+  },
+  {
+    n: '03',
+    title: 'We get it done',
+    text: 'Clear it, grade it, finish it. Seeded and strawed when it needs to be.',
+  },
+];
+---
+
+<Base>
+  <!-- Hero -->
+  <section class="relative isolate overflow-hidden bg-ink text-white">
+    <Image
+      src={heroImg}
+      alt="Drone view of a new pond and pole barn on freshly graded ground"
+      widths={[800, 1280, 1920]}
+      width={1920}
+      quality={60}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="absolute inset-0 -z-10 size-full object-cover opacity-70"
+    />
+    <div
+      class="absolute inset-0 -z-10 bg-gradient-to-r from-ink/95 via-ink/75 to-ink/10"
+      aria-hidden="true"
+    ></div>
+    <div class="container-site py-20 md:py-32">
+      <p class="eyebrow text-lime!">Serving {site.region}</p>
+      <h1 class="max-w-3xl text-5xl sm:text-6xl md:text-8xl">
+        Driveways, Land Clearing <span class="text-orange">&amp; Site Work</span>
+      </h1>
+      <p class="mt-6 max-w-xl text-lg text-chrome-100 md:text-xl">
+        We clear it, grade it and finish it, from new gravel drives and ponds to overgrown lots and
+        washed-out yards.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <Button href={url('contact/')} size="lg">
+          Get a Free Quote
+        </Button>
+        <Button href={site.phoneHref} variant="phone" size="lg">
+          <PhoneIcon /> {site.phone}
+        </Button>
+      </div>
+      <TrustChips class="mt-8" />
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="container-site py-16 md:py-24">
+    <p class="eyebrow">What we do</p>
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 class="text-4xl md:text-6xl">Services</h2>
+      <a href={url('services/')} class="font-bold text-orange-700">
+        All services →
+      </a>
+    </div>
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {services.map((s) => (
+        <ServiceCard service={s} />
+      ))}
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="bg-white py-16 md:py-24">
+    <div class="container-site grid items-center gap-12 lg:grid-cols-2">
+      <div>
+        <p class="eyebrow">How it works</p>
+        <h2 class="text-4xl md:text-6xl">Simple from the first call</h2>
+        <ol class="mt-8 space-y-6">
+          {steps.map((s) => (
+            <li class="flex gap-5">
+              <span class="font-display text-5xl font-black text-orange italic">{s.n}</span>
+              <div>
+                <h3 class="text-2xl">{s.title}</h3>
+                <p class="mt-1 text-steel">{s.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <Image
+        src={fleetImg}
+        alt="Superior's green Peterbilt with gooseneck trailer, compact track loader and Deere 60G excavator"
+        widths={[640, 1024]}
+        width={1024}
+        sizes="(min-width: 1024px) 50vw, 100vw"
+        class="w-full rounded-(--radius-card) shadow-xl"
+      />
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="container-site py-16 md:py-24">
+    <p class="eyebrow">Recent work</p>
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 class="text-4xl md:text-6xl">Projects</h2>
+      <a href={url('projects/')} class="font-bold text-orange-700">
+        See all projects →
+      </a>
+    </div>
+    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {featured.map((p) => (
+        <ProjectCard project={p} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Quote -->
+  <section id="quote" class="bg-chrome-100 py-16 md:py-24">
+    <div class="container-site grid gap-10 lg:grid-cols-[1fr_1.4fr]">
+      <div>
+        <p class="eyebrow">Free quote</p>
+        <h2 class="text-4xl md:text-6xl">Tell us about your job</h2>
+        <p class="mt-4 text-lg text-graphite">
+          Fill this out and we'll call you back to set up a time to look at it. Or call now:
+        </p>
+        <a
+          href={site.phoneHref}
+          class="mt-3 inline-block font-display text-4xl font-black text-orange-700 italic no-underline"
+        >
+          {site.phone}
+        </a>
+      </div>
+      <QuoteForm />
+    </div>
+  </section>
+
+  <CTABand />
+</Base>

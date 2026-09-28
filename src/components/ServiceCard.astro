@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { url } from '../lib/url';
+
+interface Props {
+  service: CollectionEntry<'services'>;
+}
+const { service } = Astro.props;
+const { data } = service;
+---
+
+<a
+  href={url(`services/${service.id}/`)}
+  class="group flex flex-col overflow-hidden rounded-(--radius-card) border border-chrome-100 bg-white no-underline shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
+>
+  <Image
+    src={data.hero}
+    alt={data.heroAlt}
+    widths={[400, 640]}
+    width={640}
+    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+    class="aspect-[4/3] w-full object-cover"
+  />
+  <div class="flex flex-1 flex-col p-5">
+    <h3 class="text-2xl text-ink group-hover:text-orange-700">{data.short}</h3>
+    <p class="mt-2 flex-1 text-[15px] text-steel">{data.summary}</p>
+    <span class="mt-4 text-sm font-bold tracking-wider text-orange-700 uppercase">
+      Learn more →
+    </span>
+  </div>
+</a>
