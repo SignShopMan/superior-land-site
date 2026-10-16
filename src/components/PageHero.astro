@@ -13,7 +13,7 @@ const { eyebrow, title, lede, image, imageAlt = '' } = Astro.props;
 ---
 
 <section
-  class:list={['relative isolate overflow-hidden bg-iron text-white', !image && 'bg-contours']}
+  class:list={['relative isolate overflow-hidden bg-charcoal text-white', !image && 'bg-contours']}
 >
   {image && (
     <>
@@ -29,7 +29,7 @@ const { eyebrow, title, lede, image, imageAlt = '' } = Astro.props;
         class="absolute inset-0 -z-10 size-full object-cover"
       />
       <div
-        class="absolute inset-0 -z-10 bg-gradient-to-r from-iron/95 via-iron/75 to-iron/30"
+        class="absolute inset-0 -z-10 bg-gradient-to-r from-charcoal/95 via-charcoal/75 to-charcoal/30"
         aria-hidden="true"
       />
     </>

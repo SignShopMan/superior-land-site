@@ -9,11 +9,11 @@ interface Props extends HTMLAttributes<'a'> {
 const { variant = 'primary', size = 'md', class: className, ...rest } = Astro.props;
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-copper text-white hover:bg-copper-700',
-  outline: 'border border-iron text-iron hover:bg-iron hover:text-white',
+  primary: 'bg-orange text-charcoal hover:bg-orange-400',
+  outline: 'border border-charcoal text-charcoal hover:bg-charcoal hover:text-white',
   'outline-light':
-    'border border-white/40 text-white hover:border-white hover:bg-white hover:text-iron',
-  link: 'px-0! text-copper-600 hover:text-copper-800',
+    'border border-white/40 text-white hover:border-white hover:bg-white hover:text-charcoal',
+  link: 'px-0! text-orange-700 hover:text-orange-800',
 };
 ---
 

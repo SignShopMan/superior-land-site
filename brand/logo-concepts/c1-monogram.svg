@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 170">
+  <path d="M12 22 Q100 8 188 22 L176 102 L100 156 L24 102 Z" fill="#1E2326"/>
+  <path d="M38 112 L162 112 L100 150 Z" fill="#E5641E"/>
+  <text x="100" y="96" text-anchor="middle" font-family="Barlow Condensed" font-weight="700" font-size="84" fill="#F4F2EE">S</text>
+</svg>

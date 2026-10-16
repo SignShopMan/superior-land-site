@@ -1,24 +1,26 @@
 ---
-// Simplified brand mark: stacked contour chevrons (land, grade, layers). Placeholder until the logo is redrawn.
+// Heritage shield treeline mark — concept from brand/logo-concepts/c2-treeline-mark.svg.
+// Placeholder until a designer delivers final outlined art.
 interface Props {
   class?: string;
+  /** Adds a light keyline so the charcoal shield separates from dark backgrounds */
+  onDark?: boolean;
 }
+const { class: className = 'h-10 w-auto', onDark = false } = Astro.props;
+const shield = 'M12 22 Q100 8 188 22 L176 102 L100 156 L24 102 Z';
 ---
 
-<svg class={Astro.props.class ?? 'size-8'} viewBox="0 0 40 40" fill="none" aria-hidden="true">
-  <path d="M4 14 20 6l16 8" stroke="currentColor" stroke-width="3" stroke-linejoin="miter"></path>
+<svg class={className} viewBox="0 0 200 170" aria-hidden="true">
   <path
-    d="M4 23 20 15l16 8"
-    stroke="currentColor"
-    stroke-width="3"
-    stroke-linejoin="miter"
-    opacity=".7"
+    d={shield}
+    fill="#1e2326"
+    stroke={onDark ? '#f4f2ee' : 'none'}
+    stroke-width="8"
+    stroke-linejoin="round"
   ></path>
   <path
-    d="M4 32 20 24l16 8"
-    stroke="currentColor"
-    stroke-width="3"
-    stroke-linejoin="miter"
-    opacity=".45"
+    d="M62 106 L76 66 L90 106Z M68 86 L76 60 L84 86Z M84 106 L102 50 L120 106Z M91 80 L102 44 L113 80Z M114 106 L127 74 L140 106Z"
+    fill="#f4f2ee"
   ></path>
+  <rect x="44" y="108" width="112" height="5" fill="#e5641e"></rect>
 </svg>

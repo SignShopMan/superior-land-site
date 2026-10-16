@@ -69,11 +69,11 @@ const schema = [
       <Content />
     </div>
     {data.benefits.length > 0 && (
-      <aside class="self-start border-t-2 border-copper bg-bone p-8 ring-1 ring-sand">
+      <aside class="self-start border-t-2 border-orange bg-bone p-8 ring-1 ring-sand">
         <h2 class="text-2xl">Scope includes</h2>
         <ul class="mt-5 space-y-3 text-slate">
           {data.benefits.map((b) => (
-            <li class="border-l border-copper pl-4">{b}</li>
+            <li class="border-l border-orange pl-4">{b}</li>
           ))}
         </ul>
       </aside>
@@ -90,7 +90,7 @@ const schema = [
             <details class="group py-5">
               <summary class="flex cursor-pointer list-none justify-between gap-4 text-lg font-semibold [&::-webkit-details-marker]:hidden">
                 {f.q}
-                <span class="text-copper-600 transition group-open:rotate-45" aria-hidden="true">
+                <span class="text-orange-700 transition group-open:rotate-45" aria-hidden="true">
                   +
                 </span>
               </summary>

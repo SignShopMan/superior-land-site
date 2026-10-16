@@ -29,7 +29,7 @@ const steps = [
 
 <Base>
   <!-- Hero -->
-  <section class="relative isolate overflow-hidden bg-iron text-white">
+  <section class="relative isolate overflow-hidden bg-charcoal text-white">
     <Image
       src={heroImg}
       alt="Aerial view of a commercial development with graded and seeded grounds"
@@ -42,7 +42,7 @@ const steps = [
       class="absolute inset-0 -z-10 size-full object-cover"
     />
     <div
-      class="absolute inset-0 -z-10 bg-gradient-to-r from-iron via-iron/80 to-iron/20"
+      class="absolute inset-0 -z-10 bg-gradient-to-r from-charcoal via-charcoal/80 to-charcoal/20"
       aria-hidden="true"
     ></div>
     <div class="container-site py-24 md:py-36">
@@ -122,15 +122,15 @@ const steps = [
   </section>
 
   <!-- Process + fleet -->
-  <section class="bg-contours bg-iron py-20 text-white md:py-28">
+  <section class="bg-contours bg-charcoal py-20 text-white md:py-28">
     <div class="container-site grid gap-14 lg:grid-cols-2 lg:items-center">
       <div>
         <p class="eyebrow eyebrow-light">How we work</p>
         <h2 class="text-4xl md:text-6xl">From site walk to final grade</h2>
         <ol class="mt-10 grid gap-px bg-white/10 sm:grid-cols-2">
           {steps.map((s, i) => (
-            <li class="bg-iron p-6">
-              <span class="font-display text-3xl font-medium text-copper-300">
+            <li class="bg-charcoal p-6">
+              <span class="font-display text-3xl font-medium text-orange-400">
                 {String(i + 1).padStart(2, '0')}
               </span>
               <h3 class="mt-3 text-xl">{s.title}</h3>
@@ -148,10 +148,10 @@ const steps = [
           sizes="(min-width: 1024px) 50vw, 100vw"
           class="w-full"
         />
-        <h3 class="mt-8 text-sm tracking-[0.2em] text-copper-300">Our own fleet</h3>
+        <h3 class="mt-8 text-sm tracking-[0.2em] text-orange-400">Our own fleet</h3>
         <ul class="mt-4 grid gap-2 text-gravel sm:grid-cols-2">
           {equipment.map((e) => (
-            <li class="border-l border-copper pl-3 text-[15px]">{e}</li>
+            <li class="border-l border-orange pl-3 text-[15px]">{e}</li>
           ))}
         </ul>
       </div>

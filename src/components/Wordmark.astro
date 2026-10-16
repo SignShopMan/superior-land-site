@@ -1,5 +1,5 @@
 ---
-// Text lockup used until the logo is redrawn for the refined direction.
+// Horizontal lockup — concept from brand/logo-concepts/lockup-horizontal.svg.
 import Mark from './Mark.astro';
 
 interface Props {
@@ -10,19 +10,20 @@ const { class: className = '', tone = 'light' } = Astro.props;
 ---
 
 <span class:list={['inline-flex items-center gap-3', className]}>
-  <Mark class="size-9 shrink-0 text-copper-300" />
+  <Mark class="h-[2.9em] w-auto shrink-0" onDark={tone === 'light'} />
   <span class="flex flex-col leading-none">
     <span
       class:list={[
-        'font-display text-[1.6em] font-semibold tracking-[0.12em] uppercase',
-        tone === 'light' ? 'text-white' : 'text-iron',
+        'font-display text-[1.75em] font-semibold tracking-[0.08em] uppercase',
+        tone === 'light' ? 'text-white' : 'text-charcoal',
       ]}
     >
       Superior
     </span>
+    <span class="mt-1 h-[2px] w-full bg-orange"></span>
     <span
       class:list={[
-        'mt-1 text-[0.62em] font-medium tracking-[0.32em] uppercase',
+        'mt-1.5 text-[0.6em] font-medium tracking-[0.3em] uppercase',
         tone === 'light' ? 'text-gravel' : 'text-stone',
       ]}
     >

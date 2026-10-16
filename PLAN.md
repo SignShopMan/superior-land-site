@@ -3,7 +3,7 @@
 **Stack:** Astro 7 · Tailwind CSS v4 · TypeScript · GitHub repo + GitHub Pages (Actions deploy)
 **Goal:** A refined, fast site that wins **commercial, municipal and 3+ acre residential** bids in West-Central Ohio.
 
-> **Repositioned 2026-10-16 (owner feedback):** no small residential work. Only commercial, municipal, and residential properties of 3+ acres (roughly $500–600k homes). The owner isn't a fan of orange + green and wants something more refined for larger markets. The brand moved to v0.2 "Iron & Copper" (see `brand/brand-guide.html`). Reference sites: biggreens.com, landmanagementresources.com.
+> **Repositioned 2026-10-16 (owner feedback):** no small residential work. Only commercial, municipal, and residential properties of 3+ acres (roughly $500–600k homes). The owner isn't a fan of orange + green and wants something more refined for larger markets. The brand moved to v0.2 "Iron & Copper", then **v0.3: heritage shield logo + charcoal / Superior orange** (see `brand/logo-concepts/`). Reference sites: biggreens.com, landmanagementresources.com.
 
 ---
 
@@ -38,7 +38,7 @@ Photo coverage by category: brush-clearing 18 · grading-seeding 18 · commercia
 6. **Proof points.** Years in business, insured/licensed, equipment list, Google reviews link, owner name and photo.
 7. **Logo.** The chrome badge is retired in v0.2. A designer should finalize the simplified chevron mark and wordmark (see brand guide §02).
 8. **Proof for B2B buyers.** Past commercial and municipal clients (names usable?), insurance / certificate of insurance on request, prequalifications, ODOT or other certifications, crew size.
-9. **Palette sign-off.** Iron & Copper (in use) vs. the alternates in brand guide §03.
+9. **Logo + palette sign-off.** Heritage shield system (C3 badge + C2 treeline mark) with charcoal + Superior orange is now live on the site. Next: a designer produces final art.
 
 ---
 

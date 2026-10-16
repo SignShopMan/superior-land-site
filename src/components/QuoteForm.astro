@@ -9,7 +9,7 @@ const services = (await getCollection('services')).sort((a, b) => a.data.order -
 const redirect = new URL(url('thanks/'), Astro.site).href;
 const label = 'text-xs font-semibold tracking-[0.14em] text-slate uppercase';
 const field =
-  'mt-2 w-full rounded-(--radius-btn) border border-sand bg-white px-4 py-3 text-base text-iron normal-case tracking-normal placeholder:text-gravel focus:border-copper focus:ring-1 focus:ring-copper focus:outline-none';
+  'mt-2 w-full rounded-(--radius-btn) border border-sand bg-white px-4 py-3 text-base text-charcoal normal-case tracking-normal placeholder:text-gravel focus:border-orange focus:ring-1 focus:ring-orange focus:outline-none';
 ---
 
 <form
@@ -38,14 +38,14 @@ const field =
         ['Municipal', 'Township, village, county'],
         [`Residential ${site.minResidentialAcres}+ acres`, 'Estate or acreage property'],
       ].map(([value, hint], i) => (
-        <label class="flex cursor-pointer gap-3 border border-sand bg-white p-4 has-checked:border-copper has-checked:ring-1 has-checked:ring-copper">
+        <label class="flex cursor-pointer gap-3 border border-sand bg-white p-4 has-checked:border-orange has-checked:ring-1 has-checked:ring-orange">
           <input
             type="radio"
             name="project_type"
             value={value}
             required
             checked={i === 0}
-            class="mt-1 accent-copper"
+            class="mt-1 accent-orange"
           />
           <span>
             <span class="block font-semibold">{value}</span>
@@ -111,13 +111,13 @@ const field =
   <div class="flex flex-wrap items-center gap-5 sm:col-span-2">
     <button
       type="submit"
-      class="rounded-(--radius-btn) bg-copper px-8 py-4 text-sm font-semibold tracking-[0.1em] text-white uppercase hover:bg-copper-700"
+      class="rounded-(--radius-btn) bg-orange px-8 py-4 text-sm font-semibold tracking-[0.1em] text-charcoal uppercase hover:bg-orange-400"
     >
       Submit Bid Request
     </button>
     <p class="text-sm text-stone">
       Prefer to talk? Call{' '}
-      <a href={site.phoneHref} class="font-semibold text-copper-600">
+      <a href={site.phoneHref} class="font-semibold text-orange-700">
         {site.phone}
       </a>
     </p>
@@ -127,7 +127,7 @@ const field =
     or more.
   </p>
   {!accessKey && import.meta.env.DEV && (
-    <p class="bg-copper-50 p-3 text-sm text-copper-800 sm:col-span-2">
+    <p class="bg-orange-50 p-3 text-sm text-orange-800 sm:col-span-2">
       Dev note: PUBLIC_WEB3FORMS_KEY is not set, so submissions won't deliver.
     </p>
   )}

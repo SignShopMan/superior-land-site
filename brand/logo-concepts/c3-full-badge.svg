@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 170">
+  <path d="M12 22 Q100 8 188 22 L176 102 L100 156 L24 102 Z" fill="#1E2326"/>
+  <path d="M22 31 Q100 18 178 31 L167 98 L100 145 L33 98 Z" fill="none" stroke="#F4F2EE" stroke-width="1.5"/>
+  <path d="M86 46 L92 33 L98 46Z M95 46 L103 27 L111 46Z M108 46 L113 36 L118 46Z" fill="#F4F2EE"/>
+  <rect x="80" y="46" width="40" height="2.5" fill="#E5641E"/>
+  <text x="100" y="80" text-anchor="middle" font-family="Barlow Condensed" font-weight="700" font-size="34" letter-spacing="1.5" fill="#E5641E">SUPERIOR</text>
+  <text x="100" y="102" text-anchor="middle" font-family="Barlow Condensed" font-weight="600" font-size="19" letter-spacing="2.5" fill="#F4F2EE">LAND &amp; SITE</text>
+  <path d="M50 110 L150 110 L100 140 Z" fill="#E5641E"/>
+  <text x="100" y="120" text-anchor="middle" font-family="Barlow Condensed" font-weight="700" font-size="10" letter-spacing="1.5" fill="#1E2326">SERVICES</text>
+</svg>

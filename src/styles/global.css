@@ -6,22 +6,24 @@
 @import '@fontsource/barlow-condensed/500.css';
 @import '@fontsource/barlow-condensed/600.css';
 
-/* Design tokens v0.2 "Iron & Copper" — source of truth: brand/tokens.css */
+/* Design tokens v0.3 "Heritage" (charcoal + Superior orange) — source of truth: brand/tokens.css */
 @theme {
-  --color-iron: #15181a;
-  --color-copper: #b4562b;
+  --color-charcoal: #1e2326;
+  --color-orange: #e5641e;
   --color-limestone: #f5f3ee;
 
-  --color-copper-50: #fbf3ee;
-  --color-copper-100: #f5e1d5;
-  --color-copper-200: #ebc0a8;
-  --color-copper-300: #d98a5f;
-  --color-copper-400: #c96a3c;
-  --color-copper-500: #b4562b;
-  --color-copper-600: #a34b23;
-  --color-copper-700: #8e3f1c;
-  --color-copper-800: #6f3217;
-  --color-copper-900: #4f2410;
+  /* Superior orange (from the logo). 500 fill takes charcoal text (4.7:1), never white (3.4:1).
+     700 for orange text on light (5.4:1) · 400 for orange text on charcoal (5.4:1) */
+  --color-orange-50: #fdf1ea;
+  --color-orange-100: #fbddc9;
+  --color-orange-200: #f6b994;
+  --color-orange-300: #f08a4e;
+  --color-orange-400: #eb7434;
+  --color-orange-500: #e5641e;
+  --color-orange-600: #c9531a;
+  --color-orange-700: #a84414;
+  --color-orange-800: #843512;
+  --color-orange-900: #5e260e;
 
   --color-graphite: #2a2f31;
   --color-slate: #3d4345;
@@ -42,7 +44,7 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-limestone font-sans text-[17px] leading-relaxed text-iron antialiased;
+    @apply bg-limestone font-sans text-[17px] leading-relaxed text-charcoal antialiased;
   }
   h1,
   h2,
@@ -54,7 +56,7 @@
     @apply underline-offset-4;
   }
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-copper;
+    @apply outline-2 outline-offset-2 outline-orange;
   }
 }
 
@@ -62,24 +64,24 @@
   .container-site {
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10;
   }
-  /* Small tracked label with a short copper rule */
+  /* Small tracked label with a short orange rule */
   .eyebrow {
-    @apply mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-copper-600 uppercase before:h-px before:w-8 before:bg-current;
+    @apply mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-orange-700 uppercase before:h-px before:w-8 before:bg-current;
   }
   .eyebrow-light {
-    @apply text-copper-300;
+    @apply text-orange-400;
   }
   .prose-site {
     @apply max-w-[68ch] space-y-4 text-lg text-slate;
   }
   .prose-site h2 {
-    @apply pt-4 text-3xl text-iron;
+    @apply pt-4 text-3xl text-charcoal;
   }
   .prose-site ul {
-    @apply list-disc space-y-1 pl-6 marker:text-copper;
+    @apply list-disc space-y-1 pl-6 marker:text-orange;
   }
   .prose-site a {
-    @apply font-semibold text-copper-600 underline;
+    @apply font-semibold text-orange-700 underline;
   }
 }
 

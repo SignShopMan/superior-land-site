@@ -14,7 +14,7 @@ const service = await getEntry(data.service);
 
 <a
   href={url(`projects/${project.id}/`)}
-  class="group relative block overflow-hidden bg-iron no-underline"
+  class="group relative block overflow-hidden bg-charcoal no-underline"
 >
   <Image
     src={data.cover}
@@ -31,9 +31,9 @@ const service = await getEntry(data.service);
       large ? 'aspect-[16/10]' : 'aspect-[4/3]',
     ]}
   />
-  <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-iron via-iron/75 to-transparent p-6 pt-20">
+  <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-charcoal via-charcoal/75 to-transparent p-6 pt-20">
     {service && (
-      <span class="text-xs font-semibold tracking-[0.2em] text-copper-300 uppercase">
+      <span class="text-xs font-semibold tracking-[0.2em] text-orange-400 uppercase">
         {service.data.short}
       </span>
     )}
