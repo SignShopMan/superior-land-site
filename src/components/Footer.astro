@@ -6,33 +6,28 @@ import { url } from '../lib/url';
 
 const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
 const year = new Date().getFullYear();
+const link = 'text-gravel no-underline transition-colors hover:text-white';
 ---
 
-<footer class="bg-ink pb-24 text-chrome-100 md:pb-0">
-  <div class="brand-stripe" aria-hidden="true"></div>
-  <div class="container-site grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
+<footer class="bg-iron pb-20 text-white md:pb-0">
+  <div class="container-site grid gap-12 py-16 md:grid-cols-[1.5fr_1fr_1fr]">
     <div>
-      <Wordmark class="text-lg" />
-      <p class="mt-4 max-w-sm text-chrome-300">
-        {site.tagline} {site.description}
-      </p>
+      <Wordmark class="text-[15px]" />
+      <p class="mt-6 max-w-sm text-gravel">{site.description}</p>
       <a
         href={site.phoneHref}
-        class="mt-5 inline-block font-display text-3xl font-black text-lime italic no-underline"
+        class="mt-6 inline-block font-display text-3xl font-semibold tracking-wide text-white no-underline"
       >
         {site.phone}
       </a>
-      <p class="mt-1 text-sm text-chrome-300">{site.hours}</p>
+      <p class="mt-1 text-sm text-gravel">{site.hours}</p>
     </div>
     <div>
-      <h2 class="mb-4 text-xl text-white">Services</h2>
-      <ul class="space-y-2">
+      <h2 class="mb-5 text-sm tracking-[0.2em] text-copper-300">Services</h2>
+      <ul class="space-y-2.5 text-[15px]">
         {services.map((s) => (
           <li>
-            <a
-              href={url(`services/${s.id}/`)}
-              class="text-chrome-100 no-underline hover:text-orange"
-            >
+            <a href={url(`services/${s.id}/`)} class={link}>
               {s.data.short}
             </a>
           </li>
@@ -40,30 +35,31 @@ const year = new Date().getFullYear();
       </ul>
     </div>
     <div>
-      <h2 class="mb-4 text-xl text-white">Company</h2>
-      <ul class="space-y-2">
+      <h2 class="mb-5 text-sm tracking-[0.2em] text-copper-300">Company</h2>
+      <ul class="space-y-2.5 text-[15px]">
         {nav.map((n) => (
           <li>
-            <a href={url(n.href)} class="text-chrome-100 no-underline hover:text-orange">
+            <a href={url(n.href)} class={link}>
               {n.label}
             </a>
           </li>
         ))}
         <li>
-          <a
-            href={site.facebook}
-            class="text-chrome-100 no-underline hover:text-orange"
-            rel="noopener"
-          >
+          <a href={url('contact/')} class={link}>
+            Request a Bid
+          </a>
+        </li>
+        <li>
+          <a href={site.facebook} class={link} rel="noopener">
             Facebook
           </a>
         </li>
       </ul>
     </div>
   </div>
-  <div class="border-t border-graphite">
-    <p class="container-site py-5 text-sm text-chrome-300">
-      © {year} {site.legalName}. Serving {site.region}.
+  <div class="border-t border-white/10">
+    <p class="container-site py-6 text-xs tracking-wider text-gravel uppercase">
+      © {year} {site.legalName} · {site.region}
     </p>
   </div>
 </footer>

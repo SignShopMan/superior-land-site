@@ -5,28 +5,36 @@ import { url } from '../lib/url';
 
 interface Props {
   service: CollectionEntry<'services'>;
+  index?: number;
 }
-const { service } = Astro.props;
+const { service, index } = Astro.props;
 const { data } = service;
 ---
 
 <a
   href={url(`services/${service.id}/`)}
-  class="group flex flex-col overflow-hidden rounded-(--radius-card) border border-chrome-100 bg-white no-underline shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg"
+  class="group flex flex-col bg-bone no-underline ring-1 ring-sand transition hover:ring-copper"
 >
-  <Image
-    src={data.hero}
-    alt={data.heroAlt}
-    widths={[400, 640]}
-    width={640}
-    sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-    class="aspect-[4/3] w-full object-cover"
-  />
-  <div class="flex flex-1 flex-col p-5">
-    <h3 class="text-2xl text-ink group-hover:text-orange-700">{data.short}</h3>
-    <p class="mt-2 flex-1 text-[15px] text-steel">{data.summary}</p>
-    <span class="mt-4 text-sm font-bold tracking-wider text-orange-700 uppercase">
-      Learn more →
+  <div class="overflow-hidden">
+    <Image
+      src={data.hero}
+      alt={data.heroAlt}
+      widths={[400, 640]}
+      width={640}
+      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+      class="aspect-[3/2] w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+    />
+  </div>
+  <div class="flex flex-1 flex-col border-t-2 border-copper p-6">
+    {index !== undefined && (
+      <span class="text-xs font-semibold tracking-[0.2em] text-gravel">
+        {String(index + 1).padStart(2, '0')}
+      </span>
+    )}
+    <h3 class="mt-1 text-2xl text-iron">{data.short}</h3>
+    <p class="mt-2 flex-1 text-[15px] text-stone">{data.summary}</p>
+    <span class="mt-5 text-xs font-semibold tracking-[0.18em] text-copper-600 uppercase group-hover:text-copper-800">
+      View service →
     </span>
   </div>
 </a>

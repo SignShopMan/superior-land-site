@@ -3,29 +3,31 @@ import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import PageHero from '../../components/PageHero.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
+import BidCard from '../../components/BidCard.astro';
 import CTABand from '../../components/CTABand.astro';
 import { site } from '../../data/site';
-import hero from '../../assets/photos/land-clearing-fence-line-excavator.jpg';
+import hero from '../../assets/photos/municipal-row-excavator-mulcher.jpg';
 
 const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <Base
   title="Services"
-  description={`Land and site services in ${site.region}: driveways, land clearing, grading, ponds, drainage and more.`}
+  description={`Commercial, municipal and large-acreage site services in ${site.region}.`}
 >
   <PageHero
     eyebrow="Services"
-    title="Everything from the dirt up"
-    lede="One crew, our own machines, and a clean finish on every job."
+    title="Capabilities"
+    lede={`Seven core services for commercial, municipal and ${site.minResidentialAcres}+ acre residential work, all handled by one crew with its own equipment.`}
     image={hero}
-    imageAlt="Excavator clearing a tree line along a farm field"
+    imageAlt="Excavator with a mulching head clearing along a township road"
   />
-  <section class="container-site py-16">
-    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      {services.map((s) => (
-        <ServiceCard service={s} />
+  <section class="container-site py-20">
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {services.map((s, i) => (
+        <ServiceCard service={s} index={i} />
       ))}
+      <BidCard />
     </div>
   </section>
   <CTABand />

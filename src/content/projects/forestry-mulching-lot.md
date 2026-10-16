@@ -1,7 +1,7 @@
 ---
 title: Wooded Lot Cleared by Forestry Mulching
 service: land-clearing
-featured: true
+featured: false
 summary: Mulched out a thick understory and kept the mature trees, leaving an open, usable wooded lot.
 cover: ../../assets/photos/forestry-mulching-cleared-lot.jpg
 coverAlt: Wooded lot with the understory cleared, mulch on the ground and mature trees left standing

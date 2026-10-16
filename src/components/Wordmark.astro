@@ -1,20 +1,32 @@
 ---
-// Text wordmark used until the logo is vectorized (the raster sketch clips the final "R").
+// Text lockup used until the logo is redrawn for the refined direction.
+import Mark from './Mark.astro';
+
 interface Props {
   class?: string;
-  tone?: 'dark' | 'light';
+  tone?: 'light' | 'dark';
 }
-const { class: className = '', tone = 'dark' } = Astro.props;
+const { class: className = '', tone = 'light' } = Astro.props;
 ---
 
-<span class:list={['inline-flex flex-col font-display leading-[0.85] uppercase italic', className]}>
-  <span class="text-[1.65em] font-black tracking-tight text-orange">Superior</span>
-  <span
-    class:list={[
-      'text-[0.78em] font-extrabold tracking-wide',
-      tone === 'dark' ? 'text-white' : 'text-ink',
-    ]}
-  >
-    Land &amp; Site <span class="text-green">Services</span>
+<span class:list={['inline-flex items-center gap-3', className]}>
+  <Mark class="size-9 shrink-0 text-copper-300" />
+  <span class="flex flex-col leading-none">
+    <span
+      class:list={[
+        'font-display text-[1.6em] font-semibold tracking-[0.12em] uppercase',
+        tone === 'light' ? 'text-white' : 'text-iron',
+      ]}
+    >
+      Superior
+    </span>
+    <span
+      class:list={[
+        'mt-1 text-[0.62em] font-medium tracking-[0.32em] uppercase',
+        tone === 'light' ? 'text-gravel' : 'text-stone',
+      ]}
+    >
+      Land &amp; Site Services
+    </span>
   </span>
 </span>

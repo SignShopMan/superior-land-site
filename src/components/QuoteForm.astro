@@ -3,21 +3,22 @@ import { getCollection } from 'astro:content';
 import { site } from '../data/site';
 import { url } from '../lib/url';
 
-// Static host → post to Web3Forms (https://web3forms.com). Set PUBLIC_WEB3FORMS_KEY in .env / repo secrets.
+// Static host → post to Web3Forms (https://web3forms.com). PUBLIC_WEB3FORMS_KEY comes from .env / repo secret.
 const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY;
 const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
 const redirect = new URL(url('thanks/'), Astro.site).href;
+const label = 'text-xs font-semibold tracking-[0.14em] text-slate uppercase';
 const field =
-  'mt-1 w-full rounded-md border border-chrome-300 bg-white px-4 py-3 text-ink placeholder:text-steel focus:border-orange focus:ring-2 focus:ring-orange/40 focus:outline-none';
+  'mt-2 w-full rounded-(--radius-btn) border border-sand bg-white px-4 py-3 text-base text-iron normal-case tracking-normal placeholder:text-gravel focus:border-copper focus:ring-1 focus:ring-copper focus:outline-none';
 ---
 
 <form
   action="https://api.web3forms.com/submit"
   method="POST"
-  class="grid gap-4 rounded-(--radius-card) bg-white p-6 shadow-xl ring-1 ring-chrome-100 sm:grid-cols-2 md:p-8"
+  class="grid gap-5 bg-bone p-6 ring-1 ring-sand sm:grid-cols-2 md:p-10"
 >
   <input type="hidden" name="access_key" value={accessKey} />
-  <input type="hidden" name="subject" value={`New quote request — ${site.name}`} />
+  <input type="hidden" name="subject" value={`New bid request — ${site.name}`} />
   <input type="hidden" name="from_name" value={site.name} />
   <input type="hidden" name="redirect" value={redirect} />
   <input
@@ -29,57 +30,104 @@ const field =
     autocomplete="off"
   />
 
-  <label class="font-semibold">
+  <fieldset class="sm:col-span-2">
+    <legend class={label}>Project type</legend>
+    <div class="mt-2 grid gap-2 sm:grid-cols-3">
+      {[
+        ['Commercial', 'GC, developer, business'],
+        ['Municipal', 'Township, village, county'],
+        [`Residential ${site.minResidentialAcres}+ acres`, 'Estate or acreage property'],
+      ].map(([value, hint], i) => (
+        <label class="flex cursor-pointer gap-3 border border-sand bg-white p-4 has-checked:border-copper has-checked:ring-1 has-checked:ring-copper">
+          <input
+            type="radio"
+            name="project_type"
+            value={value}
+            required
+            checked={i === 0}
+            class="mt-1 accent-copper"
+          />
+          <span>
+            <span class="block font-semibold">{value}</span>
+            <span class="text-sm text-stone">{hint}</span>
+          </span>
+        </label>
+      ))}
+    </div>
+  </fieldset>
+
+  <label class={label}>
     Name
     <input class={field} type="text" name="name" autocomplete="name" required />
   </label>
-  <label class="font-semibold">
+  <label class={label}>
+    Company / organization <span class="font-normal text-gravel normal-case">(optional)</span>
+    <input class={field} type="text" name="organization" autocomplete="organization" />
+  </label>
+  <label class={label}>
     Phone
     <input class={field} type="tel" name="phone" autocomplete="tel" required />
   </label>
-  <label class="font-semibold">
-    Email <span class="font-normal text-steel">(optional)</span>
-    <input class={field} type="email" name="email" autocomplete="email" />
+  <label class={label}>
+    Email
+    <input class={field} type="email" name="email" autocomplete="email" required />
   </label>
-  <label class="font-semibold">
-    Job location (town)
-    <input class={field} type="text" name="town" autocomplete="address-level2" required />
+  <label class={label}>
+    Project location
+    <input class={field} type="text" name="location" placeholder="Town, road or address" required />
   </label>
-  <label class="font-semibold sm:col-span-2">
-    What do you need?
+  <label class={label}>
+    Approx. size <span class="font-normal text-gravel normal-case">(acres or feet)</span>
+    <input class={field} type="text" name="size" placeholder="e.g. 6 acres, 1,200 ft of road" />
+  </label>
+  <label class={label}>
+    Primary service
     <select class={field} name="service" required>
       <option value="">Choose a service…</option>
       {services.map((s) => (
         <option>{s.data.short}</option>
       ))}
-      <option>Something else</option>
+      <option>Multiple / not sure</option>
     </select>
   </label>
-  <label class="font-semibold sm:col-span-2">
-    Tell us about the job
+  <label class={label}>
+    Timeline
+    <select class={field} name="timeline">
+      <option>Flexible</option>
+      <option>Within 30 days</option>
+      <option>1–3 months</option>
+      <option>Bidding a future project</option>
+    </select>
+  </label>
+  <label class:list={[label, 'sm:col-span-2']}>
+    Scope / details
     <textarea
       class={field}
       name="message"
-      rows="4"
-      placeholder="Size of the area, what's there now, and when you'd like it done."
+      rows="5"
+      placeholder="What's on site now, what you need done, and any plans or specs we should see."
     ></textarea>
   </label>
-  <div class="flex flex-wrap items-center gap-4 sm:col-span-2">
+  <div class="flex flex-wrap items-center gap-5 sm:col-span-2">
     <button
       type="submit"
-      class="rounded-(--radius-btn) bg-orange px-7 py-4 font-display text-xl font-extrabold tracking-wide text-ink uppercase italic hover:bg-orange-400"
+      class="rounded-(--radius-btn) bg-copper px-8 py-4 text-sm font-semibold tracking-[0.1em] text-white uppercase hover:bg-copper-700"
     >
-      Send My Quote Request
+      Submit Bid Request
     </button>
-    <p class="text-sm text-steel">
-      Rather talk? Call{' '}
-      <a href={site.phoneHref} class="font-bold text-orange-700">
+    <p class="text-sm text-stone">
+      Prefer to talk? Call{' '}
+      <a href={site.phoneHref} class="font-semibold text-copper-600">
         {site.phone}
       </a>
     </p>
   </div>
+  <p class="text-sm text-stone sm:col-span-2">
+    We focus on commercial, municipal and residential properties of {site.minResidentialAcres} acres
+    or more.
+  </p>
   {!accessKey && import.meta.env.DEV && (
-    <p class="rounded-md bg-orange-50 p-3 text-sm text-orange-800 sm:col-span-2">
+    <p class="bg-copper-50 p-3 text-sm text-copper-800 sm:col-span-2">
       Dev note: PUBLIC_WEB3FORMS_KEY is not set, so submissions won't deliver.
     </p>
   )}

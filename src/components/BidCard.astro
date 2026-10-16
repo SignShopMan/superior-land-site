@@ -1,0 +1,18 @@
+---
+import Button from './Button.astro';
+import { url } from '../lib/url';
+---
+
+<!-- Fills the last slot of the services grid with a call to action -->
+<div class="bg-contours flex flex-col justify-between bg-iron p-8 text-white">
+  <div>
+    <p class="eyebrow eyebrow-light">Not listed?</p>
+    <h3 class="text-3xl">Bigger or more complex scope?</h3>
+    <p class="mt-3 text-[15px] text-gravel">
+      Most projects combine several of these. Send us the scope and we'll bid the whole job.
+    </p>
+  </div>
+  <Button href={url('contact/')} class="mt-8 self-start">
+    Request a Bid
+  </Button>
+</div>

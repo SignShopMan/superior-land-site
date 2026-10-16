@@ -1,7 +1,6 @@
 ---
 import Wordmark from './Wordmark.astro';
 import Button from './Button.astro';
-import PhoneIcon from './PhoneIcon.astro';
 import { nav, site } from '../data/site';
 import { url } from '../lib/url';
 
@@ -9,19 +8,19 @@ const current = Astro.url.pathname;
 const isActive = (href: string) => current.startsWith(url(href));
 ---
 
-<header class="sticky top-0 z-40 bg-ink text-white shadow-lg">
-  <div class="container-site flex h-18 items-center justify-between gap-4">
-    <a href={url()} class="text-[17px] no-underline md:text-lg" aria-label={`${site.name} home`}>
+<header class="sticky top-0 z-40 border-b border-white/10 bg-iron text-white">
+  <div class="container-site flex h-20 items-center justify-between gap-6">
+    <a href={url()} class="text-[15px] no-underline" aria-label={`${site.name} home`}>
       <Wordmark />
     </a>
 
-    <nav class="hidden items-center gap-6 lg:flex" aria-label="Main">
+    <nav class="hidden items-center gap-8 lg:flex" aria-label="Main">
       {nav.map((item) => (
         <a
           href={url(item.href)}
           class:list={[
-            'font-semibold no-underline hover:text-orange',
-            isActive(item.href) ? 'text-orange' : 'text-white',
+            'text-[13px] font-semibold tracking-[0.12em] uppercase no-underline transition-colors hover:text-copper-300',
+            isActive(item.href) ? 'text-copper-300' : 'text-white/85',
           ]}
           aria-current={isActive(item.href) ? 'page' : undefined}
         >
@@ -30,36 +29,37 @@ const isActive = (href: string) => current.startsWith(url(href));
       ))}
     </nav>
 
-    <div class="hidden items-center gap-3 md:flex">
-      <a href={site.phoneHref} class="flex items-center gap-2 font-bold text-lime no-underline">
-        <PhoneIcon />
+    <div class="hidden items-center gap-6 md:flex">
+      <a
+        href={site.phoneHref}
+        class="text-sm font-semibold tracking-wider text-white/85 no-underline hover:text-white"
+      >
         {site.phone}
       </a>
-      <Button href={url('contact/')}>Free Quote</Button>
+      <Button href={url('contact/')}>Request a Bid</Button>
     </div>
 
     <details class="group relative lg:hidden">
-      <summary class="flex cursor-pointer list-none items-center gap-2 rounded-md border border-graphite px-3 py-2 font-semibold [&::-webkit-details-marker]:hidden">
+      <summary class="flex cursor-pointer list-none items-center gap-2 border border-white/25 px-3 py-2 text-xs font-semibold tracking-[0.15em] uppercase [&::-webkit-details-marker]:hidden">
         <span class="group-open:hidden">Menu</span>
         <span class="hidden group-open:inline">Close</span>
       </summary>
       <nav
-        class="absolute right-0 mt-3 w-64 rounded-(--radius-card) border border-graphite bg-charcoal p-2 shadow-2xl"
+        class="absolute right-0 mt-3 w-64 border border-white/10 bg-graphite p-2 shadow-2xl"
         aria-label="Mobile"
       >
         {nav.map((item) => (
           <a
             href={url(item.href)}
-            class="block rounded-md px-4 py-3 font-semibold text-white no-underline hover:bg-graphite"
+            class="block px-4 py-3 text-sm font-semibold tracking-[0.1em] text-white uppercase no-underline hover:bg-slate"
           >
             {item.label}
           </a>
         ))}
         <Button href={url('contact/')} class="mt-2 w-full">
-          Get a Free Quote
+          Request a Bid
         </Button>
       </nav>
     </details>
   </div>
-  <div class="brand-stripe" aria-hidden="true"></div>
 </header>

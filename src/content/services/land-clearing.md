@@ -1,28 +1,21 @@
 ---
 title: Land Clearing & Forestry Mulching
 short: Land Clearing
-order: 2
-summary: Overgrown lots turned into usable ground. We mulch brush and small trees in place, with no burn piles and no haul-off.
+order: 3
+summary: Acreage, wooded lots and overgrown fence rows cleared by forestry mulching, keeping the trees you want to keep.
 metaTitle: Land Clearing & Forestry Mulching
 hero: ../../assets/photos/forestry-mulching-lot-clearing.jpg
 heroAlt: Tracked loader with a forestry mulcher clearing dense brush from a wooded lot
 benefits:
-  - Lot and homesite clearing
-  - Forestry mulching that leaves a clean mulch layer behind
-  - Underbrush and invasive clearing while keeping the trees you want
-  - Fence-line and trail clearing
+  - Homesite and building-site clearing on acreage
+  - Selective understory clearing under mature trees
+  - Fence-row and field-edge clearing
+  - Trails, sight lines and access corridors
 faqs:
   - q: What happens to the brush?
-    a: A forestry mulcher grinds brush and small trees into mulch right where they stand. It protects the soil and there's nothing to burn or haul.
-  - q: Can you keep certain trees?
-    a: Yes. Walk the property with us and mark what stays. Selective clearing is one of the big advantages of mulching.
+    a: The mulcher grinds brush and small trees in place, leaving a mulch layer that protects the soil. There's nothing to burn or haul away.
+  - q: What's the smallest job you take?
+    a: For residential clearing we work on properties of three acres or more.
 ---
 
-A forestry mulcher clears ground fast and leaves a layer of mulch behind, instead of scraped dirt and brush piles. It's the quickest way to turn a grown-over lot into somewhere you can build, farm or walk.
-
-## Good fits
-
-- Homesites and pole-barn locations
-- Overgrown pasture and fence rows
-- Clearing underbrush while keeping the mature trees
-- Trails, sight lines and hunting lanes
+A forestry mulcher clears ground fast and leaves a layer of mulch behind instead of scraped dirt and burn piles. It's the cleanest way to open up a wooded property for a building site, pasture or trails.

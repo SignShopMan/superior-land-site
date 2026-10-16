@@ -3,53 +3,38 @@
 @import '@fontsource/barlow/400.css';
 @import '@fontsource/barlow/500.css';
 @import '@fontsource/barlow/600.css';
-@import '@fontsource/barlow/700.css';
-@import '@fontsource/barlow-condensed/800-italic.css';
-@import '@fontsource/barlow-condensed/900-italic.css';
+@import '@fontsource/barlow-condensed/500.css';
+@import '@fontsource/barlow-condensed/600.css';
 
-/* Design tokens — source of truth: brand/tokens.css (sampled from the logo sketch) */
+/* Design tokens v0.2 "Iron & Copper" — source of truth: brand/tokens.css */
 @theme {
-  --color-orange: #f96607;
-  --color-green: #32b50d;
-  --color-lime: #75dc40;
-  --color-blackout: #0b0f0f;
-  --color-chrome: #b6bbb2;
+  --color-iron: #15181a;
+  --color-copper: #b4562b;
+  --color-limestone: #f5f3ee;
 
-  --color-orange-50: #fff4ec;
-  --color-orange-100: #ffe3cc;
-  --color-orange-200: #fec193;
-  --color-orange-300: #fd9a55;
-  --color-orange-400: #fb7c2a;
-  --color-orange-500: #f96607;
-  --color-orange-600: #de5205;
-  --color-orange-700: #c2410c;
-  --color-orange-800: #9a3412;
-  --color-orange-900: #7b2d19;
+  --color-copper-50: #fbf3ee;
+  --color-copper-100: #f5e1d5;
+  --color-copper-200: #ebc0a8;
+  --color-copper-300: #d98a5f;
+  --color-copper-400: #c96a3c;
+  --color-copper-500: #b4562b;
+  --color-copper-600: #a34b23;
+  --color-copper-700: #8e3f1c;
+  --color-copper-800: #6f3217;
+  --color-copper-900: #4f2410;
 
-  --color-green-50: #f0fce9;
-  --color-green-100: #ddf8cc;
-  --color-green-200: #b9ee98;
-  --color-green-300: #8fe061;
-  --color-green-400: #75dc40;
-  --color-green-500: #32b50d;
-  --color-green-600: #1f9a0b;
-  --color-green-700: #0a7e09;
-  --color-green-800: #146b12;
-  --color-green-900: #0e4a0d;
-
-  --color-ink: #0b0f0f;
-  --color-charcoal: #1c2222;
-  --color-graphite: #2e3534;
-  --color-steel: #5b625e;
-  --color-chrome-300: #b6bbb2;
-  --color-chrome-100: #e3e6e1;
-  --color-paper: #f6f7f4;
+  --color-graphite: #2a2f31;
+  --color-slate: #3d4345;
+  --color-stone: #5e625f;
+  --color-gravel: #9a9d98;
+  --color-sand: #e8e3d9;
+  --color-bone: #fbfaf7;
 
   --font-display: 'Barlow Condensed', 'Arial Narrow', system-ui, sans-serif;
   --font-sans: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  --radius-btn: 0.375rem;
-  --radius-card: 0.75rem;
+  --radius-btn: 2px;
+  --radius-card: 4px;
 }
 
 @layer base {
@@ -57,55 +42,49 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-paper font-sans text-[17px] leading-relaxed text-ink antialiased;
+    @apply bg-limestone font-sans text-[17px] leading-relaxed text-iron antialiased;
   }
   h1,
   h2,
   h3,
   h4 {
-    @apply font-display leading-none font-extrabold tracking-[0.01em] uppercase italic;
+    @apply font-display leading-[1.02] font-semibold tracking-[0.015em] text-balance uppercase;
   }
   a {
     @apply underline-offset-4;
   }
   :focus-visible {
-    @apply outline-3 outline-offset-2 outline-orange;
+    @apply outline-2 outline-offset-2 outline-copper;
   }
 }
 
 @layer components {
   .container-site {
-    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10;
   }
+  /* Small tracked label with a short copper rule */
   .eyebrow {
-    @apply mb-3 text-[0.8rem] font-bold tracking-[0.14em] text-orange-700 uppercase;
+    @apply mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.2em] text-copper-600 uppercase before:h-px before:w-8 before:bg-current;
+  }
+  .eyebrow-light {
+    @apply text-copper-300;
   }
   .prose-site {
-    @apply max-w-[68ch] space-y-4 text-lg text-graphite;
+    @apply max-w-[68ch] space-y-4 text-lg text-slate;
   }
   .prose-site h2 {
-    @apply pt-4 text-3xl text-ink;
+    @apply pt-4 text-3xl text-iron;
   }
   .prose-site ul {
-    @apply list-disc space-y-1 pl-6;
+    @apply list-disc space-y-1 pl-6 marker:text-copper;
   }
   .prose-site a {
-    @apply font-semibold text-orange-700 underline;
+    @apply font-semibold text-copper-600 underline;
   }
 }
 
-@utility skew-brand {
-  transform: skewX(-12deg);
-}
-@utility unskew-brand {
-  transform: skewX(12deg);
-}
-@utility brand-stripe {
-  height: 10px;
-  background: linear-gradient(
-    90deg,
-    var(--color-orange) 0 62%,
-    var(--color-ink) 62% 64%,
-    var(--color-green) 64% 100%
-  );
+/* Faint topographic contour lines for dark bands */
+@utility bg-contours {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='300' viewBox='0 0 600 300' fill='none' stroke='%23ffffff' stroke-opacity='.06' stroke-width='1.2'%3E%3Cpath d='M-20 60c80-40 160 30 240 0s160-50 240-10 120 30 160 0'/%3E%3Cpath d='M-20 100c80-40 160 30 240 0s160-50 240-10 120 30 160 0'/%3E%3Cpath d='M-20 140c80-40 160 30 240 0s160-50 240-10 120 30 160 0'/%3E%3Cpath d='M-20 180c80-40 160 30 240 0s160-50 240-10 120 30 160 0'/%3E%3Cpath d='M-20 220c80-40 160 30 240 0s160-50 240-10 120 30 160 0'/%3E%3Cpath d='M-20 260c80-40 160 30 240 0s160-50 240-10 120 30 160 0'/%3E%3Cpath d='M-20 20c80-40 160 30 240 0s160-50 240-10 120 30 160 0'/%3E%3C/svg%3E");
+  background-size: 600px 300px;
 }

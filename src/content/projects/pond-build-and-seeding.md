@@ -1,5 +1,5 @@
 ---
-title: New Pond, Pad & Seeding
+title: Estate Pond & Site Stabilization
 service: ponds
 featured: true
 summary: Dug a new pond next to a new pole barn, shaped the banks, and finished the whole site with seed and straw.
@@ -10,8 +10,10 @@ after:
     alt: Track loader with a straw blower mulching the pond banks, seen from above
   - src: ../../assets/photos/pond-bank-seeding-drone.jpg
     alt: Freshly seeded pond banks with straw cover
-  - src: ../../assets/photos/pond-new-build-shoreline.jpg
-    alt: New pond with a stone shoreline and graded banks
+  - src: ../../assets/photos/pond-estate-stone-shoreline.jpg
+    alt: New pond with a stone shoreline and graded, strawed banks
+  - src: ../../assets/photos/pond-estate-final-grade.jpg
+    alt: Graded and seeded acreage around a new home and pond
 ---
 
 <!-- DRAFT: confirm town, date and scope with the owner -->

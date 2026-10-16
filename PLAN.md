@@ -1,7 +1,9 @@
 # Superior Land & Site Services: website build plan
 
-**Stack:** Astro 5 · Tailwind CSS v4 · TypeScript · GitHub repo + GitHub Pages (Actions deploy)
-**Goal:** A fast, local-SEO site that turns "I need a driveway / land cleared / pond dug" searches in the 937 into calls and quote requests.
+**Stack:** Astro 7 · Tailwind CSS v4 · TypeScript · GitHub repo + GitHub Pages (Actions deploy)
+**Goal:** A refined, fast site that wins **commercial, municipal and 3+ acre residential** bids in West-Central Ohio.
+
+> **Repositioned 2026-10-16 (owner feedback):** no small residential work. Only commercial, municipal, and residential properties of 3+ acres (roughly $500–600k homes). The owner isn't a fan of orange + green and wants something more refined for larger markets. The brand moved to v0.2 "Iron & Copper" (see `brand/brand-guide.html`). Reference sites: biggreens.com, landmanagementresources.com.
 
 ---
 
@@ -15,7 +17,7 @@ assets-source/
   photos/fb-001…fb-093-<fbid>.jpg       # 93 full-res photos from the FB photo stream
   photos/manifest.tsv                   # file · category · drone · hero_candidate · size · FB alt text
 brand/
-  brand-guide.html                      # visual brand guide v0.1 (open in browser)
+  brand-guide.html                      # visual brand guide v0.2 "Iron & Copper" (open in browser)
   tokens.css                            # Tailwind v4 @theme tokens: paste into global.css
 PLAN.md
 ```
@@ -29,12 +31,14 @@ Photo coverage by category: brush-clearing 18 · grading-seeding 18 · commercia
 ## 1. Open questions for the owner (answer before Phase 3 copy)
 
 1. **Legal name / DBA.** The FB page is "Superior Bobcat Services LLC." Is "Superior Land & Site Services" a DBA or a rename? This affects schema markup, the footer and the Google Business Profile.
-2. **Service area.** Which towns and counties? The 937 area code suggests the Dayton / Miami Valley / Darke–Miami–Shelby area. We need a list to build town pages.
-3. **Services to lead with**, and any to drop (e.g. snow removal, demo).
+2. **Service area.** Which counties? The 937-539 exchange is Bellefontaine / Logan County, so the site currently says "West-Central Ohio."
+3. ~~Services to lead with~~ Answered: commercial, municipal, 3+ acre residential. Confirm the 7-service lineup in brand guide §07.
 4. **Domain.** Is one owned already? Options: `superiorlandandsite.com`, `superiorlandsite.com`, `superiorsiteservices.com`.
 5. **Quote form destination.** Which email or phone should receive leads? Do they want text notifications?
 6. **Proof points.** Years in business, insured/licensed, equipment list, Google reviews link, owner name and photo.
-7. **Logo vector.** Who redraws it? It needs an SVG with the clipped "R" fixed, plus a version without the phone number (see brand guide §02).
+7. **Logo.** The chrome badge is retired in v0.2. A designer should finalize the simplified chevron mark and wordmark (see brand guide §02).
+8. **Proof for B2B buyers.** Past commercial and municipal clients (names usable?), insurance / certificate of insurance on request, prequalifications, ODOT or other certifications, crew size.
+9. **Palette sign-off.** Iron & Copper (in use) vs. the alternates in brand guide §03.
 
 ---
 
@@ -43,37 +47,35 @@ Photo coverage by category: brush-clearing 18 · grading-seeding 18 · commercia
 ```
 /                         Home
 /services/                Services overview
-  /services/driveways/
+  /services/commercial-site-work/
+  /services/municipal-right-of-way/
   /services/land-clearing/          (incl. forestry mulching)
-  /services/brush-clearing/         (roadside, fence-line, ROW)
-  /services/grading-seeding/
   /services/ponds/
+  /services/grading-stabilization/
   /services/drainage-culverts/
-  /services/commercial-site-prep/
-  /services/demolition/             (optional; confirm)
+  /services/access-roads-drives/
 /projects/                Project gallery (filterable by service)
   /projects/[slug]/       Before/after case studies (start with 4–6)
 /service-area/            Map + town list
   /service-area/[town]/   Town pages (phase 2 SEO, only with real local content)
 /about/                   Owner, equipment, insurance
-/contact/                 Quote form + click-to-call + hours
+/contact/                 Bid request form (project type, size, timeline) + phone
 /404
 ```
 
-**Global chrome.** Sticky header with the wordmark, nav and an orange **Get a Free Quote** button. On mobile, a **sticky bottom bar** with *Call* and *Quote*. Footer with NAP (name, address, phone), service list, towns and a Facebook link.
+**Global chrome.** Sticky iron header with the wordmark, nav and a copper **Request a Bid** button. On mobile, a **sticky bottom bar** with *Call* and *Request a Bid*. Footer with NAP (name, address, phone), service list, towns and a Facebook link.
 
 ---
 
-## 3. Home page wireframe (conversion-first)
+## 3. Home page (as built, v0.2)
 
-1. **Hero.** Drone or fleet photo under a Blackout scrim. H1: *"Driveways, Land Clearing & Site Work in [Region], Ohio."* Subhead gives a proof line. Primary CTA **Get a Free Quote**, secondary **Call 937-539-3002**, with trust chips (Free estimates · Fully insured · Owner on every job).
-2. **Service grid.** Eight cards, each with a photo, a one-line benefit and a link.
-3. **Before/after slider.** One flagship job, such as a driveway regrade or pond.
-4. **How it works.** Three steps: call or send photos → on-site quote → we clear, grade and finish.
-5. **Recent projects strip.** Six photos, linked to /projects.
-6. **Reviews.** Embedded Google reviews. Add these once the GBP is live. For now, hand-picked FB recommendations.
-7. **Service area map.** Plus the town list.
-8. **Final CTA band.** Skewed orange and green stripe, with the quote form inline.
+1. **Hero.** Commercial drone photo with an iron gradient. H1: *"Site work for commercial, municipal & acreage projects."* CTAs: **Request a Bid** and View Projects.
+2. **Who we work with.** Three numbered audiences: contractors & developers, municipalities & townships, estates & acreage (3+ ac).
+3. **Services.** Seven cards plus a "bigger scope?" bid card.
+4. **Projects.** Four featured case studies, large format.
+5. **How we work + fleet.** Site walk → written bid → execution → close-out, plus the equipment list.
+6. **CTA band.** Dark contour-pattern band.
+7. *Later:* client logos or references, testimonials, county map.
 
 ---
 
@@ -166,12 +168,12 @@ src/
 
 | Phase | Deliverable | Status |
 |---|---|---|
-| **1. Brand** | Palette, type, UI rules, photo inventory (`brand/`) | ✅ v0.1 draft |
+| **1. Brand** | v0.2 "Iron & Copper": palette, type, UI rules, logo direction, photo rules (`brand/`) | ✅ v0.2, awaiting owner sign-off |
 | | Logo vector redraw (SVG, flat, knockout, icon) | ⬜ needs designer/owner |
-| **2. Scaffold** | Astro 7 + Tailwind v4 + tokens, layout, all page templates, 8 services, 4 draft projects, Pages workflow | ✅ local; repo not created/pushed yet |
-| **3. Core pages** | Home, Services (×8), Contact + form, About (draft copy in place; needs owner facts) | 🟡 |
-| **4. Proof** | Projects collection with 6–8 case studies, before/after, gallery filter | ⬜ |
+| **2. Scaffold** | Astro 7 + Tailwind v4 + tokens, layout, all page templates, 8 services, 4 draft projects, Pages workflow | ✅ live on GitHub Pages |
+| **3. Core pages** | Repositioned: Home, Services (×7), bid form, About (draft copy; needs owner facts) | 🟡 |
+| **4. Proof** | 8 draft case studies (commercial, municipal, acreage); need owner details and more drone shots | 🟡 |
 | **5. SEO/launch** | JSON-LD, sitemap, meta/OG images, analytics, domain + HTTPS, GBP link-up | ⬜ |
 | **6. Post-launch** | Town pages, review widget, CRO audit against `~/.claude/cro-audit-rubric.md`, monthly project posts | ⬜ |
 
-**Next step:** answer the §1 questions (at least the name, service area and domain), then scaffold Phase 2.
+**Next step:** owner signs off on the v0.2 look, then answers §1 (name, counties, B2B proof points, domain).

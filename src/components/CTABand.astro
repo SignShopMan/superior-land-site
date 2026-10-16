@@ -1,6 +1,5 @@
 ---
 import Button from './Button.astro';
-import PhoneIcon from './PhoneIcon.astro';
 import { site } from '../data/site';
 import { url } from '../lib/url';
 
@@ -9,25 +8,24 @@ interface Props {
   text?: string;
 }
 const {
-  heading = 'Got ground that needs work?',
-  text = 'Send a few photos or give us a call. Quotes are free and we come out to look.',
+  heading = 'Have a site that needs work?',
+  text = 'Send us the plans, the scope or just the location. We walk every site and return a written bid.',
 } = Astro.props;
 ---
 
-<section class="relative overflow-hidden bg-ink text-white">
-  <div
-    class="skew-brand absolute inset-y-0 -right-16 hidden w-72 bg-[linear-gradient(90deg,var(--color-green)_0_50%,var(--color-orange)_50%)] md:block"
-    aria-hidden="true"
-  ></div>
-  <div class="container-site relative py-16 md:py-20">
-    <h2 class="max-w-2xl text-4xl md:text-6xl">{heading}</h2>
-    <p class="mt-4 max-w-xl text-lg text-chrome-100">{text}</p>
-    <div class="mt-8 flex flex-wrap gap-3">
+<section class="bg-contours relative overflow-hidden bg-iron text-white">
+  <div class="container-site relative grid items-end gap-10 py-20 md:grid-cols-[1.4fr_1fr] md:py-24">
+    <div>
+      <p class="eyebrow eyebrow-light">Next step</p>
+      <h2 class="max-w-2xl text-4xl md:text-6xl">{heading}</h2>
+      <p class="mt-5 max-w-xl text-lg text-gravel">{text}</p>
+    </div>
+    <div class="flex flex-wrap gap-3 md:justify-end">
       <Button href={url('contact/')} size="lg">
-        Get a Free Quote
+        Request a Bid
       </Button>
-      <Button href={site.phoneHref} variant="phone" size="lg">
-        <PhoneIcon /> {site.phone}
+      <Button href={site.phoneHref} variant="outline-light" size="lg">
+        {site.phone}
       </Button>
     </div>
   </div>

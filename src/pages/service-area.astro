@@ -3,29 +3,27 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import CTABand from '../components/CTABand.astro';
 import { site } from '../data/site';
-import hero from '../assets/photos/brush-clearing-roadside-berm.jpg';
+import hero from '../assets/photos/municipal-row-berm-restoration.jpg';
 ---
 
 <Base title="Service Area" description={`Where ${site.name} works: ${site.region}.`}>
   <PageHero
     eyebrow="Service area"
     title={`Serving ${site.region}`}
-    lede="Not sure if you're in range? Call us. If we can get the trailer there, we'll talk."
+    lede="Commercial and municipal projects across the region, plus residential properties of three acres or more."
     image={hero}
-    imageAlt="Roadside berm cleared and seeded along a farm field"
+    imageAlt="Restored roadside berm along farm fields"
   />
-  <section class="container-site py-16">
+  <section class="container-site py-20">
     {site.serviceArea.length > 0 ? (
-      <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {site.serviceArea.map((town) => (
-          <li class="rounded-md border border-chrome-100 bg-white px-4 py-3 font-semibold">
-            {town}
-          </li>
+      <ul class="grid gap-px bg-sand ring-1 ring-sand sm:grid-cols-2 lg:grid-cols-4">
+        {site.serviceArea.map((area) => (
+          <li class="bg-bone px-5 py-4 font-semibold">{area}</li>
         ))}
       </ul>
     ) : (
-      <p class="text-lg text-steel">
-        Town list coming soon. Call {site.phone} to check your location.
+      <p class="text-lg text-stone">
+        County list coming soon. Call {site.phone} to confirm your location.
       </p>
     )}
   </section>

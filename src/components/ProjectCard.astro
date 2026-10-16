@@ -5,31 +5,39 @@ import { url } from '../lib/url';
 
 interface Props {
   project: CollectionEntry<'projects'>;
+  large?: boolean;
 }
-const { project } = Astro.props;
+const { project, large = false } = Astro.props;
 const { data } = project;
 const service = await getEntry(data.service);
 ---
 
 <a
   href={url(`projects/${project.id}/`)}
-  class="group relative block overflow-hidden rounded-(--radius-card) bg-ink no-underline"
+  class="group relative block overflow-hidden bg-iron no-underline"
 >
   <Image
     src={data.cover}
     alt={data.coverAlt}
-    widths={[480, 800]}
-    width={800}
-    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-    class="aspect-[4/3] w-full object-cover opacity-90 transition group-hover:scale-[1.03] group-hover:opacity-100"
+    widths={[480, 800, 1200]}
+    width={1200}
+    sizes={
+      large
+        ? '(min-width: 1024px) 50vw, 100vw'
+        : '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw'
+    }
+    class:list={[
+      'w-full object-cover opacity-90 transition duration-500 group-hover:scale-[1.03] group-hover:opacity-100',
+      large ? 'aspect-[16/10]' : 'aspect-[4/3]',
+    ]}
   />
-  <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/95 via-ink/70 to-transparent p-5 pt-16">
+  <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-iron via-iron/75 to-transparent p-6 pt-20">
     {service && (
-      <span class="text-xs font-bold tracking-widest text-lime uppercase">
+      <span class="text-xs font-semibold tracking-[0.2em] text-copper-300 uppercase">
         {service.data.short}
       </span>
     )}
-    <h3 class="mt-1 text-2xl text-white">{data.title}</h3>
-    {data.town && <p class="text-sm text-chrome-300">{data.town}</p>}
+    <h3 class:list={['mt-2 text-white', large ? 'text-3xl' : 'text-2xl']}>{data.title}</h3>
+    {data.town && <p class="text-sm text-gravel">{data.town}</p>}
   </div>
 </a>

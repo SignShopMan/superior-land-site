@@ -1,7 +1,7 @@
 ---
 title: Creek Crossing Replacement
 service: drainage-culverts
-featured: true
+featured: false
 summary: Tore out a rotted wooden creek crossing and put in a new crossing over culvert pipe.
 cover: ../../assets/photos/culvert-crossing-after.jpg
 coverAlt: New flat crossing over culvert pipe in a wooded creek bed

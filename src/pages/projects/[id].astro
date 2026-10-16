@@ -33,16 +33,14 @@ const groups = [
     image={data.cover}
     imageAlt={data.coverAlt}
   />
-  <section class="container-site py-16">
+  <section class="container-site py-20">
     <div class="prose-site">
       <Content />
     </div>
     {groups.map((g) => (
-      <div class="mt-12">
-        <h2 class:list={['text-3xl', g.label === 'Before' ? 'text-steel' : 'text-green-700']}>
-          {g.label}
-        </h2>
-        <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-14">
+        <p class="eyebrow">{g.label}</p>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {g.photos.map((p) => (
             <Image
               src={p.src}
@@ -50,16 +48,19 @@ const groups = [
               widths={[480, 800]}
               width={800}
               sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-              class="aspect-[4/3] w-full rounded-(--radius-card) object-cover"
+              class="aspect-[4/3] w-full object-cover"
             />
           ))}
         </div>
       </div>
     ))}
     {service && (
-      <p class="mt-12">
-        <a href={url(`services/${service.id}/`)} class="font-bold text-orange-700">
-          More about {service.data.short.toLowerCase()} →
+      <p class="mt-14">
+        <a
+          href={url(`services/${service.id}/`)}
+          class="text-xs font-semibold tracking-[0.18em] text-copper-600 uppercase"
+        >
+          More about {service.data.short} →
         </a>
       </p>
     )}
