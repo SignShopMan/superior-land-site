@@ -6,7 +6,7 @@
 @import '@fontsource/barlow-condensed/500.css';
 @import '@fontsource/barlow-condensed/600.css';
 
-/* Design tokens v0.3 "Heritage" (charcoal + Superior orange) — source of truth: brand/tokens.css */
+/* Design tokens v1.0 — source of truth: brand/tokens.css */
 @theme {
   --color-charcoal: #1e2326;
   --color-orange: #e5641e;

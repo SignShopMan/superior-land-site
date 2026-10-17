@@ -4,61 +4,79 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Superior Brand Guide</title>
+<link rel="icon" type="image/svg+xml" href="../public/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --iron: #15181A; --graphite: #2A2F31; --slate: #3D4345; --stone: #5E625F; --gravel: #9A9D98;
-    --sand: #E8E3D9; --limestone: #F5F3EE; --bone: #FBFAF7;
-    --copper: #B4562B; --copper-300: #D98A5F; --copper-600: #A34B23; --copper-700: #8E3F1C;
-    --bg: var(--limestone); --fg: var(--iron); --muted: var(--stone); --card: var(--bone); --line: var(--sand); --accent-text: var(--copper-600);
+    --charcoal: #1E2326; --graphite: #2A2F31; --slate: #3D4345; --stone: #5E625F; --gravel: #9A9D98;
+    --sand: #E8E3D9; --limestone: #F5F3EE; --bone: #FBFAF7; --cream: #F4F2EE;
+    --orange: #E5641E; --orange-400: #EB7434; --orange-700: #A84414;
+    --forest: #243006; --forest-light: #5F7B32; --truck: #3E8E2E;
+    --bg: var(--limestone); --fg: var(--charcoal); --muted: var(--stone); --card: var(--bone); --line: var(--sand); --accent: var(--orange-700);
     --display: "Barlow Condensed", "Arial Narrow", sans-serif; --sans: "Barlow", system-ui, sans-serif;
   }
   @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) { --bg: #111314; --fg: #EEEDE9; --muted: #A4A7A2; --card: #1B1F21; --line: #2E3335; --accent-text: var(--copper-300); }
+    :root:not([data-theme="light"]) { --bg: #131617; --fg: #EEEDE9; --muted: #A4A7A2; --card: #1B1F21; --line: #2E3335; --accent: var(--orange-400); }
   }
-  :root[data-theme="dark"] { --bg: #111314; --fg: #EEEDE9; --muted: #A4A7A2; --card: #1B1F21; --line: #2E3335; --accent-text: var(--copper-300); }
+  :root[data-theme="dark"] { --bg: #131617; --fg: #EEEDE9; --muted: #A4A7A2; --card: #1B1F21; --line: #2E3335; --accent: var(--orange-400); }
 
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--fg); font: 400 17px/1.65 var(--sans); }
   img { max-width: 100%; display: block; }
-  code { font: 500 .85em ui-monospace, SFMono-Regular, Menlo, monospace; }
-  .wrap { max-width: 1140px; margin: 0 auto; padding: 0 16px; }
-  @media (min-width: 720px) { .wrap { padding: 0 40px; } }
+  code { font: 500 .84em ui-monospace, SFMono-Regular, Menlo, monospace; }
+  a { color: var(--accent); }
+  .wrap { max-width: 1160px; margin: 0 auto; padding: 0 16px; }
+  @media (min-width: 760px) { .wrap { padding: 0 40px; } }
   h1, h2, h3 { font-family: var(--display); font-weight: 600; text-transform: uppercase; letter-spacing: .015em; line-height: 1.02; margin: 0; }
-  h2 { font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: .4em; }
-  h3 { font-size: 1.3rem; margin-bottom: .45em; }
+  h2 { font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: .45em; }
+  h3 { font-size: 1.25rem; margin-bottom: .4em; }
   p { margin: 0 0 1em; }
   .muted { color: var(--muted); }
-  .eyebrow { display: flex; align-items: center; gap: 12px; font: 600 .74rem/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--accent-text); margin-bottom: 1rem; }
+  .lede { font-size: 1.12rem; max-width: 46em; }
+  .eyebrow { display: flex; align-items: center; gap: 12px; font: 600 .74rem/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
   .eyebrow::before { content: ""; width: 32px; height: 1px; background: currentColor; }
 
-  .hero { background: var(--iron); color: #fff; position: relative; overflow: hidden; }
-  .hero img.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .35; }
-  .hero .wrap { position: relative; padding-top: 72px; padding-bottom: 80px; }
-  .hero h1 { font-size: clamp(2.8rem, 8vw, 5.6rem); max-width: 14ch; }
-  .hero p { color: rgba(255,255,255,.8); max-width: 40em; font-size: 1.1rem; }
-  .hero .eyebrow { color: var(--copper-300); }
-  .lockup { display: inline-flex; align-items: center; gap: 14px; margin-bottom: 40px; }
-  .lockup b { display: block; font: 600 2rem/1 var(--display); letter-spacing: .12em; }
-  .lockup small { display: block; margin-top: 4px; font: 500 .66rem/1 var(--sans); letter-spacing: .32em; text-transform: uppercase; color: var(--gravel); }
+  /* Cover */
+  .cover { background: var(--charcoal); color: #fff; }
+  .cover .wrap { display: grid; gap: 40px; align-items: center; padding-top: 72px; padding-bottom: 80px; }
+  @media (min-width: 900px) { .cover .wrap { grid-template-columns: 1fr 1.1fr; } }
+  .cover h1 { font-size: clamp(2.6rem, 7vw, 4.8rem); }
+  .cover p { color: rgba(255,255,255,.78); }
+  .cover .eyebrow { color: var(--orange-400); }
+  .stamp { margin-top: 28px; display: flex; gap: 28px; flex-wrap: wrap; font-size: .82rem; color: var(--gravel); letter-spacing: .06em; text-transform: uppercase; }
+  .stamp b { display: block; color: #fff; font-weight: 600; letter-spacing: .04em; text-transform: none; font-size: .95rem; }
 
-  section { padding: 72px 0; border-bottom: 1px solid var(--line); }
-  .grid { display: grid; gap: 20px; }
-  @media (min-width: 760px) { .g2 { grid-template-columns: 1fr 1fr; } .g3 { grid-template-columns: repeat(3, 1fr); } .g4 { grid-template-columns: repeat(4, 1fr); } }
+  section { padding: 76px 0; border-bottom: 1px solid var(--line); }
+  .grid { display: grid; gap: 18px; }
+  @media (min-width: 760px) { .g2 { grid-template-columns: 1fr 1fr; } .g3 { grid-template-columns: repeat(3, 1fr); } .g4 { grid-template-columns: repeat(4, 1fr); } .g5 { grid-template-columns: repeat(5, 1fr); } }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 4px; padding: 22px; }
-  .card.rule { border-top: 2px solid var(--copper); }
-  .changes li { margin-bottom: 8px; }
-  ul.rules { list-style: none; padding: 0; margin: 0; }
-  ul.rules li { border-left: 1px solid var(--copper); padding: 2px 0 2px 14px; margin: 10px 0; }
-  ul.rules.no li { border-color: var(--gravel); color: var(--muted); }
+  .rule-top { border-top: 2px solid var(--orange); }
 
+  /* Logo tiles */
+  .tile { border-radius: 4px; overflow: hidden; border: 1px solid var(--line); background: var(--card); display: flex; flex-direction: column; }
+  .tile .art { display: flex; align-items: center; justify-content: center; padding: 28px; min-height: 200px; }
+  .tile .art img { max-height: 170px; width: auto; }
+  .tile .cap { padding: 12px 16px; font-size: .86rem; border-top: 1px solid var(--line); }
+  .tile .cap b { display: block; font-size: .95rem; }
+  .tile .cap code { color: var(--muted); }
+  .on-white { background: #fff; } .on-charcoal { background: var(--charcoal); } .on-truck { background: var(--truck); } .on-photo { background: url("../src/assets/photos/commercial-site-prep-drone.jpg") center/cover; }
+  .hero-logo { display: flex; align-items: center; justify-content: center; padding: 48px 24px; border-radius: 4px; }
+  .hero-logo img { max-height: 300px; width: auto; }
+
+  ul.rules { list-style: none; padding: 0; margin: 0; }
+  ul.rules li { border-left: 1px solid var(--orange); padding: 2px 0 2px 14px; margin: 10px 0; }
+  ul.rules.no li { border-color: var(--gravel); color: var(--muted); }
+  .dont { position: relative; }
+  .dont .art::after { content: "✕"; position: absolute; top: 10px; right: 14px; font: 600 1.1rem/1 var(--sans); color: #C8321E; }
+
+  /* Color */
   .sw { border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--card); }
-  .sw .chip { height: 120px; display: flex; align-items: flex-end; padding: 14px; font: 600 1.2rem/1 var(--display); text-transform: uppercase; letter-spacing: .04em; }
-  .sw .meta { padding: 12px 14px; font-size: .86rem; }
+  .sw .chip { height: 116px; display: flex; align-items: flex-end; padding: 14px; font: 600 1.15rem/1 var(--display); text-transform: uppercase; letter-spacing: .04em; }
+  .sw .meta { padding: 12px 14px; font-size: .84rem; }
   .sw .meta b { display: block; font-size: .95rem; }
-  .ratio { display: flex; height: 40px; border-radius: 2px; overflow: hidden; margin: 14px 0 8px; font: 600 .72rem/40px var(--sans); letter-spacing: .1em; text-transform: uppercase; color: #fff; text-align: center; }
+  .ratio { display: flex; height: 40px; border-radius: 2px; overflow: hidden; margin: 14px 0 8px; font: 600 .7rem/40px var(--sans); letter-spacing: .1em; text-transform: uppercase; color: #fff; text-align: center; }
   .scroll { overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; font-size: .92rem; }
   th, td { text-align: left; padding: 11px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
@@ -67,242 +85,242 @@
   .ok { color: #2F7D46; font-weight: 600; } .bad { color: #B42318; font-weight: 600; }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .ok { color: #7BC88E; } :root:not([data-theme="light"]) .bad { color: #FF8A80; } }
 
-  .alt { display: grid; grid-template-columns: 2fr 1fr 1fr; height: 84px; border-radius: 4px; overflow: hidden; border: 1px solid var(--line); }
-  .alt div { display: flex; align-items: flex-end; padding: 8px 10px; font: 600 .7rem/1.2 var(--sans); letter-spacing: .08em; text-transform: uppercase; }
-
-  .btn { display: inline-flex; align-items: center; font: 600 .8rem/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; padding: 15px 24px; border-radius: 2px; text-decoration: none; border: 1px solid transparent; }
-  .btn-p { background: var(--copper); color: #fff; }
-  .btn-o { border-color: var(--iron); color: var(--iron); }
-  .btn-ol { border-color: rgba(255,255,255,.4); color: #fff; }
-  .demo { padding: 28px; border-radius: 4px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-  .demo.light { background: #fff; border: 1px solid var(--line); }
-  .demo.dark { background: var(--iron); }
-
-  .spec { border-left: 2px solid var(--copper); padding-left: 18px; margin-bottom: 26px; }
+  /* Type */
+  .spec { border-left: 2px solid var(--orange); padding-left: 18px; margin-bottom: 26px; }
   .spec small { display: block; color: var(--muted); font: 500 .76rem/1.4 ui-monospace, Menlo, monospace; margin-bottom: 8px; }
 
-  .photos { display: grid; gap: 10px; grid-template-columns: repeat(2, 1fr); }
-  @media (min-width: 760px) { .photos { grid-template-columns: repeat(4, 1fr); } }
-  .photos figure { margin: 0; }
-  .photos img { aspect-ratio: 4/3; object-fit: cover; width: 100%; }
-  .photos figcaption { font-size: .78rem; color: var(--muted); padding-top: 6px; letter-spacing: .02em; }
-  .inspo a { color: var(--accent-text); }
+  /* Applications */
+  .app { border-radius: 4px; overflow: hidden; border: 1px solid var(--line); background: var(--card); }
+  .app .scene { height: 240px; position: relative; display: flex; align-items: center; justify-content: center; }
+  .app .cap { padding: 12px 16px; font-size: .86rem; border-top: 1px solid var(--line); }
+  .door { width: 82%; height: 78%; background: var(--truck); border-radius: 10px 10px 6px 6px; position: relative; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 18px; }
+  .door::before { content: ""; position: absolute; top: 8%; left: 6%; right: 6%; height: 34%; background: #2C3A33; opacity: .55; border-radius: 6px; }
+  .door::after { content: ""; position: absolute; right: 8%; top: 49%; width: 34px; height: 8px; border-radius: 4px; background: rgba(0,0,0,.35); }
+  .door img { width: 56%; position: relative; }
+  .hat { width: 150px; height: 96px; background: #F7F7F5; border-radius: 80px 80px 8px 8px; position: relative; border: 1px solid #D9DCD8; display: flex; align-items: center; justify-content: center; }
+  .hat::after { content: ""; position: absolute; bottom: -12px; left: -26px; right: -26px; height: 16px; background: #F7F7F5; border: 1px solid #D9DCD8; border-radius: 10px; }
+  .hat img { width: 62px; margin-top: 10px; }
+  .webhdr { width: 92%; background: var(--charcoal); border-radius: 4px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .webhdr img { height: 34px; width: auto; }
+  .webhdr span { font: 600 .6rem/1 var(--sans); letter-spacing: .12em; color: rgba(255,255,255,.8); }
+  .webhdr i { font-style: normal; background: var(--orange); color: var(--charcoal); padding: 7px 9px; font: 600 .56rem/1 var(--sans); letter-spacing: .1em; border-radius: 2px; }
+  .sign { width: 62%; background: #fff; border: 1px solid #D9DCD8; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; position: relative; }
+  .sign img { width: 86%; }
+  .sign span { font: 600 .66rem/1 var(--sans); letter-spacing: .14em; color: var(--charcoal); }
+  .sign::after { content: ""; position: absolute; bottom: -40px; left: 22%; right: 22%; height: 40px; border-left: 4px solid #8A8D88; border-right: 4px solid #8A8D88; }
+  .files a { text-decoration: none; }
   footer { padding: 40px 0 64px; font-size: .82rem; color: var(--muted); }
 </style>
 </head>
 <body>
 
-<header class="hero">
-  <img class="bg" src="../src/assets/photos/commercial-site-prep-drone.jpg" alt="">
+<header class="cover">
   <div class="wrap">
-    <div class="lockup">
-      <svg width="44" height="44" viewBox="0 0 40 40" fill="none" aria-hidden="true"><g stroke="#D98A5F" stroke-width="3"><path d="M4 14 20 6l16 8"/><path d="M4 23 20 15l16 8" opacity=".7"/><path d="M4 32 20 24l16 8" opacity=".45"/></g></svg>
-      <span><b>SUPERIOR</b><small>Land &amp; Site Services</small></span>
+    <div>
+      <div class="eyebrow">Brand guide · v1.0</div>
+      <h1>Superior Land &amp; Site Services</h1>
+      <p class="lede" style="margin-top:1.2rem">The identity for a site contractor bidding commercial, municipal and large-acreage work across West-Central Ohio. Same name, same orange, same trees and grass he's carried since 1997, now built to look like the company he runs.</p>
+      <div class="stamp">
+        <span>Logo<b>Final, Oct 2026</b></span>
+        <span>Files<b><code>brand/logo/</code></b></span>
+        <span>Master<b><code>2026-superior-new-logo.svg</code></b></span>
+      </div>
     </div>
-    <div class="eyebrow">Brand guide · v0.2 · "Iron &amp; Copper"</div>
-    <h1>Site work for bigger sites</h1>
-    <p style="margin-top:1.4rem">A more refined system for an expanded market: commercial contractors and developers, municipalities, and residential properties of 3+ acres.</p>
-    <p style="margin-top:1.4rem;padding:12px 16px;border-left:2px solid #E5641E;background:rgba(0,0,0,.35);color:#fff;max-width:44em;font-size:.95rem"><b>v0.3 update:</b> the logo direction is now the <b>heritage shield</b> (<code>brand/logo-concepts/</code>), and the site palette changed from Iron &amp; Copper to <b>charcoal #1E2326 + Superior orange #E5641E</b>. Orange buttons take charcoal text. The color and logo sections below still show v0.2 and need a refresh.</p>
+    <div class="hero-logo"><img src="logo/superior-badge-reverse.svg" alt="Superior Land & Site Services badge, reversed for dark backgrounds"></div>
   </div>
 </header>
 
 <main>
-<!-- 0. What changed -->
+<!-- 01 Brand -->
 <section>
   <div class="wrap grid g2">
     <div>
-      <div class="eyebrow">00 · What changed from v0.1</div>
-      <h2>Owner feedback</h2>
-      <ul class="changes muted">
-        <li><b style="color:var(--fg)">New market.</b> No small residential work. The focus is commercial, municipal and residential properties of 3+ acres (roughly $500–600k homes).</li>
-        <li><b style="color:var(--fg)">Not a fan of orange + green.</b> Green is gone. Orange stays, but only as a deeper, quieter <b>copper</b> accent.</li>
-        <li><b style="color:var(--fg)">More refined.</b> Upright type instead of italics, squared corners, no skewed or striped shapes, more white space, and a calm, near-monochrome base.</li>
-      </ul>
-    </div>
-    <div class="card inspo">
-      <h3>Reference sites</h3>
-      <p class="muted" style="margin-bottom:.6em"><a href="https://www.biggreens.com/">Big Greens</a>: generous white space, upright condensed uppercase headlines, a restrained two-tone palette, and B2B wording ("we work with contractors, solar farms, landfills").</p>
-      <p class="muted" style="margin:0"><a href="https://landmanagementresources.com/">Land Management Resources</a>: black and white with earthy accents, a quote form up front, a service-area list and FAQs.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 1. Positioning -->
-<section>
-  <div class="wrap">
-    <div class="eyebrow">01 · Positioning</div>
-    <h2>Who we're for</h2>
-    <div class="grid g3" style="margin-top:20px">
-      <div class="card rule"><h3>Contractors &amp; developers</h3><p class="muted" style="margin:0">Site prep, pads, stone and final grading for general contractors, developers, schools and industrial owners.</p></div>
-      <div class="card rule"><h3>Municipalities &amp; townships</h3><p class="muted" style="margin:0">Right-of-way and roadside clearing, ditch and berm restoration, and culverts.</p></div>
-      <div class="card rule"><h3>Estates &amp; acreage</h3><p class="muted" style="margin:0">Clearing, ponds, access drives and grading on residential properties of 3+ acres.</p></div>
-    </div>
-    <p class="muted" style="margin-top:24px">Lead with capability and reliability, not price. The main call to action changes from "Free Quote" to <b>"Request a Bid."</b> The form screens out small jobs by project type and size.</p>
-  </div>
-</section>
-
-<!-- 2. Logo -->
-<section>
-  <div class="wrap grid g2">
-    <div>
-      <div class="eyebrow">02 · Logo direction</div>
-      <h2>Retire the badge</h2>
-      <p>The chrome-and-glow badge from the sketch reads as motorsport, not as a contractor bidding municipal or commercial work. For v0.2 the site uses a <b>simplified lockup</b>:</p>
-      <ul class="rules">
-        <li><b>Mark:</b> three stacked chevrons, suggesting contour lines and layers of grade. Copper on dark, iron on light.</li>
-        <li><b>Wordmark:</b> SUPERIOR in Barlow Condensed 600, tracked +12%, with LAND &amp; SITE SERVICES in small spaced capitals underneath.</li>
-        <li>Single color everywhere, with no gradient, bevel or phone number. It works on trucks, hard hats, bid documents and embroidery.</li>
-      </ul>
-      <p class="muted">Next step: have a designer finalize the mark from this direction. It's a placeholder in the code: <code>src/components/Mark.astro</code>.</p>
+      <div class="eyebrow">01 · The brand</div>
+      <h2>Built for bigger sites</h2>
+      <p class="lede">Superior's service promise has always been strong: show up with the right machine, do it right, and leave it finished. The brand now makes that same promise to the clients he's going after.</p>
+      <p class="muted">Tagline: <b style="color:var(--fg)">Site work, done right from the ground up.</b></p>
     </div>
     <div class="grid" style="gap:14px">
-      <div class="card" style="background:var(--iron);border-color:var(--iron);display:flex;align-items:center;gap:14px;padding:32px">
-        <svg width="48" height="48" viewBox="0 0 40 40" fill="none"><g stroke="#D98A5F" stroke-width="3"><path d="M4 14 20 6l16 8"/><path d="M4 23 20 15l16 8" opacity=".7"/><path d="M4 32 20 24l16 8" opacity=".45"/></g></svg>
-        <span style="color:#fff"><b style="display:block;font:600 2.2rem/1 var(--display);letter-spacing:.12em">SUPERIOR</b><small style="display:block;margin-top:5px;font:500 .7rem/1 var(--sans);letter-spacing:.32em;color:var(--gravel)">LAND &amp; SITE SERVICES</small></span>
-      </div>
-      <div class="card" style="background:#fff;display:flex;align-items:center;gap:14px;padding:32px">
-        <svg width="48" height="48" viewBox="0 0 40 40" fill="none"><g stroke="#15181A" stroke-width="3"><path d="M4 14 20 6l16 8"/><path d="M4 23 20 15l16 8" opacity=".7"/><path d="M4 32 20 24l16 8" opacity=".45"/></g></svg>
-        <span style="color:#15181A"><b style="display:block;font:600 2.2rem/1 var(--display);letter-spacing:.12em">SUPERIOR</b><small style="display:block;margin-top:5px;font:500 .7rem/1 var(--sans);letter-spacing:.32em;color:var(--stone)">LAND &amp; SITE SERVICES</small></span>
-      </div>
+      <div class="card rule-top"><h3>Contractors &amp; developers</h3><p class="muted" style="margin:0">Site prep, pads, stone and final grading for GCs, developers, schools and industrial owners.</p></div>
+      <div class="card rule-top"><h3>Municipalities &amp; townships</h3><p class="muted" style="margin:0">Right-of-way and roadside clearing, ditch and berm restoration, culverts.</p></div>
+      <div class="card rule-top"><h3>Estates &amp; acreage</h3><p class="muted" style="margin:0">Clearing, ponds, access drives and grading on residential properties of 3+ acres. No small residential work.</p></div>
     </div>
   </div>
 </section>
 
-<!-- 3. Color -->
+<!-- 02 Logo system -->
 <section>
   <div class="wrap">
-    <div class="eyebrow">03 · Color</div>
-    <h2>Iron &amp; Copper</h2>
-    <p class="muted">A near-monochrome base of iron, stone and limestone, with one accent. Copper is the logo orange taken deeper and quieter, so it reads as craft and materials rather than safety cones.</p>
-    <div class="grid g4" style="margin-top:22px">
-      <div class="sw"><div class="chip" style="background:#15181A;color:#fff">Iron</div><div class="meta"><b>iron</b><code>#15181A</code> · header, footer, headlines</div></div>
-      <div class="sw"><div class="chip" style="background:#B4562B;color:#fff">Copper</div><div class="meta"><b>copper-500</b><code>#B4562B</code> · buttons, rules, highlights</div></div>
-      <div class="sw"><div class="chip" style="background:#F5F3EE;color:#15181A">Limestone</div><div class="meta"><b>limestone</b><code>#F5F3EE</code> · page background</div></div>
-      <div class="sw"><div class="chip" style="background:#E8E3D9;color:#15181A">Sand</div><div class="meta"><b>sand</b><code>#E8E3D9</code> · alternate sections, borders</div></div>
-    </div>
-    <div class="grid g4" style="margin-top:20px">
-      <div class="sw"><div class="chip" style="background:#5E625F;color:#fff">Stone</div><div class="meta"><b>stone</b><code>#5E625F</code> · secondary text</div></div>
-      <div class="sw"><div class="chip" style="background:#9A9D98;color:#15181A">Gravel</div><div class="meta"><b>gravel</b><code>#9A9D98</code> · text on iron, captions</div></div>
-      <div class="sw"><div class="chip" style="background:#A34B23;color:#fff">Copper 600</div><div class="meta"><b>copper-600</b><code>#A34B23</code> · copper <i>text</i> on light</div></div>
-      <div class="sw"><div class="chip" style="background:#D98A5F;color:#15181A">Copper 300</div><div class="meta"><b>copper-300</b><code>#D98A5F</code> · copper text on iron</div></div>
-    </div>
-
-    <h3 style="margin-top:40px">Balance</h3>
-    <div class="ratio" role="img" aria-label="Color balance: 60% limestone and sand, 32% iron, 8% copper">
-      <div style="flex:60;background:#E8E3D9;color:#15181A">Limestone / sand 60%</div>
-      <div style="flex:32;background:#15181A">Iron 32%</div>
-      <div style="flex:8;background:#B4562B">Copper</div>
-    </div>
-    <p class="muted" style="font-size:.9rem">Use copper sparingly: primary buttons, thin rules, eyebrow labels and numbers. Never as a large background.</p>
-
-    <h3 style="margin-top:32px">Contrast (WCAG 2.2 AA)</h3>
-    <div class="scroll card" style="padding:4px 14px">
-      <table>
-        <thead><tr><th>Pairing</th><th>Sample</th><th>Ratio</th><th>Use</th></tr></thead>
-        <tbody>
-          <tr><td>White on Copper 500</td><td><span class="pill" style="background:#B4562B;color:#fff">Request a Bid</span></td><td>4.9 : 1</td><td class="ok">Buttons ✓</td></tr>
-          <tr><td>Copper 600 on Limestone</td><td><span class="pill" style="background:#F5F3EE;color:#A34B23;border:1px solid #E8E3D9">View service →</span></td><td>5.3 : 1</td><td class="ok">Links, labels ✓</td></tr>
-          <tr><td>Copper 500 on Limestone</td><td><span class="pill" style="background:#F5F3EE;color:#B4562B;border:1px solid #E8E3D9">Label</span></td><td>4.4 : 1</td><td class="bad">Large or decorative only ✗</td></tr>
-          <tr><td>Copper 300 on Iron</td><td><span class="pill" style="background:#15181A;color:#D98A5F">Our own fleet</span></td><td>6.6 : 1</td><td class="ok">Labels on dark ✓</td></tr>
-          <tr><td>Stone on White</td><td><span class="pill" style="background:#fff;color:#5E625F;border:1px solid #E8E3D9">Body copy</span></td><td>6.2 : 1</td><td class="ok">Secondary text ✓</td></tr>
-          <tr><td>Gravel on Iron</td><td><span class="pill" style="background:#15181A;color:#9A9D98">Footer text</span></td><td>6.4 : 1</td><td class="ok">Text on dark ✓</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3 style="margin-top:40px">Alternates considered</h3>
-    <p class="muted" style="font-size:.92rem">If the owner wants to go further from orange, either of these drops into the same token names.</p>
-    <div class="grid g3">
-      <div><div class="alt"><div style="background:#15181A;color:#fff">Iron</div><div style="background:#B4562B;color:#fff">Copper</div><div style="background:#F5F3EE;color:#15181A">Limestone</div></div><p style="margin-top:8px"><b>A · Iron &amp; Copper</b> <span class="muted">(recommended, in use)</span></p></div>
-      <div><div class="alt"><div style="background:#1E3A34;color:#fff">Spruce</div><div style="background:#B08D57;color:#15181A">Brass</div><div style="background:#F4F1EA;color:#15181A">Bone</div></div><p style="margin-top:8px"><b>B · Spruce &amp; Brass</b> <span class="muted">Estate and land-trust feel. No orange.</span></p></div>
-      <div><div class="alt"><div style="background:#1F2A36;color:#fff">Slate Navy</div><div style="background:#D9732B;color:#15181A">Signal</div><div style="background:#F3F4F5;color:#15181A">Concrete</div></div><p style="margin-top:8px"><b>C · Slate &amp; Signal</b> <span class="muted">Civil and engineering feel. Keeps a brighter orange.</span></p></div>
+    <div class="eyebrow">02 · Logo system</div>
+    <h2>One badge, four ways to use it</h2>
+    <p class="lede muted">Everything is built from one master file, so the arched SUPERIOR, the tree, the grade line and the blades are identical in every version.</p>
+    <div class="hero-logo on-white" style="border:1px solid var(--line);margin:28px 0 18px"><img src="logo/superior-badge-color.svg" alt="Primary badge, full color"></div>
+    <p class="muted" style="font-size:.92rem">What the parts mean: the <b style="color:var(--fg)">tree</b> is raw land, the <b style="color:var(--fg)">grade line</b> is the finished site, and the <b style="color:var(--fg)">grass blades</b> are how every job ends: seeded, strawed and stabilized. The shield's shoulders come from the 1997 badge.</p>
+    <div class="grid g4" style="margin-top:28px">
+      <div class="tile"><div class="art on-white"><img src="logo/superior-mark-color.svg" alt="Compact mark"></div><div class="cap"><b>Mark</b>Hard hats, embroidery, decals, favicon. Anything under 140px.</div></div>
+      <div class="tile"><div class="art on-white"><img src="logo/superior-lockup-horizontal-color.svg" alt="Horizontal lockup"></div><div class="cap"><b>Horizontal lockup</b>Site header, letterhead, bid covers, trailer sides.</div></div>
+      <div class="tile"><div class="art on-white"><img src="logo/superior-lockup-stacked-color.svg" alt="Stacked lockup"></div><div class="cap"><b>Stacked lockup</b>Square spaces: social avatar, shirt backs, yard signs.</div></div>
+      <div class="tile"><div class="art on-white"><img src="logo/superior-wordmark-color.svg" alt="Wordmark"></div><div class="cap"><b>Wordmark</b>Where the shield won't fit or would repeat.</div></div>
     </div>
   </div>
 </section>
 
-<!-- 4. Type -->
-<section>
-  <div class="wrap grid g2">
-    <div>
-      <div class="eyebrow">04 · Typography</div>
-      <h2>Upright &amp; engineered</h2>
-      <p>Same families as before, used with more restraint. <b>Barlow Condensed 600, upright</b> for headlines, the way Big Greens uses Roboto Condensed. <b>Barlow 400/500</b> for body text. Small tracked capitals carry labels, buttons and navigation.</p>
-      <ul class="rules">
-        <li>Headlines: uppercase, 600, tracking +1.5%, line-height 1.0</li>
-        <li>Labels and buttons: Barlow 600, 12–14px, tracking 0.1–0.2em, uppercase</li>
-        <li>Body: 17px, line-height 1.65, max 68 characters per line</li>
-        <li>No italics and no 800/900 weights. Let size and spacing carry the emphasis.</li>
-      </ul>
-    </div>
-    <div>
-      <div class="spec"><small>H1 · Barlow Condensed 600 · 88/90</small><div style="font:600 clamp(2.4rem,6vw,3.8rem)/1 var(--display);text-transform:uppercase;letter-spacing:.015em">Built for bigger sites</div></div>
-      <div class="spec"><small>H2 · Barlow Condensed 600 · 48/50</small><div style="font:600 2.4rem/1 var(--display);text-transform:uppercase">Municipal &amp; ROW Clearing</div></div>
-      <div class="spec"><small>Label · Barlow 600 · 12 · tracking .2em</small><div class="eyebrow" style="margin:0">Serving West-Central Ohio</div></div>
-      <div class="spec"><small>Body · Barlow 400 · 17/28</small><p style="margin:0">Clearing, grading, ponds, drainage, access roads and final stabilization, done with our own crew and equipment.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- 5. Components -->
+<!-- 03 Versions -->
 <section>
   <div class="wrap">
-    <div class="eyebrow">05 · Interface</div>
-    <h2>Components</h2>
-    <div class="grid g2">
-      <div class="demo light"><a class="btn btn-p" href="#">Request a Bid</a><a class="btn btn-o" href="#">View Projects</a></div>
-      <div class="demo dark"><a class="btn btn-p" href="#">Request a Bid</a><a class="btn btn-ol" href="#">937-539-3002</a></div>
+    <div class="eyebrow">03 · Versions</div>
+    <h2>Pick by background</h2>
+    <p class="lede muted">Every logo comes in the same five versions. Choose by what it sits on, not by taste.</p>
+    <div class="grid g5" style="margin-top:24px">
+      <div class="tile"><div class="art on-white"><img src="logo/superior-badge-color.svg" alt=""></div><div class="cap"><b>Color</b>White or light backgrounds<br><code>-color.svg</code></div></div>
+      <div class="tile"><div class="art on-charcoal"><img src="logo/superior-badge-reverse.svg" alt=""></div><div class="cap"><b>Reverse</b>Charcoal, black, web dark mode<br><code>-reverse.svg</code></div></div>
+      <div class="tile"><div class="art on-truck"><img src="logo/superior-badge-plate.svg" alt=""></div><div class="cap"><b>Plate</b>Colored trucks, photos<br><code>-plate.svg</code></div></div>
+      <div class="tile"><div class="art on-white"><img src="logo/superior-badge-black.svg" alt=""></div><div class="cap"><b>Black</b>1-color vinyl, stamps, forms<br><code>-black.svg</code></div></div>
+      <div class="tile"><div class="art on-charcoal"><img src="logo/superior-badge-white.svg" alt=""></div><div class="cap"><b>White</b>1-color on dark vinyl, stitching<br><code>-white.svg</code></div></div>
     </div>
-    <ul class="rules" style="margin-top:24px">
-      <li><b>Corners:</b> 2px on buttons, 4px on cards. Squared-off and engineered, not pill-shaped.</li>
-      <li><b>Copper rule:</b> a 2px top border on service cards and callouts, and a 32px rule before every label.</li>
-      <li><b>Numbering:</b> 01 / 02 / 03 in copper for audiences, process steps and services.</li>
-      <li><b>Contour pattern:</b> faint topographic lines at 6% white on dark bands. It replaces the old skewed stripe.</li>
+    <p class="muted" style="margin-top:20px;font-size:.92rem">The reverse versions swap forest <code>#243006</code> for forest light <code>#5F7B32</code>. Forest is invisible on charcoal (1.1:1). The plate version keeps true colors on a white contour plate, so it works on any paint color, including his green Peterbilt.</p>
+  </div>
+</section>
+
+<!-- 04 Usage -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">04 · Usage</div>
+    <h2>Size, space and don'ts</h2>
+    <div class="grid g3" style="margin-top:12px">
+      <div class="card"><h3>Minimum size</h3><ul class="rules">
+        <li><b>Badge:</b> 140px or 1.25" wide</li>
+        <li><b>Horizontal lockup:</b> 56px or 0.6" tall</li>
+        <li><b>Mark:</b> 32px or 0.4" wide</li>
+        <li>Below the badge minimum, LAND &amp; SITE SERVICES and the blades fill in. Switch to the mark.</li>
+      </ul></div>
+      <div class="card"><h3>Clear space</h3><ul class="rules">
+        <li>Keep the height of the "L" in LAND clear on every side.</li>
+        <li>No other logos, text or edges inside that space.</li>
+        <li>On photos, use the plate version or a solid charcoal band.</li>
+      </ul></div>
+      <div class="card"><h3>Files</h3><ul class="rules">
+        <li>Every file is outlined SVG. No fonts needed.</li>
+        <li>For a sign shop, open in Illustrator and Save As EPS or PDF.</li>
+        <li>Change the master and run <code>build_logos.py</code>; never hand-edit the variants.</li>
+      </ul></div>
+    </div>
+    <h3 style="margin-top:36px">Don't</h3>
+    <div class="grid g4" style="margin-top:12px">
+      <div class="tile dont"><div class="art on-white"><img src="logo/superior-badge-color.svg" alt="" style="transform:scaleX(1.35)"></div><div class="cap">Stretch or squash it</div></div>
+      <div class="tile dont"><div class="art on-white"><img src="logo/superior-badge-color.svg" alt="" style="filter:drop-shadow(6px 8px 4px rgba(0,0,0,.45)) saturate(1.6)"></div><div class="cap">Add shadows, outlines, glows or chrome</div></div>
+      <div class="tile dont"><div class="art on-white"><img src="logo/superior-badge-color.svg" alt="" style="filter:hue-rotate(120deg)"></div><div class="cap">Recolor it, including lime or red</div></div>
+      <div class="tile dont"><div class="art on-photo"><img src="logo/superior-badge-color.svg" alt=""></div><div class="cap">Put the color badge on a busy photo (use the plate)</div></div>
+    </div>
+    <ul class="rules no" style="margin-top:18px">
+      <li>Never add the phone number to the logo. Set it beside or below the logo.</li>
+      <li>Never use the Bobcat cat head, the John Deere deer, or "Bobcat" in the name. They're registered trademarks of other companies.</li>
+      <li>Never use the old chrome badge or the AI-generated version anywhere new. Retire them as trucks and signs get redone.</li>
     </ul>
   </div>
 </section>
 
-<!-- 6. Photography -->
+<!-- 05 Color -->
 <section>
   <div class="wrap">
-    <div class="eyebrow">06 · Photography</div>
-    <h2>Show the market you want</h2>
-    <p>Every photo on the site should look like a commercial, municipal or large-acreage job. The set in <code>src/assets/photos/</code> was re-curated to 43 images. All the small-yard, downspout, garage and modest-driveway shots are gone.</p>
-    <div class="photos">
-      <figure><img src="../src/assets/photos/commercial-site-prep-drone.jpg" alt=""><figcaption>Commercial development · drone</figcaption></figure>
-      <figure><img src="../src/assets/photos/commercial-stone-stadium.jpg" alt=""><figcaption>School athletic complex</figcaption></figure>
-      <figure><img src="../src/assets/photos/industrial-site-grading-seeding.jpg" alt=""><figcaption>Industrial site stabilization</figcaption></figure>
-      <figure><img src="../src/assets/photos/municipal-row-excavator-mulcher.jpg" alt=""><figcaption>Township ROW clearing</figcaption></figure>
-      <figure><img src="../src/assets/photos/acreage-homesite-site-prep-drone.jpg" alt=""><figcaption>Acreage homesite · drone</figcaption></figure>
-      <figure><img src="../src/assets/photos/pond-construction-drone.jpg" alt=""><figcaption>Estate pond · drone</figcaption></figure>
-      <figure><img src="../src/assets/photos/forestry-mulching-lot-clearing.jpg" alt=""><figcaption>Forestry mulching</figcaption></figure>
-      <figure><img src="../src/assets/photos/fleet-truck-gooseneck-excavator.jpg" alt=""><figcaption>Fleet</figcaption></figure>
+    <div class="eyebrow">05 · Color</div>
+    <h2>Heritage, quietly</h2>
+    <p class="lede muted">His orange and a deep forest green, used small and deliberately, on charcoal and warm neutrals. No lime, no chrome, no gradients.</p>
+    <div class="grid g4" style="margin-top:22px">
+      <div class="sw"><div class="chip" style="background:#E5641E;color:#1E2326">Superior Orange</div><div class="meta"><b>orange</b><code>#E5641E</code> · wordmark, buttons, accents</div></div>
+      <div class="sw"><div class="chip" style="background:#243006;color:#fff">Forest</div><div class="meta"><b>forest</b><code>#243006</code> · tree and field on light</div></div>
+      <div class="sw"><div class="chip" style="background:#5F7B32;color:#fff">Forest Light</div><div class="meta"><b>forest-light</b><code>#5F7B32</code> · tree and field on dark</div></div>
+      <div class="sw"><div class="chip" style="background:#1E2326;color:#fff">Charcoal</div><div class="meta"><b>charcoal</b><code>#1E2326</code> · header, footer, type</div></div>
     </div>
-    <div class="grid g2" style="margin-top:28px">
-      <div class="card"><h3>Use</h3><ul class="rules">
-        <li>Drone views of whole sites. These are the strongest shots for commercial and acreage work.</li>
-        <li>Buildings, paving, stadiums, warehouses: anything that shows scale and who the client is.</li>
-        <li>Public roads, guardrails and signage for municipal work.</li>
-        <li>Wide views of large properties and ponds that show the acreage.</li>
-        <li>Equipment working at scale, not parked in a driveway.</li>
-      </ul></div>
-      <div class="card"><h3>Avoid</h3><ul class="rules no">
-        <li>Small yards, single downspouts, sheds and garages</li>
-        <li>Tight shots of modest houses or short driveways</li>
-        <li>Personal vehicles or customers' cars as the subject</li>
-        <li>Grey-sky phone shots where a sunny retake exists</li>
-      </ul></div>
+    <div class="grid g4" style="margin-top:18px">
+      <div class="sw"><div class="chip" style="background:#F5F3EE;color:#1E2326">Limestone</div><div class="meta"><b>limestone</b><code>#F5F3EE</code> · page background</div></div>
+      <div class="sw"><div class="chip" style="background:#E8E3D9;color:#1E2326">Sand</div><div class="meta"><b>sand</b><code>#E8E3D9</code> · alternate sections, borders</div></div>
+      <div class="sw"><div class="chip" style="background:#5E625F;color:#fff">Stone</div><div class="meta"><b>stone</b><code>#5E625F</code> · secondary text</div></div>
+      <div class="sw"><div class="chip" style="background:#A84414;color:#fff">Orange 700</div><div class="meta"><b>orange-700</b><code>#A84414</code> · orange text on light</div></div>
     </div>
-    <p class="muted" style="margin-top:20px"><b>Photo request for the owner:</b> drone shots of every commercial and municipal job, before and after from the same spot, and a crew or owner photo for the About page.</p>
+    <h3 style="margin-top:36px">Balance</h3>
+    <div class="ratio" role="img" aria-label="Color balance: 58% limestone and sand, 30% charcoal, 7% orange, 5% forest">
+      <div style="flex:58;background:#E8E3D9;color:#1E2326">Limestone / sand</div>
+      <div style="flex:30;background:#1E2326">Charcoal</div>
+      <div style="flex:7;background:#E5641E;color:#1E2326">Orange</div>
+      <div style="flex:5;background:#243006">Forest</div>
+    </div>
+    <p class="muted" style="font-size:.9rem">Orange is for the thing to act on: the wordmark, the primary button, a thin rule. Forest belongs to the logo and the occasional accent. Never use either as a large background.</p>
+    <h3 style="margin-top:32px">Contrast rules (WCAG 2.2 AA)</h3>
+    <div class="scroll card" style="padding:4px 14px">
+      <table>
+        <thead><tr><th>Pairing</th><th>Sample</th><th>Ratio</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td>Charcoal on orange</td><td><span class="pill" style="background:#E5641E;color:#1E2326">Request a bid</span></td><td>4.7 : 1</td><td class="ok">Buttons ✓</td></tr>
+          <tr><td>White on orange</td><td><span class="pill" style="background:#E5641E;color:#fff">Request a bid</span></td><td>3.4 : 1</td><td class="bad">Don't use ✗</td></tr>
+          <tr><td>Orange 700 on limestone</td><td><span class="pill" style="background:#F5F3EE;color:#A84414;border:1px solid #E8E3D9">View service →</span></td><td>5.4 : 1</td><td class="ok">Links, labels ✓</td></tr>
+          <tr><td>Orange 400 on charcoal</td><td><span class="pill" style="background:#1E2326;color:#EB7434">Our own fleet</span></td><td>5.4 : 1</td><td class="ok">Labels on dark ✓</td></tr>
+          <tr><td>Forest light on charcoal</td><td><span class="pill" style="background:#1E2326;color:#5F7B32">Logo tree</span></td><td>3.3 : 1</td><td class="ok">Graphics only ✓</td></tr>
+          <tr><td>Forest on charcoal</td><td><span class="pill" style="background:#1E2326;color:#243006">Logo tree</span></td><td>1.1 : 1</td><td class="bad">Invisible ✗</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
-<!-- 7. Voice -->
+<!-- 06 Type -->
 <section>
   <div class="wrap grid g2">
     <div>
-      <div class="eyebrow">07 · Voice</div>
-      <h2>How we talk</h2>
-      <p class="muted">Professional and direct, the way you'd talk to a GC or a township trustee. Confident without slogans.</p>
+      <div class="eyebrow">06 · Typography</div>
+      <h2>Two jobs, two families</h2>
+      <p><b>Termina</b> (Adobe Fonts) belongs to the logo only: Bold for the arched SUPERIOR, Demi for LAND &amp; SITE SERVICES. It's outlined in every logo file, so nobody needs it installed.</p>
+      <p><b>Barlow Condensed</b> and <b>Barlow</b> run everything else: the website, documents and signage copy. They're free, readable at any size, and sit comfortably next to the wide logo type.</p>
+      <ul class="rules">
+        <li>Headlines: Barlow Condensed 600, uppercase, upright, tracking +1.5%</li>
+        <li>Labels and buttons: Barlow 600, 12–14px, tracking 0.1–0.2em, uppercase</li>
+        <li>Body: Barlow 400, 17px, line-height 1.65</li>
+        <li>No italics and no 800/900 weights</li>
+      </ul>
+    </div>
+    <div>
+      <div class="spec"><small>Headline · Barlow Condensed 600</small><div style="font:600 clamp(2.4rem,6vw,3.6rem)/1 var(--display);text-transform:uppercase">Built for bigger sites</div></div>
+      <div class="spec"><small>Section · Barlow Condensed 600</small><div style="font:600 2.2rem/1 var(--display);text-transform:uppercase">Municipal &amp; ROW Clearing</div></div>
+      <div class="spec"><small>Label · Barlow 600 · tracking .2em</small><div class="eyebrow" style="margin:0">Serving West-Central Ohio</div></div>
+      <div class="spec"><small>Body · Barlow 400</small><p style="margin:0">Clearing, grading, ponds, drainage, access roads and final stabilization, done with our own crew and equipment.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 Applications -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow">07 · Applications</div>
+    <h2>Where it lives</h2>
+    <div class="grid g4" style="margin-top:12px">
+      <div class="app"><div class="scene" style="background:#E3E6E1"><div class="door"><img src="logo/superior-badge-plate.svg" alt=""></div></div><div class="cap"><b>Truck door</b> · badge plate, about 24" wide</div></div>
+      <div class="app"><div class="scene" style="background:#E3E6E1"><div class="hat"><img src="logo/superior-mark-color.svg" alt=""></div></div><div class="cap"><b>Hard hat</b> · mark, color or 1-color</div></div>
+      <div class="app"><div class="scene" style="background:#E3E6E1"><div class="webhdr"><img src="logo/superior-lockup-horizontal-reverse.svg" alt=""><i>REQUEST A BID</i></div></div><div class="cap"><b>Website header</b> · horizontal lockup, reverse</div></div>
+      <div class="app"><div class="scene" style="background:#C9D6C0;padding-bottom:30px"><div class="sign"><img src="logo/superior-lockup-stacked-color.svg" alt=""><span>937-539-3002</span></div></div><div class="cap"><b>Job-site sign</b> · stacked lockup, phone below</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 Photo + voice -->
+<section>
+  <div class="wrap grid g2">
+    <div>
+      <div class="eyebrow">08 · Photography</div>
+      <h2>Show the work you want</h2>
+      <ul class="rules">
+        <li>Commercial, municipal and acreage jobs only. Drone views of whole sites are the strongest shots.</li>
+        <li>Show scale: buildings, paving, stadiums, public roads, wide views of large properties.</li>
+        <li>Equipment working, not parked in a driveway.</li>
+        <li>Before and after from the same spot.</li>
+      </ul>
+      <ul class="rules no">
+        <li>No small yards, downspouts, sheds or short driveways</li>
+        <li>No customers' cars, plates or house numbers</li>
+      </ul>
+    </div>
+    <div>
+      <div class="eyebrow">Voice</div>
+      <h2>Talk like a contractor</h2>
       <table>
         <thead><tr><th>Say</th><th>Not</th></tr></thead>
         <tbody>
@@ -313,23 +331,23 @@
         </tbody>
       </table>
     </div>
-    <div>
-      <div class="eyebrow">Service lineup v0.2</div>
-      <div class="grid g2" style="gap:10px">
-        <div class="card">01 · Commercial site work</div>
-        <div class="card">02 · Municipal &amp; ROW clearing</div>
-        <div class="card">03 · Land clearing &amp; forestry mulching</div>
-        <div class="card">04 · Ponds</div>
-        <div class="card">05 · Grading, seeding &amp; stabilization</div>
-        <div class="card">06 · Drainage &amp; culverts</div>
-        <div class="card">07 · Access roads &amp; estate drives</div>
-      </div>
-      <p class="muted" style="font-size:.86rem;margin-top:12px">Dropped: demolition and residential downspout drainage. Brush clearing is folded into Municipal &amp; ROW.</p>
+  </div>
+</section>
+
+<!-- 09 Files -->
+<section>
+  <div class="wrap files">
+    <div class="eyebrow">09 · Files</div>
+    <h2>Where everything is</h2>
+    <div class="grid g3">
+      <div class="card"><h3>Logo</h3><p class="muted" style="margin:0"><code>brand/logo/</code> holds 22 outlined SVGs plus PNG previews. The <a href="logo/README.md">README</a> covers which file to use where.</p></div>
+      <div class="card"><h3>Master and build</h3><p class="muted" style="margin:0"><code>brand/2026-superior-new-logo.svg</code> is the source. <code>brand/tools/build_logos.py</code> regenerates every variant, the favicon and the site logos.</p></div>
+      <div class="card"><h3>Web tokens</h3><p class="muted" style="margin:0"><code>brand/tokens.css</code>, mirrored in <code>src/styles/global.css</code>: every color above as a Tailwind token.</p></div>
     </div>
   </div>
 </section>
 </main>
 
-<footer><div class="wrap">Superior Land &amp; Site Services · Brand guide v0.2 · Tokens: <code>brand/tokens.css</code> → <code>src/styles/global.css</code></div></footer>
+<footer><div class="wrap">Superior Land &amp; Site Services · Brand guide v1.0 · October 2026</div></footer>
 </body>
 </html>
