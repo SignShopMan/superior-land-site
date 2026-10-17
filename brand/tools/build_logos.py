@@ -253,8 +253,12 @@ def main():
 
     OUT.mkdir(exist_ok=True)
     (OUT / "png").mkdir(exist_ok=True)
+    # Overwrite in place and only remove files no longer produced, so a running dev server
+    # never sees a referenced file go missing mid-build.
+    keep = set(files) | {f.replace(".svg", ".png") for f in files}
     for old in list(OUT.glob("superior-*.svg")) + list((OUT / "png").glob("superior-*.png")):
-        old.unlink()
+        if old.name not in keep:
+            old.unlink()
     for fname, svg in files.items():
         (OUT / fname).write_text(svg)
         (OUT / "png" / fname.replace(".svg", ".png")).write_bytes(bytes(resvg_py.svg_to_bytes(svg_string=svg, width=1200)))
@@ -270,9 +274,11 @@ def main():
 
     assets = ROOT / "src/assets/brand"
     assets.mkdir(parents=True, exist_ok=True)
+    site_logos = ("superior-wordmark-dark.svg", "superior-logo-dark.svg")  # header, footer
     for old in assets.glob("superior-*.svg"):
-        old.unlink()
-    for name in ("superior-lockup-horizontal-dark.svg", "superior-logo-dark.svg", "superior-mark-dark.svg"):
+        if old.name not in site_logos:
+            old.unlink()
+    for name in site_logos:
         (assets / name).write_text(files[name])
 
     # Open Graph share image: the dark logo centered on charcoal, 1200x630

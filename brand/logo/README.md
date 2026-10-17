@@ -21,8 +21,8 @@ Illustrator opens them directly; use File > Save As to make EPS or PDF for a sig
 
 - **Logo:** truck doors, job-site signs, the site footer and hero, social avatar. Minimum 140px or 1.25" wide.
 - **Mark:** hard hats, embroidered hats, equipment decals, favicon, anywhere the logo would be under 140px.
-- **Wordmark:** where the shield won't fit or would repeat (next to the logo on the same truck, in a document footer). Note that the dark wordmark is white, not orange.
-- **Horizontal lockup** (mark + wordmark side by side): site header, letterhead, bid covers, email signature, trailer sides. Minimum 56px or 0.6" tall.
+- **Wordmark:** the website header, and anywhere the shield won't fit or would repeat (next to the logo on the same truck, in a document footer). Note that the dark wordmark is white, not orange.
+- **Horizontal lockup** (mark + wordmark side by side): letterhead, bid covers, email signature, trailer sides. Minimum 56px or 0.6" tall.
 - **Stacked lockup** (mark over wordmark): square spaces: social avatars, shirt backs, yard signs.
 - **Plate:** the light version on a white die-cut plate. Use it on truck doors when the paint isn't white, and over photos.
 - **Clear space:** the height of the "L" in LAND on every side.
@@ -50,6 +50,6 @@ art, unchanged.
 ```bash
 python brand/tools/build_logos.py   # needs svgpathtools, numpy, resvg_py
 ```
-It also writes `public/favicon.svg`, `public/apple-touch-icon.png`, and the two site logos in
-`src/assets/brand/`. If you rearrange the master's artboard, update the `LAYOUT` table at the
+It also writes `public/favicon.svg`, `public/apple-touch-icon.png`, the share image `public/og-image.png`, and the two site logos in
+`src/assets/brand/` (header wordmark, footer logo). If you rearrange the master's artboard, update the `LAYOUT` table at the
 top of the script: it maps each panel of the 2x3 grid to an artwork and treatment.
