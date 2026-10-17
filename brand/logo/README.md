@@ -21,7 +21,7 @@ Illustrator opens them directly; use File > Save As to make EPS or PDF for a sig
 
 - **Logo:** truck doors, job-site signs, the site footer and hero, social avatar. Minimum 140px or 1.25" wide.
 - **Mark:** hard hats, embroidered hats, equipment decals, favicon, anywhere the logo would be under 140px.
-- **Wordmark:** the website header, and anywhere the shield won't fit or would repeat (next to the logo on the same truck, in a document footer). Note that the dark wordmark is white, not orange.
+- **Wordmark:** the website header, and anywhere the shield won't fit or would repeat (next to the logo on the same truck, in a document footer). The dark wordmark keeps SUPERIOR orange with a white descriptor, matching the dark logo (the build derives it from the light wordmark; the master's all-white dark wordmark panel isn't used).
 - **Horizontal lockup** (mark + wordmark side by side): letterhead, bid covers, email signature, trailer sides. Minimum 56px or 0.6" tall.
 - **Stacked lockup** (mark over wordmark): square spaces: social avatars, shirt backs, yard signs.
 - **Plate:** the light version on a white die-cut plate. Use it on truck doors when the paint isn't white, and over photos.

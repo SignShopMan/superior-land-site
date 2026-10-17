@@ -22,6 +22,8 @@ What it does
   black and white versions plus "plate" versions (full color on a white sticker plate) for
   colored truck doors and photos.
 - Composes horizontal and stacked lockups from the master's mark and wordmark.
+- The dark wordmark is derived from the light one (black -> white, orange kept), so SUPERIOR
+  stays orange on dark backgrounds like the dark logo. This overrides the master's white panel.
 
 Requires: svgpathtools, numpy, resvg_py (PNG previews only).
 """
@@ -205,6 +207,13 @@ def load_master() -> dict[tuple[str, str], Art]:
 
 # --------------------------------------------------------------------------- lockups
 
+def recolored(art: Art, mapping: dict[str, str]) -> Art:
+    out = Art()
+    for L in art.layers:
+        out.layers.append({**L, "color": mapping.get(L["color"], L["color"]) if L["color"] else None})
+    return out
+
+
 def normalize(art: Art) -> tuple[Art, float, float]:
     """Move an artwork so its bbox starts at 0,0. Returns (art, width, height)."""
     x0, x1, y0, y1 = art.bbox()
@@ -235,6 +244,9 @@ def main():
     import resvg_py
 
     arts = load_master()
+    # Dark wordmark: orange SUPERIOR with a white descriptor, matching the dark logo.
+    # (Overrides the master's all-white dark wordmark panel, per the owner's direction.)
+    arts[("wordmark", "dark")] = recolored(arts[("wordmark", "light")], {BLACK: WHITE})
     for name, compose in (("lockup-horizontal", horizontal), ("lockup-stacked", stacked)):
         for t in ("light", "dark"):
             arts[(name, t)] = compose(arts[("mark", t)], arts[("wordmark", t)])
