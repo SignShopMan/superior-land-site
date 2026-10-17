@@ -1,14 +1,11 @@
 # Superior logo files
 
 Generated from the master `brand/2026-superior-new-logo.svg` by `brand/tools/build_logos.py`.
-Don't hand-edit these: change the master and re-run the script.
+The master holds the finished **logo**, **mark** and **wordmark** in **light** and **dark**
+treatments. The script cuts each one out, turns knockouts into real transparency, and derives
+everything else. Don't hand-edit these files: change the master and re-run the script.
 
-The compact mark uses the badge's tree from the master, but two parts the simplified master no
-longer contains (the frame's complete inside edge and the untrimmed field) come from
-`brand/tools/mark-source.svg`, the earlier unsimplified master. If the frame shape ever changes,
-update that file too.
-
-All files are transparent SVG with every letter and shape outlined, so no fonts are needed.
+All files are transparent SVG with every shape outlined, so no fonts are needed.
 Illustrator opens them directly; use File > Save As to make EPS or PDF for a sign shop.
 `png/` has 1200px previews.
 
@@ -16,38 +13,43 @@ Illustrator opens them directly; use File > Save As to make EPS or PDF for a sig
 
 | | Light background | Dark background (web dark mode, black or charcoal trucks) | Any color (green truck, photos) | One-color vinyl, embroidery, stamps |
 |---|---|---|---|---|
-| **Badge** (primary) | `superior-badge-color.svg` | `superior-badge-reverse.svg` | `superior-badge-plate.svg` | `superior-badge-black.svg` / `-white.svg` |
-| **Mark** (compact) | `superior-mark-color.svg` | `superior-mark-reverse.svg` | `superior-mark-plate.svg` | `superior-mark-black.svg` / `-white.svg` |
-| **Horizontal lockup** | `superior-lockup-horizontal-color.svg` | `-reverse.svg` | (use the badge plate) | `-black.svg` / `-white.svg` |
-| **Stacked lockup** | `superior-lockup-stacked-color.svg` | `-reverse.svg` | (use the badge plate) | `-black.svg` / `-white.svg` |
-| **Wordmark** (no shield) | `superior-wordmark-color.svg` | `-reverse.svg` | (use the badge plate) | `-black.svg` / `-white.svg` |
+| **Logo** (primary) | `superior-logo-light.svg` | `superior-logo-dark.svg` | `superior-logo-plate.svg` | `superior-logo-black.svg` / `-white.svg` |
+| **Mark** | `superior-mark-light.svg` | `superior-mark-dark.svg` | `superior-mark-plate.svg` | `superior-mark-black.svg` / `-white.svg` |
+| **Wordmark** | `superior-wordmark-light.svg` | `superior-wordmark-dark.svg` | (use the logo plate) | `-black.svg` / `-white.svg` |
+| **Horizontal lockup** | `superior-lockup-horizontal-light.svg` | `-dark.svg` | (use the logo plate) | `-black.svg` / `-white.svg` |
+| **Stacked lockup** | `superior-lockup-stacked-light.svg` | `-dark.svg` | (use the logo plate) | `-black.svg` / `-white.svg` |
 
-- **Badge:** truck doors, job-site signs, the site footer and hero, social avatar. Minimum 140px or 1.25" wide.
-- **Mark:** hard hats, embroidered hats, equipment decals, favicon, anywhere under 140px. The badge's tree, enlarged, stands on the grade line, with the field and blades below.
-- **Horizontal lockup:** site header, letterhead, bid covers, email signature, trailer sides. Minimum 56px or 0.6" tall (below that LAND & SITE SERVICES gets too small).
-- **Stacked lockup:** square spaces: social avatars, shirt backs, yard signs, the top of a capabilities sheet.
-- **Wordmark:** where the shield won't fit or would repeat (next to a badge on the same truck, in a document footer).
-- All three lockups use the master's own arched SUPERIOR, outlined descriptor and rule, so the type always matches the badge.
-- **Plate:** full color on a white sticker plate with a contour edge. This is the truck-door file when the paint isn't white, and the safe choice over photos.
+- **Logo:** truck doors, job-site signs, the site footer and hero, social avatar. Minimum 140px or 1.25" wide.
+- **Mark:** hard hats, embroidered hats, equipment decals, favicon, anywhere the logo would be under 140px.
+- **Wordmark:** where the shield won't fit or would repeat (next to the logo on the same truck, in a document footer). Note that the dark wordmark is white, not orange.
+- **Horizontal lockup** (mark + wordmark side by side): site header, letterhead, bid covers, email signature, trailer sides. Minimum 56px or 0.6" tall.
+- **Stacked lockup** (mark over wordmark): square spaces: social avatars, shirt backs, yard signs.
+- **Plate:** the light version on a white die-cut plate. Use it on truck doors when the paint isn't white, and over photos.
 - **Clear space:** the height of the "L" in LAND on every side.
+
+The two lockups are composed by the script from the master's mark and wordmark (mark at 1.3x
+the wordmark's height beside it, or half its width above it). Everything else is the master's
+art, unchanged.
 
 ## Colors
 
 | | Hex | Use |
 |---|---|---|
-| Superior orange | `#E5641E` | SUPERIOR wordmark. Have the sign shop match it to the nearest Pantone and vinyl. |
-| Forest | `#243006` | Tree and field on light backgrounds |
-| Forest light | `#5F7B32` | Tree and field on dark backgrounds (forest is invisible on charcoal: 1.1:1) |
-| Black | `#000000` | Frame, rule, descriptor on light backgrounds |
-| Bone | `#F4F2EE` | Frame, rule, descriptor and blades on dark backgrounds |
+| Superior orange | `#E5641E` | SUPERIOR. Have the sign shop match it to the nearest Pantone and vinyl. |
+| Forest | `#243006` | Tree and field, light treatment |
+| Forest light | `#5F7B32` | Tree and field, dark treatment (forest is invisible on charcoal: 1.1:1) |
+| Black | `#000000` | Frame, rule, descriptor, light treatment |
+| White | `#FFFFFF` | Frame, rule, descriptor, blades, dark treatment |
+| Charcoal | `#1E2326` | The dark background the dark treatment is designed on |
 
 ## Type
-- SUPERIOR: Termina Bold, arched (badge, lockups and wordmark all use the master's outlines)
-- LAND & SITE SERVICES: Termina Demi
-- Both are Adobe Fonts. They're outlined in the master and in every file here, so nobody downstream needs them installed. The script only needs Termina if the master ever reverts to live text.
+- SUPERIOR: Termina Bold, arched. LAND & SITE SERVICES: Termina Demi.
+- Both are Adobe Fonts, outlined in the master and in every file here.
 
 ## Rebuilding
 ```bash
-python brand/tools/build_logos.py   # needs fonttools, uharfbuzz, svgpathtools, resvg_py
+python brand/tools/build_logos.py   # needs svgpathtools, numpy, resvg_py
 ```
-The script reads Termina from your local Adobe Fonts sync. It also writes `public/favicon.svg`, `public/apple-touch-icon.png`, and the two site logos in `src/assets/brand/`.
+It also writes `public/favicon.svg`, `public/apple-touch-icon.png`, and the two site logos in
+`src/assets/brand/`. If you rearrange the master's artboard, update the `LAYOUT` table at the
+top of the script: it maps each panel of the 2x3 grid to an artwork and treatment.
