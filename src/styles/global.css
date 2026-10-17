@@ -92,3 +92,24 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='300' viewBox='0 0 600 300' fill='none' stroke='%23ffffff' stroke-opacity='.06' stroke-width='1.2'%3E%3Cpath d='M-20 60c80-40 160 30 240 0s160-50 240-10 120 30 160 0'/%3E%3Cpath d='M-20 100c80-40 160 30 240 0s160-50 240-10 120 30 160 0'/%3E%3Cpath d='M-20 140c80-40 160 30 240 0s160-50 240-10 120 30 160 0'/%3E%3Cpath d='M-20 180c80-40 160 30 240 0s160-50 240-10 120 30 160 0'/%3E%3Cpath d='M-20 220c80-40 160 30 240 0s160-50 240-10 120 30 160 0'/%3E%3Cpath d='M-20 260c80-40 160 30 240 0s160-50 240-10 120 30 160 0'/%3E%3Cpath d='M-20 20c80-40 160 30 240 0s160-50 240-10 120 30 160 0'/%3E%3C/svg%3E");
   background-size: 600px 300px;
 }
+
+/* Home hero: slow drone-style drift across the photo (CSS only; off for reduced motion) */
+@keyframes hero-pan {
+  from {
+    transform: scale(1.06) translate3d(-1.5%, 1%, 0);
+  }
+  to {
+    transform: scale(1.18) translate3d(1.5%, -1.5%, 0);
+  }
+}
+.hero-pan {
+  transform-origin: 60% 45%;
+  animation: hero-pan 28s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-pan {
+    animation: none;
+    transform: scale(1.06);
+  }
+}
