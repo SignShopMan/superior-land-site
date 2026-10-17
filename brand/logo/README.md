@@ -3,6 +3,10 @@
 Generated from the master `brand/2026-superior-new-logo.svg` by `brand/tools/build_logos.py`.
 Don't hand-edit these: change the master and re-run the script.
 
+The compact mark uses parts the simplified master no longer contains (the full four-tier tree,
+the frame's complete inside edge). Those come from `brand/tools/mark-source.svg`, the earlier
+unsimplified master. If the tree or frame shape ever changes, update that file too.
+
 All files are transparent SVG with every letter and shape outlined, so no fonts are needed.
 Illustrator opens them directly; use File > Save As to make EPS or PDF for a sign shop.
 `png/` has 1200px previews.
@@ -34,7 +38,7 @@ Illustrator opens them directly; use File > Save As to make EPS or PDF for a sig
 ## Type
 - SUPERIOR: Termina Bold (arched in the badge, straight in the lockup)
 - LAND & SITE SERVICES: Termina Demi
-- Both are Adobe Fonts. They're outlined in every file here, so nobody downstream needs them installed.
+- Both are Adobe Fonts. They're outlined in the master and in every file here, so nobody downstream needs them installed. The script only needs Termina to set the lockup's straight wordmark.
 
 ## Rebuilding
 ```bash

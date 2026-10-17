@@ -3,15 +3,19 @@ Build every Superior logo variant from the master Illustrator export.
 
     python brand/tools/build_logos.py
 
-Source:  brand/2026-superior-new-logo.svg (Illustrator, 3600x1872)
+Source:  brand/2026-superior-new-logo.svg (Illustrator, 3600x1872), simplified master:
+         frame pre-cut around the tree and letters, no halo shapes.
+         brand/tools/mark-source.svg: the earlier, unsimplified master. The compact mark needs
+         parts the simplified master no longer has (the full four-tier tree, the frame's
+         complete inner edge, the untrimmed field).
 Output:  brand/logo/*.svg  (+ PNG previews in brand/logo/png/)
 
 What it does
-- Converts the master's white "knockout" shapes (tree halo, letter halos, text band,
-  blades) into real transparency with SVG masks, so every file works on any background.
+- Turns the master's white blades into real transparency with an SVG mask, so every file
+  works on any background.
 - Drops the hidden duplicate black SUPERIOR letters left in the master.
-- Outlines the live "LAND & SITE SERVICES" text from Termina Demi (Adobe Fonts, synced
-  locally), so no file depends on the font being installed.
+- Uses the master's outlined "LAND & SITE SERVICES"; if the master ever has it as live text
+  again, outlines it from Termina Demi (Adobe Fonts, synced locally).
 - Builds the compact mark (full tree on the grade line over the field) and a horizontal
   lockup (mark + straight Termina Bold wordmark).
 
@@ -31,6 +35,7 @@ from svgpathtools import parse_path
 
 ROOT = Path(__file__).resolve().parents[2]
 MASTER = ROOT / "brand/2026-superior-new-logo.svg"
+MARK_SOURCE = ROOT / "brand/tools/mark-source.svg"
 OUT = ROOT / "brand/logo"
 ADOBE = Path.home() / "Library/Application Support/Adobe/CoreSync/plugins/livetype/.w"
 FONTS = {"demi": ADOBE / ".28986.otf", "bold": ADOBE / ".28991.otf"}
@@ -54,27 +59,46 @@ SCHEMES = {
 
 # --------------------------------------------------------------------------- master parts
 
-def load_master():
-    src = MASTER.read_text()
-    paths = [re.search(r' d="([^"]+)"', a).group(1) for a in re.findall(r"<path([^>]*)/>", src)]
-    rects = re.findall(r'<rect[^>]*x="([\d.]+)" y="([\d.]+)" width="([\d.]+)" height="([\d.]+)"', src)
-    band, rule = [tuple(map(float, r)) for r in rects]
+def _desc(src):
     text = re.search(r'translate\(([\d.]+) ([\d.]+)\)"><tspan[^>]*>([^<]+)<', src)
     size = float(re.search(r"font-size:\s*([\d.]+)px", src).group(1))
+    return (float(text.group(1)), float(text.group(2)), text.group(3).replace("&amp;", "&"), size)
+
+
+def load_master():
+    """Simplified master: parts identified by fill class and position, not by order."""
+    src = MASTER.read_text()
+    body = src.split("</defs>", 1)[1]
+    parts = []
+    for attrs in re.findall(r"<path([^>]*)/>", body):
+        cls = re.search(r'class="(\w+)"', attrs)
+        d = re.search(r' d="([^"]+)"', attrs).group(1)
+        parts.append((cls.group(1) if cls else "black", d, parse_path(d).bbox()))
+    styles = dict(re.findall(r"\.(st\d+)\s*{[^}]*?fill:\s*(#[0-9a-fA-F]{3,6})", src))
+    by_fill = lambda hexes: [(d, bb) for c, d, bb in parts if styles.get(c, "#000000").lower() in hexes]
+    green = by_fill({"#243006"})
+    orange = by_fill({"#e5641e"})
+    white = by_fill({"#fff", "#ffffff"})
+    black = by_fill({"#000000"})
+    letter_boxes = {tuple(round(v) for v in bb) for _, bb in orange}
+    black = [(d, bb) for d, bb in black if tuple(round(v) for v in bb) not in letter_boxes]  # stray duplicates
+    frame = [d for d, bb in black if bb[3] - bb[2] > 200]
+    glyphs = [d for d, bb in black if bb[3] - bb[2] <= 200]  # outlined LAND & SITE SERVICES
     return dict(
-        plate=paths[0],
-        field=paths[1],
-        frame=paths[2],
-        tree_halo=paths[3],
-        tree=paths[4],
-        blades=paths[5],
-        letters_hidden=paths[6:14],  # duplicate black letters: dropped
-        letter_halos=paths[14:22],
-        letters=paths[22:30],
-        band=band,
-        rule=rule,
-        desc=(float(text.group(1)), float(text.group(2)), text.group(3).replace("&amp;", "&"), size),
+        field=next(d for d, bb in green if bb[2] > 1000),
+        tree=next(d for d, bb in green if bb[3] < 1000),
+        blades=white[0][0],
+        frame=frame,
+        letters=[d for d, _ in orange],
+        desc=" ".join(glyphs) if glyphs else _desc(src),  # outlined paths, or live text to outline
     )
+
+
+def load_mark_source():
+    """Earlier, unsimplified master (by element order) for the compact mark's parts."""
+    src = MARK_SOURCE.read_text()
+    paths = [re.search(r' d="([^"]+)"', a).group(1) for a in re.findall(r"<path([^>]*)/>", src)]
+    return dict(field=paths[1], frame=paths[2], tree_halo=paths[3], tree=paths[4], blades=paths[5])
 
 
 def text_to_path(text: str, font: str, size: float, x: float, y: float, tracking: float = 0.0):
@@ -205,26 +229,25 @@ def outer_edge(frame_d: str) -> str:
     return frame_d.split("Z")[0] + "Z"  # first subpath = outside edge of the frame
 
 
-def build_badge(m):
+def build_badge(m, ms):
     a = Art()
-    dx, dy, text, size = m["desc"]
-    desc_d, _ = text_to_path(text, "demi", size, dx, dy)
+    if isinstance(m["desc"], str):
+        desc_d = m["desc"]
+    else:
+        dx, dy, text, size = m["desc"]
+        desc_d, _ = text_to_path(text, "demi", size, dx, dy)
     a.paint(m["field"], "field")
-    a.paint(m["frame"], "frame", evenodd=True)
-    a.ko(m["tree_halo"])
-    a.paint(m["tree"], "tree")
-    a.ko(rect_d(*m["band"]))
-    a.paint(rect_d(*m["rule"]), "rule")
+    for d in m["frame"]:
+        a.paint(d, "frame", evenodd=True)
     a.ko(m["blades"])
     a.paint(m["blades"], "blade")
-    for d in m["letter_halos"]:
-        a.ko(d)
+    a.paint(m["tree"], "tree")
     for d in m["letters"]:
         a.paint(d, "word")
     a.paint(desc_d, "desc")
     plate = plate_under([
-        ([outer_edge(m["frame"]), m["tree_halo"], rect_d(*m["rule"])], PAD),
-        (m["letters"], 70),  # follow the letterforms, not their (much larger) halos
+        ([outer_edge(ms["frame"]), m["tree"], *m["frame"]], PAD),
+        (m["letters"], 70),  # follow the letterforms closely
     ])
     return a, (240, 0, 3150, 1740), plate
 
@@ -292,7 +315,7 @@ def cap_height(font: str) -> float:
 def build_lockup(m):
     """Mark at left with its grade line continuing into the wordmark's rule:
     SUPERIOR (Termina Bold) above the line, LAND & SITE SERVICES (Termina Demi) below."""
-    mark, (mx, my, mw, mh), _ = build_mark(m)
+    mark, (mx, my, mw, mh), _ = build_mark(m)  # m = mark source parts
     word_cap = 300.0
     above = word_cap + 40  # cap height + gap to the rule
     tree_tip = 26.0
@@ -322,13 +345,14 @@ def main():
     import resvg_py
 
     m = load_master()
+    ms = load_mark_source()
     OUT.mkdir(exist_ok=True)
     (OUT / "png").mkdir(exist_ok=True)
     files = {}
 
-    badge, bvb, bplate = build_badge(m)
-    mark, mvb, mplate = build_mark(m)
-    lockup, lvb = build_lockup(m)
+    badge, bvb, bplate = build_badge(m, ms)
+    mark, mvb, mplate = build_mark(ms)
+    lockup, lvb = build_lockup(ms)
 
     for name, scheme in SCHEMES.items():
         files[f"superior-badge-{name}.svg"] = badge.render(scheme, bvb)
