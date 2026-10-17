@@ -13,7 +13,7 @@ benefits:
   - Sight-line clearing at curves and intersections
 faqs:
   - q: Do you work with townships and counties?
-    a: Send us the roads or sections and the scope. We'll walk it and return a written quote you can take to your trustees.
+    a: Send us the roads or sections and the scope. We'll walk it and return a written bid you can take to your trustees.
   - q: What happens to the brush?
     a: An excavator-mounted mulcher grinds it in place. There are no piles left to haul, and we seed any bare ground.
 ---

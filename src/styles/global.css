@@ -46,7 +46,7 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-limestone font-sans text-[17px] leading-relaxed text-charcoal antialiased;
+    @apply bg-limestone font-sans text-[17px] leading-[1.65] text-charcoal antialiased;
   }
   h1,
   h2,

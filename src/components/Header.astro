@@ -11,7 +11,8 @@ const isActive = (href: string) => current.startsWith(url(href));
 <header class="sticky top-0 z-40 border-b border-white/10 bg-charcoal text-white">
   <div class="container-site flex h-20 items-center justify-between gap-6">
     <a href={url()} class="shrink-0 no-underline" aria-label={`${site.name} home`}>
-      <Logo class="h-12 w-auto lg:h-14" />
+      <Logo variant="mark" class="h-12 w-auto sm:hidden" />
+      <Logo class="hidden h-14 w-auto sm:block" />
     </a>
 
     <nav class="hidden items-center gap-8 lg:flex" aria-label="Main">

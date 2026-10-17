@@ -12,7 +12,7 @@ Source:  brand/2026-superior-new-logo.svg, one artboard holding six finished art
          row 2       wordmark, dark         wordmark, light
 
 Output:  brand/logo/*.svg (+ PNG previews in brand/logo/png/), public/favicon.svg,
-         public/apple-touch-icon.png, and the two site logos in src/assets/brand/.
+         public/apple-touch-icon.png, public/og-image.png, and the site logos in src/assets/brand/.
 
 What it does
 - Cuts each artwork out of its panel and drops the panel. Anything painted in the panel's
@@ -272,8 +272,17 @@ def main():
     assets.mkdir(parents=True, exist_ok=True)
     for old in assets.glob("superior-*.svg"):
         old.unlink()
-    for name in ("superior-lockup-horizontal-dark.svg", "superior-logo-dark.svg"):
+    for name in ("superior-lockup-horizontal-dark.svg", "superior-logo-dark.svg", "superior-mark-dark.svg"):
         (assets / name).write_text(files[name])
+
+    # Open Graph share image: the dark logo centered on charcoal, 1200x630
+    logo = files["superior-logo-dark.svg"]
+    lx, ly, lw, lh = (float(v) for v in re.search(r'viewBox="([^"]+)"', logo).group(1).split())
+    h = 400
+    w = lw * h / lh
+    inner = logo.replace("<svg ", f'<svg x="{(1200 - w) / 2:.1f}" y="{(630 - h) / 2:.1f}" width="{w:.1f}" height="{h}" ', 1)
+    og = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630"><rect width="1200" height="630" fill="{CHARCOAL}"/>{inner}</svg>'
+    (ROOT / "public/og-image.png").write_bytes(bytes(resvg_py.svg_to_bytes(svg_string=og, width=1200)))
     print(f"wrote {len(files)} SVGs + PNG previews to {OUT.relative_to(ROOT)}, plus favicon and site assets")
 
 
