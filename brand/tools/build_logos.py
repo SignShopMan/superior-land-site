@@ -16,8 +16,8 @@ What it does
 - Drops the hidden duplicate black SUPERIOR letters left in the master.
 - Uses the master's outlined "LAND & SITE SERVICES"; if the master ever has it as live text
   again, outlines it from Termina Demi (Adobe Fonts, synced locally).
-- Builds the compact mark (full tree on the grade line over the field) and a horizontal
-  lockup (mark + straight Termina Bold wordmark).
+- Builds the compact mark (the badge's tree on the grade line, field + blades below), the
+  horizontal and stacked lockups, and a wordmark-only version, all from the master's type.
 
 Requires: fonttools, uharfbuzz, svgpathtools, resvg_py (for PNG previews only).
 """
@@ -148,8 +148,9 @@ class Art:
     def paint(self, d, role, evenodd=False, clip=None, stroke=None):
         self.layers.append(dict(kind="paint", d=d, role=role, evenodd=evenodd, clip=clip, stroke=stroke))
 
-    def ko(self, d, clip=None, stroke=None):
-        self.layers.append(dict(kind="ko", d=d, role=None, evenodd=False, clip=clip, stroke=stroke))
+    def ko(self, d, clip=None, stroke=None, halo=None):
+        """halo=W knocks out the shape plus a W/2 margin around it (the gap around the tree)."""
+        self.layers.append(dict(kind="ko", d=d, role=None, evenodd=False, clip=clip, stroke=stroke, halo=halo))
 
     def transformed(self, k, tx, ty) -> "Art":
         out = Art()
@@ -162,7 +163,8 @@ class Art:
             else:
                 clip = (c[0] * k + ty, c[1] * k + ty)
             stroke = None if L["stroke"] is None else L["stroke"] * k
-            out.layers.append({**L, "d": xf(L["d"], k, tx, ty), "clip": clip, "stroke": stroke})
+            halo = None if L.get("halo") is None else L["halo"] * k
+            out.layers.append({**L, "d": xf(L["d"], k, tx, ty), "clip": clip, "stroke": stroke, "halo": halo})
         return out
 
     def render(self, scheme: dict, viewbox, under: str = "") -> str:
@@ -173,6 +175,8 @@ class Art:
             a = ' fill-rule="evenodd"' if L["evenodd"] else ""
             if L["stroke"]:
                 a += f' fill="none" stroke="{color}" stroke-width="{L["stroke"]:.2f}" stroke-linejoin="round"'
+            if L.get("halo"):
+                a += f' stroke="{color}" stroke-width="{L["halo"]:.2f}" stroke-linejoin="round"'
             if L["clip"]:
                 cid = clips.setdefault(L["clip"], f"c{len(clips)}")
                 a += f' clip-path="url(#{cid})"'
@@ -252,16 +256,20 @@ def build_badge(m, ms):
     return a, (240, 0, 3150, 1740), plate
 
 
-# ---- compact mark: full tree standing on the grade line, field + blades hung below
-RULE_Y = 880.0  # where the tree's trunk lands
+# ---- compact mark: the badge's tree standing on the grade line, field + blades hung below
+RULE_Y = 760.0  # grade line: the badge's tree, enlarged, stands on it
 SHIFT = 1260.12 - RULE_Y  # lift the badge's below-the-rule parts up to meet it
 CX = 1802.9  # shield centerline
-SX = 0.70  # narrow the shield so the mark is compact (tree and blades stay full size)
+SX = 0.64  # narrow the shield so the mark is compact (tree and blades keep their proportions)
 FRAME_T = 64.0  # frame thickness, measured from the master
+TREE_GAP = 61.0  # white gap between the tree and the frame, measured from the master
+RULE_T = 26.83  # rule thickness in the master
+TIP = complex(1790.17, 84.26)  # tree tip in the master
+TREE_BASE = 496.0  # flat base of the badge's tree
 
 
-def _mark_geometry(m):
-    inner = parse_path(m["frame"]).continuous_subpaths()[1]
+def _mark_geometry(ms):
+    inner = parse_path(ms["frame"]).continuous_subpaths()[1]
     # Narrow the shield, then grow it by half the frame thickness so a centered stroke
     # lands where the master's frame sits (keeps the frame an even weight all the way round).
     narrowed = inner.scaled(SX, 1, origin=complex(CX, 0))
@@ -269,74 +277,102 @@ def _mark_geometry(m):
     cy = (y0 + y1) / 2
     grow = complex(1 + FRAME_T / (x1 - x0), 1 + FRAME_T / (y1 - y0))
     mid = narrowed.scaled(grow.real, grow.imag, origin=complex(CX, cy))
-    # outer edge of the frame at the rule, for the rule length and the plate
     import numpy as np
-    xs = [seg.point(t).real for seg in mid for t in np.linspace(0, 1, 300) if abs(seg.point(t).imag - RULE_Y) < 3]
-    rule_x0 = min(xs) - FRAME_T / 2  # rule caps the frame sides edge to edge
-    rule_x1 = max(xs) + FRAME_T / 2
-    return mid, (rule_x0, rule_x1)
+    xs = [seg.point(t).real for seg in mid for t in np.linspace(0, 1, 400) if abs(seg.point(t).imag - RULE_Y) < 3]
+    return mid, (min(xs) - FRAME_T / 2, max(xs) + FRAME_T / 2)  # rule caps the frame sides
 
 
-def build_mark(m):
+def build_mark(m, ms):
+    """m = simplified master (the badge's tree), ms = mark source (frame edge, untrimmed field)."""
     a = Art()
-    mid, (rx0, rx1) = _mark_geometry(m)
+    mid, (rx0, rx1) = _mark_geometry(ms)
     mid_d = mid.d()
     lift = lambda d: xf(d, ty=-SHIFT)
     narrow = lambda d: parse_path(d).scaled(SX, 1, origin=complex(CX, 0)).d()
+    # Grow the badge's tree from its tip until its base stands just above the grade line.
+    # The small gap keeps tree, rule and field from fusing into one shape in the 1-color files.
+    f = (RULE_Y - 18 - TIP.imag) / (TREE_BASE - TIP.imag)
+    tree = parse_path(m["tree"]).scaled(f, f, origin=TIP).d()
     below = (1287 - SHIFT, 2000)
-    a.paint(lift(narrow(m["field"])), "field", clip=below)
+    field_d = lift(narrow(ms["field"]))
+    a.paint(field_d, "field", clip=below)
     a.paint(lift(mid_d), "frame", clip=below, stroke=FRAME_T)
     a.paint(mid_d, "frame", clip=(-100, RULE_Y + 20), stroke=FRAME_T)
-    a.ko(m["tree_halo"], clip=(-100, RULE_Y))
-    a.paint(m["tree"], "tree", clip=(-100, RULE_Y))
-    a.paint(rect_d(rx0, RULE_Y, rx1 - rx0, 26.83), "rule")
+    a.ko(tree, halo=2 * TREE_GAP, clip=(-100, RULE_Y))
+    a.paint(tree, "tree")
+    a.paint(rect_d(rx0, RULE_Y, rx1 - rx0, RULE_T), "rule")
     # The narrowed V is steeper: scale the blades from their root and clip them to the field,
     # so they can never nick the frame or poke above the rule.
-    field_d = lift(narrow(m["field"]))
-    blades = parse_path(m["blades"]).scaled(0.85, 0.85, origin=complex(CX, 1591)).translated(complex(0, -SHIFT)).d()
+    blades = parse_path(ms["blades"]).scaled(0.85, 0.85, origin=complex(CX, 1591)).translated(complex(0, -SHIFT)).d()
     a.ko(blades, clip=field_d)
     a.paint(blades, "blade", clip=field_d)
+    bottom = mid.bbox()[3] + FRAME_T / 2 - SHIFT
     w = (rx1 - rx0) + 2 * 90
-    vb = (CX - w / 2, 0, w, 1340)
+    vb = (CX - w / 2, TIP.imag - 70, w, bottom - TIP.imag + 140)
     plate = (
         f'<clipPath id="ptop"><rect x="0" y="-200" width="3600" height="{RULE_Y + 230}"/></clipPath>'
         f'<clipPath id="pbot"><rect x="0" y="{RULE_Y}" width="3600" height="900"/></clipPath>'
-        + plate_under([([mid_d], FRAME_T / 2 + PAD), ([m["tree_halo"]], PAD)], "ptop")
+        + plate_under([([mid_d], FRAME_T / 2 + PAD), ([tree], TREE_GAP + PAD)], "ptop")
         + plate_under([([lift(mid_d)], FRAME_T / 2 + PAD)], "pbot")
-        + f'<rect x="{rx0 - PAD:.1f}" y="{RULE_Y - PAD}" width="{rx1 - rx0 + 2 * PAD:.1f}" height="{26.83 + 2 * PAD:.1f}" rx="{PAD}" fill="{WHITE}"/>'
+        + f'<rect x="{rx0 - PAD:.1f}" y="{RULE_Y - PAD}" width="{rx1 - rx0 + 2 * PAD:.1f}" height="{RULE_T + 2 * PAD:.1f}" rx="{PAD}" fill="{WHITE}"/>'
     )
     return a, vb, plate
 
 
-def cap_height(font: str) -> float:
-    return TTFont(FONTS[font])["OS/2"].sCapHeight / 1000
+# ---- lockups: all type comes straight from the master (arched SUPERIOR, outlined descriptor, rule)
+
+def wordmark_parts(m):
+    if isinstance(m["desc"], str):
+        desc_d = m["desc"]
+    else:
+        dx, dy, text, size = m["desc"]
+        desc_d, _ = text_to_path(text, "demi", size, dx, dy)
+    rule = (614.9, 1260.12, 2376.0, RULE_T)
+    boxes = [parse_path(d).bbox() for d in m["letters"]]
+    box = (min(b[0] for b in boxes), max(b[1] for b in boxes), min(b[2] for b in boxes), rule[1] + rule[3])
+    return m["letters"], desc_d, rule, box  # box = (x0, x1, y0, y1)
 
 
-def build_lockup(m):
-    """Mark at left with its grade line continuing into the wordmark's rule:
-    SUPERIOR (Termina Bold) above the line, LAND & SITE SERVICES (Termina Demi) below."""
-    mark, (mx, my, mw, mh), _ = build_mark(m)  # m = mark source parts
-    word_cap = 300.0
-    above = word_cap + 40  # cap height + gap to the rule
-    tree_tip = 26.0
-    k = above / (RULE_Y - tree_tip)  # tree tip lines up with the top of the caps
-    a = mark.transformed(k, -mx * k, -(tree_tip - 0) * k)
-    rule_y = (RULE_Y - tree_tip) * k
-    rule_h = 26.83 * k
-    tx = mw * k + 60
-    word_size = word_cap / cap_height("bold")
-    word_d, word_w = text_to_path("SUPERIOR", "bold", word_size, tx, rule_y - 40)
-    a.paint(word_d, "word")
-    a.paint(rect_d(tx, rule_y, word_w, rule_h), "rule")
-    desc = "LAND & SITE SERVICES"
-    n = len(desc) - 1
-    _, unit_w = text_to_path(desc, "demi", 1.0, 0, 0)
-    track = 0.08  # em
-    desc_size = word_w / (unit_w + track * n)
-    desc_d, _ = text_to_path(desc, "demi", desc_size, tx, rule_y + rule_h + 34 + desc_size * cap_height("demi"), track * desc_size)
-    a.paint(desc_d, "desc")
-    bottom = max(rule_y + rule_h + 34 + desc_size * cap_height("demi"), (mh - tree_tip) * k)
-    return a, (-12, -12, tx + word_w + 24, bottom + 24)
+def add_wordmark(a: Art, m, k=1.0, tx=0.0, ty=0.0):
+    letters, desc_d, rule, _ = wordmark_parts(m)
+    for d in letters:
+        a.paint(xf(d, k, tx, ty), "word")
+    a.paint(xf(desc_d, k, tx, ty), "desc")
+    x, y, w, h = rule
+    a.paint(rect_d(x * k + tx, y * k + ty, w * k, h * k), "rule")
+
+
+def build_wordmark(m):
+    a = Art()
+    add_wordmark(a, m)
+    x0, x1, y0, y1 = wordmark_parts(m)[3]
+    return a, (x0 - 60, y0 - 60, x1 - x0 + 120, y1 - y0 + 120)
+
+
+def build_lockup_horizontal(m, ms):
+    """Mark at left, a touch taller than the wordmark beside it; centered on each other."""
+    mark, (mx, my, mw, mh), _ = build_mark(m, ms)
+    x0, x1, y0, y1 = wordmark_parts(m)[3]
+    word_h = y1 - y0
+    k = 1.45 * word_h / mh  # the mark needs extra height to balance the heavy arched wordmark
+    a = mark.transformed(k, -mx * k, -my * k)
+    gap = 120
+    tx = mw * k + gap - x0
+    ty = (mh * k - word_h) / 2 - y0
+    add_wordmark(a, m, 1.0, tx, ty)
+    return a, (-30, -30, mw * k + gap + (x1 - x0) + 60, mh * k + 60)
+
+
+def build_lockup_stacked(m, ms):
+    """Mark centered over the wordmark: square-ish spaces, social avatars, shirts."""
+    mark, (mx, my, mw, mh), _ = build_mark(m, ms)
+    x0, x1, y0, y1 = wordmark_parts(m)[3]
+    word_w, word_h = x1 - x0, y1 - y0
+    k = 0.62 * word_w / mw
+    a = mark.transformed(k, (word_w - mw * k) / 2 - mx * k, -my * k)
+    gap = 110
+    add_wordmark(a, m, 1.0, -x0, mh * k + gap - y0)
+    return a, (-40, -40, word_w + 80, mh * k + gap + word_h + 80)
 
 
 # --------------------------------------------------------------------------- output
@@ -351,13 +387,17 @@ def main():
     files = {}
 
     badge, bvb, bplate = build_badge(m, ms)
-    mark, mvb, mplate = build_mark(ms)
-    lockup, lvb = build_lockup(ms)
+    mark, mvb, mplate = build_mark(m, ms)
+    horizontal, hvb = build_lockup_horizontal(m, ms)
+    stacked, svb = build_lockup_stacked(m, ms)
+    wordmark, wvb = build_wordmark(m)
 
     for name, scheme in SCHEMES.items():
         files[f"superior-badge-{name}.svg"] = badge.render(scheme, bvb)
         files[f"superior-mark-{name}.svg"] = mark.render(scheme, mvb)
-        files[f"superior-lockup-{name}.svg"] = lockup.render(scheme, lvb)
+        files[f"superior-lockup-horizontal-{name}.svg"] = horizontal.render(scheme, hvb)
+        files[f"superior-lockup-stacked-{name}.svg"] = stacked.render(scheme, svb)
+        files[f"superior-wordmark-{name}.svg"] = wordmark.render(scheme, wvb)
     # Plated: full color on a white sticker plate, for dark backgrounds and colored truck doors
     files["superior-badge-plate.svg"] = badge.render(SCHEMES["color"], bvb, bplate)
     files["superior-mark-plate.svg"] = mark.render(SCHEMES["color"], mvb, mplate)
@@ -378,7 +418,9 @@ def main():
     (ROOT / "public/apple-touch-icon.png").write_bytes(bytes(touch))
     assets = ROOT / "src/assets/brand"
     assets.mkdir(parents=True, exist_ok=True)
-    for name in ("superior-lockup-reverse.svg", "superior-badge-reverse.svg"):
+    for old in assets.glob("superior-*.svg"):
+        old.unlink()
+    for name in ("superior-lockup-horizontal-reverse.svg", "superior-badge-reverse.svg"):
         (assets / name).write_text(files[name])
     print(f"wrote {len(files)} SVGs + PNG previews to {OUT.relative_to(ROOT)}, plus favicon and site assets")
 
