@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100">
+  <rect width="300" height="100" fill="#ffffff"/>
+  <svg x="14" y="10" width="96" height="58" viewBox="0 0 100 60"><path d="M22 0 L31 18 L27 18 L36 36 L32 36 L42 60 L2 60 L12 36 L8 36 L17 18 L13 18 Z M40 20 L47 33 L44 33 L51 46 L48 46 L56 60 L24 60 L32 46 L29 46 L36 33 L33 33 Z M54 60 Q56 34 80 18 Q64 38 60 60 Z M62 60 Q68 40 96 32 Q74 46 68 60 Z M70 60 Q80 48 100 46 Q82 54 75 60 Z" fill="#1E2326"/></svg>
+  <text x="118" y="60" font-family="Archivo" font-stretch="125%" font-weight="800" font-size="29" fill="#1E2326">SUPERIOR</text>
+  <rect x="14" y="69" width="272" height="5" fill="#E5641E"/>
+  <text x="118" y="92" font-family="Archivo" font-stretch="125%" font-weight="600" font-size="10" letter-spacing="1.6" fill="#5E625F">LAND &amp; SITE SERVICES</text>
+</svg>

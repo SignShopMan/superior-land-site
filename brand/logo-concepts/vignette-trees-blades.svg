@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 66">
+  <!-- Signature cluster: two trees + three grass blades on the grade line. Use small, never as the hero. -->
+  <path d="M22 0 L31 18 L27 18 L36 36 L32 36 L42 60 L2 60 L12 36 L8 36 L17 18 L13 18 Z M40 20 L47 33 L44 33 L51 46 L48 46 L56 60 L24 60 L32 46 L29 46 L36 33 L33 33 Z M54 60 Q56 34 80 18 Q64 38 60 60 Z M62 60 Q68 40 96 32 Q74 46 68 60 Z M70 60 Q80 48 100 46 Q82 54 75 60 Z" fill="#1E2326"/>
+  <rect x="0" y="61" width="100" height="5" fill="#E5641E"/>
+</svg>

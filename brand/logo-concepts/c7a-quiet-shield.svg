@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 260">
+  <rect width="300" height="260" fill="#ffffff"/>
+  <path fill-rule="evenodd" fill="#1E2326" d="M44 52 Q150 20 256 52 L250 150 Q240 200 150 242 Q60 200 50 150 Z M58 63 Q150 35 242 63 L237 148 Q228 190 150 226 Q72 190 63 148 Z"/>
+  <path d="M70 74 Q150 50 230 74 L226 146 Q218 180 150 211 Q82 180 74 146 Z" fill="none" stroke="#E5641E" stroke-width="3"/>
+  <circle cx="84" cy="90" r="4.5" fill="#1E2326"/><circle cx="216" cy="90" r="4.5" fill="#1E2326"/><circle cx="150" cy="222" r="4.5" fill="#ffffff"/>
+  <svg x="105" y="66" width="90" height="54" viewBox="0 0 100 60"><path d="M22 0 L31 18 L27 18 L36 36 L32 36 L42 60 L2 60 L12 36 L8 36 L17 18 L13 18 Z M40 20 L47 33 L44 33 L51 46 L48 46 L56 60 L24 60 L32 46 L29 46 L36 33 L33 33 Z M54 60 Q56 34 80 18 Q64 38 60 60 Z M62 60 Q68 40 96 32 Q74 46 68 60 Z M70 60 Q80 48 100 46 Q82 54 75 60 Z" fill="#1E2326"/></svg>
+  <rect x="22" y="121" width="256" height="5" fill="#E5641E"/>
+  <rect x="16" y="132" width="268" height="62" fill="#ffffff"/>
+  <text x="150" y="169" text-anchor="middle" font-family="Archivo" font-stretch="125%" font-weight="800" font-size="35" fill="#1E2326">SUPERIOR</text>
+  <text x="150" y="187" text-anchor="middle" font-family="Archivo" font-stretch="125%" font-weight="600" font-size="11.5" letter-spacing="1.6" fill="#E5641E">LAND &amp; SITE SERVICES</text>
+  <path d="M44 196 L256 196 L238 205 L62 205 Z" fill="#1E2326"/>
+</svg>

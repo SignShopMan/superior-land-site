@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200">
+  <!-- Cleaned-up evolution of the current lockup: blades + SUPERIOR + ground line. No cat, phone or gradients. -->
+  <rect width="300" height="200" fill="#ffffff"/>
+  <path d="M48 150 Q42 96 16 72 Q36 108 40 150 Z M52 150 Q50 76 104 44 Q66 92 64 150 Z M70 150 Q78 54 210 26 Q104 72 86 150 Z M92 150 Q104 112 150 92 Q112 122 102 150 Z" fill="#1E2326"/>
+  <text x="150" y="140" text-anchor="middle" font-family="Archivo" font-stretch="125%" font-weight="800" font-size="37" fill="#1E2326" stroke="#ffffff" stroke-width="6" paint-order="stroke" stroke-linejoin="round">SUPERIOR</text>
+  <rect x="12" y="150" width="276" height="6" fill="#E5641E"/>
+  <text x="150" y="178" text-anchor="middle" font-family="Archivo" font-stretch="125%" font-weight="600" font-size="12.5" letter-spacing="2.2" fill="#E5641E">LAND &amp; SITE SERVICES</text>
+</svg>

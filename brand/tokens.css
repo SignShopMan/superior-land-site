@@ -10,6 +10,8 @@
   --color-charcoal: #1e2326;
   --color-orange: #e5641e;
   --color-limestone: #f5f3ee;
+  --color-forest: #243006; /* logo tree + field */
+  --color-forest-light: #5f7b32; /* forest on dark backgrounds (3.3:1 on charcoal) */
 
   /* Superior orange (from the logo). 500 fill takes charcoal text (4.7:1), never white (3.4:1).
      700 for orange text on light (5.4:1) · 400 for orange text on charcoal (5.4:1) */
