@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import QuoteForm from '../components/QuoteForm.astro';
+import Testimonial from '../components/Testimonial.astro';
+import { url } from '../lib/url';
 import { site } from '../data/site';
 ---
 
@@ -25,6 +27,9 @@ import { site } from '../data/site';
           {site.phone}
         </a>
         <p class="mt-2 text-stone">{site.hours}</p>
+        <p class="mt-1 text-stone">
+          Based in {site.town}, Ohio · Owner {site.owner}
+        </p>
       </div>
       <div class="border-t border-sand pt-8">
         <h2 class="text-2xl">Helpful to include</h2>
@@ -34,10 +39,21 @@ import { site } from '../data/site';
           <li class="border-l border-orange pl-4">Access, and what's on site now</li>
           <li class="border-l border-orange pl-4">Bid due date or construction schedule</li>
         </ul>
+        <p class="mt-6 text-sm text-stone">
+          Questions first?{' '}
+          <a href={url('faq/')} class="font-semibold text-orange-700 underline">
+            Read the FAQ
+          </a>
+        </p>
       </div>
     </div>
     <div class="order-1 lg:order-2">
       <QuoteForm />
+    </div>
+  </section>
+  <section class="bg-bone py-20">
+    <div class="container-site">
+      <Testimonial />
     </div>
   </section>
 </Base>

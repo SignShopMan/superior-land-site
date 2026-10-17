@@ -4,6 +4,7 @@ import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 import AudienceGrid from '../components/AudienceGrid.astro';
 import CTABand from '../components/CTABand.astro';
+import Testimonial from '../components/Testimonial.astro';
 import { equipment, site } from '../data/site';
 import fleet from '../assets/photos/fleet-truck-gooseneck-excavator.jpg';
 ---
@@ -15,15 +16,20 @@ import fleet from '../assets/photos/fleet-truck-gooseneck-excavator.jpg';
   <PageHero
     eyebrow="About"
     title="Owner-led site work"
-    lede={`One crew and our own fleet, serving ${site.region}.`}
+    lede={`${site.owner} has more than ${site.experienceYears} years of experience. One crew, our own fleet, based in ${site.town}, Ohio.`}
   />
   <section class="container-site grid items-start gap-14 py-20 lg:grid-cols-2">
     <div class="prose-site">
-      <!-- TODO: owner story, years in business, insurance, owner photo -->
+      <!-- TODO: owner photo, insurance / certifications once confirmed -->
       <p>
-        {site.name} handles site work across {site.region}: clearing, grading, ponds, drainage,
-        access roads and final stabilization. We work with contractors and developers, local
-        governments, and owners of large residential properties.
+        {site.name} is owned and run by {site.owner}, who brings more than {site.experienceYears}
+        years of experience to every job. We're based in {site.town}, in {site.county}, and handle
+        site work across {site.region}: clearing, grading, ponds, drainage, access roads and final
+        stabilization.
+      </p>
+      <p>
+        We work with contractors and developers, local governments, and owners of large residential
+        properties. When you call, you're talking to the person responsible for the work.
       </p>
       <p>
         We own and haul our equipment, so we're on site when we say we'll be, without waiting on
@@ -49,6 +55,11 @@ import fleet from '../assets/photos/fleet-truck-gooseneck-excavator.jpg';
   </section>
   <section class="container-site pb-20">
     <AudienceGrid />
+  </section>
+  <section class="bg-bone py-20">
+    <div class="container-site">
+      <Testimonial />
+    </div>
   </section>
   <CTABand />
 </Base>

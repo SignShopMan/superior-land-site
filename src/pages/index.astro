@@ -8,6 +8,7 @@ import BidCard from '../components/BidCard.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import AudienceGrid from '../components/AudienceGrid.astro';
 import CTABand from '../components/CTABand.astro';
+import Testimonial from '../components/Testimonial.astro';
 import { equipment, site } from '../data/site';
 import { url } from '../lib/url';
 import heroImg from '../assets/photos/commercial-site-prep-drone.jpg';
@@ -62,6 +63,10 @@ const steps = [
           View Projects
         </Button>
       </div>
+      <p class="mt-8 text-sm tracking-wide text-white/75">
+        Owner-operated by <span class="font-semibold text-white">{site.owner}</span> ·{' '}
+        {site.experienceYears}+ years of experience · Based in {site.town}, Ohio
+      </p>
     </div>
   </section>
 
@@ -118,6 +123,15 @@ const steps = [
       {featured.map((p) => (
         <ProjectCard project={p} large />
       ))}
+    </div>
+  </section>
+
+  <!-- Proof -->
+  <section class="bg-bone py-20 md:py-24">
+    <div class="container-site">
+      <p class="eyebrow">What customers say</p>
+      <h2 class="mb-10 max-w-3xl text-4xl md:text-5xl">The next trade starts on a true grade</h2>
+      <Testimonial />
     </div>
   </section>
 

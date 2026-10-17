@@ -6,7 +6,7 @@ import { url } from '../lib/url';
 
 const services = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
 const year = new Date().getFullYear();
-const link = 'text-gravel no-underline transition-colors hover:text-white';
+const link = 'inline-block py-2 text-gravel no-underline transition-colors hover:text-white';
 ---
 
 <footer class="bg-charcoal pb-20 text-white md:pb-0">
@@ -21,10 +21,13 @@ const link = 'text-gravel no-underline transition-colors hover:text-white';
         {site.phone}
       </a>
       <p class="mt-1 text-sm text-gravel">{site.hours}</p>
+      <p class="mt-1 text-sm text-gravel">
+        Based in {site.town}, Ohio · Owner {site.owner}
+      </p>
     </div>
     <div>
       <h2 class="mb-5 text-sm tracking-[0.2em] text-orange-400">Services</h2>
-      <ul class="space-y-2.5 text-[15px]">
+      <ul class="space-y-0.5 text-[15px]">
         {services.map((s) => (
           <li>
             <a href={url(`services/${s.id}/`)} class={link}>
@@ -36,7 +39,7 @@ const link = 'text-gravel no-underline transition-colors hover:text-white';
     </div>
     <div>
       <h2 class="mb-5 text-sm tracking-[0.2em] text-orange-400">Company</h2>
-      <ul class="space-y-2.5 text-[15px]">
+      <ul class="space-y-0.5 text-[15px]">
         {nav.map((n) => (
           <li>
             <a href={url(n.href)} class={link}>
@@ -44,6 +47,11 @@ const link = 'text-gravel no-underline transition-colors hover:text-white';
             </a>
           </li>
         ))}
+        <li>
+          <a href={url('faq/')} class={link}>
+            FAQ
+          </a>
+        </li>
         <li>
           <a href={url('contact/')} class={link}>
             Request a Bid

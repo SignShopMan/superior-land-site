@@ -1,0 +1,49 @@
+---
+import { site, testimonials } from '../data/site';
+
+interface Props {
+  tone?: 'light' | 'dark';
+  class?: string;
+}
+const { tone = 'light', class: className } = Astro.props;
+const t = testimonials[0];
+const dark = tone === 'dark';
+---
+
+<figure
+  class:list={[
+    'grid gap-8 md:grid-cols-[auto_1fr] md:items-center',
+    dark ? 'text-white' : 'text-charcoal',
+    className,
+  ]}
+>
+  <div class:list={['border-l-2 border-forest pl-6', dark && 'border-forest-light']}>
+    <p
+      class="font-display text-6xl leading-none font-semibold text-orange-700 md:text-7xl"
+      class:list={[dark && 'text-orange-400']}
+    >
+      {t.stat.value}
+    </p>
+    <p class:list={['mt-2 max-w-[16rem] text-sm', dark ? 'text-gravel' : 'text-stone']}>
+      {t.stat.label}
+    </p>
+  </div>
+  <div>
+    <blockquote
+      class:list={['text-lg leading-relaxed md:text-xl', dark ? 'text-white/90' : 'text-slate']}
+    >
+      “{t.quote}”
+    </blockquote>
+    <figcaption class:list={['mt-4 text-sm', dark ? 'text-gravel' : 'text-stone']}>
+      <span class:list={['font-semibold', dark ? 'text-white' : 'text-charcoal']}>{t.name}</span>·{' '}
+      <a
+        href={site.facebook}
+        rel="noopener"
+        class:list={['underline', dark ? 'text-orange-400' : 'text-orange-700']}
+      >
+        {t.source}
+      </a>
+      , {t.date}
+    </figcaption>
+  </div>
+</figure>

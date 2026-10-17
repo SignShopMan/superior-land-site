@@ -13,6 +13,7 @@ const field =
 ---
 
 <form
+  id="bid-form"
   action="https://api.web3forms.com/submit"
   method="POST"
   class="grid gap-5 bg-bone p-6 ring-1 ring-sand sm:grid-cols-2 md:p-10"
@@ -29,6 +30,14 @@ const field =
     tabindex="-1"
     autocomplete="off"
   />
+
+  <div
+    id="bid-errors"
+    role="alert"
+    tabindex="-1"
+    hidden
+    class="border-l-2 border-orange-700 bg-orange-50 p-4 text-sm text-orange-800 sm:col-span-2"
+  ></div>
 
   <fieldset class="sm:col-span-2">
     <legend class={label}>Project type</legend>
@@ -69,8 +78,8 @@ const field =
     <input class={field} type="tel" name="phone" autocomplete="tel" required />
   </label>
   <label class={label}>
-    Email
-    <input class={field} type="email" name="email" autocomplete="email" required />
+    Email <span class="font-normal text-gravel normal-case">(optional)</span>
+    <input class={field} type="email" name="email" autocomplete="email" />
   </label>
   <label class={label}>
     Project location
@@ -82,7 +91,7 @@ const field =
   </label>
   <label class={label}>
     Primary service
-    <select class={field} name="service" required>
+    <select class={field} name="service" id="bid-service" required>
       <option value="">Choose a service…</option>
       {services.map((s) => (
         <option>{s.data.short}</option>
@@ -124,7 +133,7 @@ const field =
   </div>
   <p class="text-sm text-stone sm:col-span-2">
     We focus on commercial, municipal and residential properties of {site.minResidentialAcres} acres
-    or more.
+    or more. We only use these details to respond to your request.
   </p>
   {!accessKey && import.meta.env.DEV && (
     <p class="bg-orange-50 p-3 text-sm text-orange-800 sm:col-span-2">
@@ -132,3 +141,39 @@ const field =
     </p>
   )}
 </form>
+
+<script>
+  const form = document.getElementById('bid-form') as HTMLFormElement | null;
+  const errors = document.getElementById('bid-errors');
+  const service = document.getElementById('bid-service') as HTMLSelectElement | null;
+
+  // Arriving from a service page: preselect that service.
+  const wanted = new URLSearchParams(location.search).get('service');
+  if (service && wanted) {
+    const match = [...service.options].find((o) => o.text === wanted);
+    if (match) service.value = match.value || match.text;
+  }
+
+  // On a failed submit, list every missing field at the top instead of one tooltip at a time.
+  const nameOf = (el: Element) => {
+    if (el instanceof HTMLInputElement && el.type === 'radio') return 'Project type';
+    const label = el.closest('label');
+    return (label?.firstChild?.textContent ?? (el as HTMLInputElement).name).trim();
+  };
+  form?.querySelector('button[type="submit"]')?.addEventListener('click', () => {
+    if (!form || !errors) return;
+    const bad = [...form.querySelectorAll(':invalid')].filter(
+      (el) => (el as HTMLInputElement).name,
+    );
+    if (bad.length === 0) {
+      errors.hidden = true;
+      return;
+    }
+    const names = [...new Set(bad.map(nameOf))];
+    errors.textContent = `Please fill in: ${names.join(', ')}.`;
+    errors.hidden = false;
+  });
+  form?.addEventListener('input', () => {
+    if (errors && !errors.hidden && form.checkValidity()) errors.hidden = true;
+  });
+</script>

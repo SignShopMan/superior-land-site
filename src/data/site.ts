@@ -10,15 +10,34 @@ export const site = {
   phone: '937-539-3002',
   phoneHref: 'tel:+19375393002',
   email: '', // TODO: owner email for bids
-  // TODO: confirm. 937-539 is the Bellefontaine / Logan County exchange.
   region: 'West-Central Ohio',
+  town: 'East Liberty',
+  county: 'Logan County',
+  owner: 'Jeremy Burnside',
+  ownerFirst: 'Jeremy',
+  experienceYears: 30,
   state: 'OH',
-  serviceArea: [] as string[], // TODO: counties served
+  serviceArea: [] as string[], // TODO: counties served (until then the page names the home base)
   hours: 'Mon–Fri, 7am–5pm', // TODO: confirm
   facebook: 'https://www.facebook.com/profile.php?id=100083360259884',
   /** Owner only takes residential work at this size and up */
   minResidentialAcres: 3,
 } as const;
+
+/** Real customer words only. Shawn's is a public Facebook recommendation; confirm he's OK being quoted. */
+export const testimonials = [
+  {
+    quote:
+      'Jeremy did a spectacular job … prepping the site for our playset. The crew from Pennsylvania that installed it were amazed at how level the site was and the job they estimated at 3-4 hours was done in 45 minutes as a result.',
+    name: 'Shawn S.',
+    source: 'Facebook recommendation',
+    date: 'May 2024',
+    stat: {
+      value: '45 min',
+      label: 'install time, against a 3–4 hour estimate, because the grade was dead level',
+    },
+  },
+] as const;
 
 /** Who the business works for — drives home/about copy and the bid form. */
 export const audiences = [

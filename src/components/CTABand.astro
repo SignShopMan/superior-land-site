@@ -6,8 +6,11 @@ import { url } from '../lib/url';
 interface Props {
   heading?: string;
   text?: string;
+  /** Preselects this service in the bid form */
+  service?: string;
 }
 const {
+  service,
   heading = 'Have a site that needs work?',
   text = 'Send us the plans, the scope or just the location. We walk every site and return a written bid.',
 } = Astro.props;
@@ -19,9 +22,18 @@ const {
       <p class="eyebrow eyebrow-light">Next step</p>
       <h2 class="max-w-2xl text-4xl md:text-6xl">{heading}</h2>
       <p class="mt-5 max-w-xl text-lg text-gravel">{text}</p>
+      <p class="mt-3 text-sm text-gravel">
+        Questions first?{' '}
+        <a href={url('faq/')} class="text-orange-400 underline">
+          Read the FAQ
+        </a>
+      </p>
     </div>
     <div class="flex flex-wrap gap-3 md:justify-end">
-      <Button href={url('contact/')} size="lg">
+      <Button
+        href={url(service ? `contact/?service=${encodeURIComponent(service)}` : 'contact/')}
+        size="lg"
+      >
         Request a Bid
       </Button>
       <Button href={site.phoneHref} variant="outline-light" size="lg">
