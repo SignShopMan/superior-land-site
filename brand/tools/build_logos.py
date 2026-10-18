@@ -19,13 +19,13 @@ What it does
   own color (white on a light panel, charcoal on a dark one) is a knockout, so it becomes
   real transparency (an SVG mask) and every file works on any background.
 - Keeps the master's colors exactly for the light and dark versions, and derives 1-color
-  black and white versions plus "plate" versions (full color on a white sticker plate) for
+  black and white versions plus "plate" versions (full color on a white contour keyline) for
   colored truck doors and photos.
 - Composes horizontal and stacked lockups from the master's mark and wordmark.
 - The dark wordmark is derived from the light one (black -> white, orange kept), so SUPERIOR
   stays orange on dark backgrounds like the dark logo. This overrides the master's white panel.
 
-Requires: svgpathtools, numpy, resvg_py (PNG previews only).
+Requires: svgpathtools, numpy, resvg_py, scikit-image (plate keylines; brings scipy and Pillow).
 """
 
 from __future__ import annotations
@@ -67,32 +67,6 @@ def xf(d: str, k: float = 1.0, tx: float = 0.0, ty: float = 0.0) -> str:
     if k != 1.0:
         p = p.scaled(k, k, origin=0j)
     return p.translated(complex(tx, ty)).d()
-
-
-def hull_d(ds: list[str], samples: int = 40) -> str:
-    """Convex hull of a set of paths: the silhouette of a die-cut sticker plate."""
-    pts = []
-    for d in ds:
-        for seg in parse_path(d):
-            for t in np.linspace(0, 1, samples):
-                p = seg.point(t)
-                pts.append((p.real, p.imag))
-    pts = sorted(set(pts))
-
-    def cross(o, a, b):
-        return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
-
-    lower, upper = [], []
-    for p in pts:
-        while len(lower) >= 2 and cross(lower[-2], lower[-1], p) <= 0:
-            lower.pop()
-        lower.append(p)
-    for p in reversed(pts):
-        while len(upper) >= 2 and cross(upper[-2], upper[-1], p) <= 0:
-            upper.pop()
-        upper.append(p)
-    hull = lower[:-1] + upper[:-1]
-    return "M" + "L".join(f"{x:.1f},{y:.1f}" for x, y in hull) + "Z"
 
 
 # --------------------------------------------------------------------------- compositor
@@ -157,12 +131,37 @@ def viewbox_for(art: Art, margin=MARGIN):
     return (x0 - margin, y0 - margin, x1 - x0 + 2 * margin, y1 - y0 + 2 * margin)
 
 
+def contour_d(art: Art, pad=PAD, bridge=PAD, res=4.0) -> str:
+    """Contour keyline: the artwork's own outline with its holes filled, grown by pad.
+    Notches narrower than about 2 * bridge are closed so the cut line stays smooth and
+    easy to weed. Traced from a raster at res px per master unit, then simplified."""
+    import io
+
+    import resvg_py
+    from PIL import Image
+    from scipy import ndimage
+    from skimage import measure
+
+    x0, y0, w, h = viewbox_for(art, 2 * (pad + bridge))
+    s = res
+    png = resvg_py.svg_to_bytes(svg_string=art.render(lambda c: BLACK, (x0, y0, w, h)), width=int(w * s))
+    solid = ndimage.binary_fill_holes(np.array(Image.open(io.BytesIO(bytes(png))).convert("RGBA"))[..., 3] > 127)
+    # Morphological closing (grow by pad + bridge, shrink by bridge), then soften the corners.
+    grown = ndimage.distance_transform_edt(~solid) <= (pad + bridge) * s
+    closed = ndimage.distance_transform_edt(grown) > bridge * s
+    soft = ndimage.gaussian_filter(ndimage.binary_fill_holes(closed).astype(float), sigma=pad * s * 0.25)
+    soft = np.pad(soft, 1)
+    subpaths = []
+    for c in measure.find_contours(soft, 0.5):
+        c = measure.approximate_polygon(c, tolerance=0.5)
+        pts = [(x0 + (col - 1) / s, y0 + (row - 1) / s) for row, col in c]
+        subpaths.append("M" + "L".join(f"{x:.1f},{y:.1f}" for x, y in pts) + "Z")
+    return "".join(subpaths)
+
+
 def plate(art: Art, pad=PAD) -> str:
-    """White sticker plate: convex hull of the artwork, grown by pad with round corners."""
-    return (
-        f'<path d="{hull_d(art.paint_paths())}" fill="{WHITE}" stroke="{WHITE}" '
-        f'stroke-width="{2 * pad}" stroke-linejoin="round"/>'
-    )
+    """White sticker plate: a contour keyline that follows the artwork's outline."""
+    return f'<path d="{contour_d(art, pad)}" fill="{WHITE}" fill-rule="nonzero"/>'
 
 
 # --------------------------------------------------------------------------- master
