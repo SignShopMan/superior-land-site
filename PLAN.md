@@ -33,7 +33,7 @@ Photo coverage by category: brush-clearing 18 · grading-seeding 18 · commercia
 1. **Legal name / DBA.** The FB page is "Superior Bobcat Services LLC." Is "Superior Land & Site Services" a DBA or a rename? This affects schema markup, the footer and the Google Business Profile.
 2. **Service area.** Which counties? The 937-539 exchange is Bellefontaine / Logan County, so the site currently says "West-Central Ohio."
 3. ~~Services to lead with~~ Answered: commercial, municipal, 3+ acre residential. Confirm the 7-service lineup in brand guide §07.
-4. **Domain.** Is one owned already? Options: `superiorlandandsite.com`, `superiorlandsite.com`, `superiorsiteservices.com`.
+4. **Domain.** Owned: `superiorlandsite.com` (DNS at SiteGround). Pages custom domain set in repo settings (Actions deploys ignore `public/CNAME`).
 5. **Quote form destination.** Which email or phone should receive leads? Do they want text notifications?
 6. **Proof points.** Years in business, insured/licensed, equipment list, Google reviews link, owner name and photo.
 7. **Logo.** The chrome badge is retired in v0.2. A designer should finalize the simplified chevron mark and wordmark (see brand guide §02).
