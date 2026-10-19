@@ -96,7 +96,9 @@
   .door { width: 82%; height: 78%; background: var(--truck); border-radius: 10px 10px 6px 6px; position: relative; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 18px; }
   .door::before { content: ""; position: absolute; top: 8%; left: 6%; right: 6%; height: 34%; background: #2C3A33; opacity: .55; border-radius: 6px; }
   .door::after { content: ""; position: absolute; right: 8%; top: 49%; width: 34px; height: 8px; border-radius: 4px; background: rgba(0,0,0,.35); }
+  .door { flex-direction: column; align-items: center; gap: 6px; }
   .door img { width: 56%; position: relative; }
+  .door span { position: relative; font: 600 .78rem/1 var(--display); letter-spacing: .06em; text-transform: uppercase; color: #fff; }
   .hat { width: 150px; height: 96px; background: #F7F7F5; border-radius: 80px 80px 8px 8px; position: relative; border: 1px solid #D9DCD8; display: flex; align-items: center; justify-content: center; }
   .hat::after { content: ""; position: absolute; bottom: -12px; left: -26px; right: -26px; height: 16px; background: #F7F7F5; border: 1px solid #D9DCD8; border-radius: 10px; }
   .hat img { width: 62px; margin-top: 10px; }
@@ -110,6 +112,39 @@
   .sign::after { content: ""; position: absolute; bottom: -40px; left: 22%; right: 22%; height: 40px; border-left: 4px solid #8A8D88; border-right: 4px solid #8A8D88; }
   .files a { text-decoration: none; }
   footer { padding: 40px 0 64px; font-size: .82rem; color: var(--muted); }
+
+  /* Print / PDF: US Letter, full-bleed cover, one section per page, true colors */
+  @page { size: letter; margin: 0; }
+  @media print {
+    :root { --bg: var(--limestone); --fg: var(--charcoal); --muted: var(--stone); --card: var(--bone); --line: var(--sand); --accent: var(--orange-700); }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    html, body { background: var(--limestone); }
+    body { font-size: 14px; }
+    .cover { height: 11in; display: flex; align-items: center; }
+    .cover .wrap { grid-template-columns: 1fr; width: 100%; padding-top: 0; padding-bottom: 0; }
+    .cover .hero-logo { order: -1; justify-content: flex-start; padding: 0 0 24px; }
+    .cover .hero-logo img { max-height: 260px; }
+    main section { break-before: page; padding: 0.55in 0 0.4in; border-bottom: 0; }
+    .contrast-head { break-before: page; padding-top: 0.55in; }
+    h2 { font-size: 2.4rem; }
+    .tile, .card, .sw, .app, .spec, tr, .ratio, .hero-logo { break-inside: avoid; }
+    .tile .art { min-height: 150px; padding: 20px; }
+    .tile .art img { max-height: 120px; }
+    .hero-logo img { max-height: 230px; }
+    .app .scene { height: 190px; }
+    footer { padding: 24px 0 0; }
+    .wrap { max-width: none; padding: 0 0.6in; }
+    .g2 { grid-template-columns: 1fr 1fr; } .g3 { grid-template-columns: repeat(3, 1fr); }
+    .g4 { grid-template-columns: repeat(4, 1fr); } .g5 { grid-template-columns: repeat(5, 1fr); }
+    .tile .art { min-height: 120px; padding: 16px; } .tile .art img { max-height: 90px; }
+    .tile .cap, .app .cap, .sw .meta { font-size: .78rem; }
+    .sw .chip { height: 84px; font-size: 1rem; }
+    .app .scene { height: 160px; }
+    .cover .wrap { padding: 0 0.75in; }
+    .door img { width: 44%; } .door::before { height: 26%; }
+    .webhdr { width: 94%; padding: 10px; } .webhdr img { height: 22px; } .webhdr i { padding: 5px 6px; font-size: .42rem; }
+    .sign { width: 80%; padding: 10px; } .sign span { font-size: .5rem; letter-spacing: .08em; }
+  }
 </style>
 </head>
 <body>
@@ -119,11 +154,11 @@
     <div>
       <div class="eyebrow">Brand guide · v1.0</div>
       <h1>Superior Land &amp; Site Services</h1>
-      <p class="lede" style="margin-top:1.2rem">The identity for a site contractor bidding commercial, municipal and large-acreage work across West-Central Ohio. Same name, same orange, same trees and grass he's carried since 1997, now built to look like the company he runs.</p>
+      <p class="lede" style="margin-top:1.2rem">The identity for a site contractor bidding commercial, municipal and large-acreage work across West-Central Ohio. Same name, same orange, same trees and grass Superior has carried since 1997, now built to look like the company it is today.</p>
       <div class="stamp">
         <span>Logo<b>Final, Oct 2026</b></span>
-        <span>Files<b><code>brand/logo/</code></b></span>
-        <span>Master<b><code>2026-superior-new-logo.svg</code></b></span>
+        <span>Website<b>superiorlandsite.com</b></span>
+        <span>Version<b>1.0</b></span>
       </div>
     </div>
     <div class="hero-logo"><img src="logo/superior-logo-dark.svg" alt="Superior Land & Site Services logo, dark-background version"></div>
@@ -137,7 +172,7 @@
     <div>
       <div class="eyebrow">01 · The brand</div>
       <h2>Built for bigger sites</h2>
-      <p class="lede">Superior's service promise has always been strong: show up with the right machine, do it right, and leave it finished. The brand now makes that same promise to the clients he's going after.</p>
+      <p class="lede">Superior's service promise has always been strong: show up with the right machine, do it right, and leave it finished. The brand now makes that same promise to the clients Superior is going after.</p>
       <p class="muted">Tagline: <b style="color:var(--fg)">Site work, done right from the ground up.</b></p>
     </div>
     <div class="grid" style="gap:14px">
@@ -178,7 +213,7 @@
       <div class="tile"><div class="art on-white"><img src="logo/superior-logo-black.svg" alt=""></div><div class="cap"><b>Black</b>1-color vinyl, stamps, forms<br><code>-black.svg</code></div></div>
       <div class="tile"><div class="art on-charcoal"><img src="logo/superior-logo-white.svg" alt=""></div><div class="cap"><b>White</b>1-color on dark vinyl, stitching<br><code>-white.svg</code></div></div>
     </div>
-    <p class="muted" style="margin-top:20px;font-size:.92rem">The dark versions swap forest <code>#243006</code> for forest light <code>#5F7B32</code>. Forest is invisible on charcoal (1.1:1). The plate version keeps true colors on a white contour plate, so it works on any paint color, including his green Peterbilt.</p>
+    <p class="muted" style="margin-top:20px;font-size:.92rem">The dark versions swap forest <code>#243006</code> for forest light <code>#5F7B32</code>. Forest is invisible on charcoal (1.1:1). The plate version keeps true colors on a white contour plate, so it works on any paint color, including the green Peterbilt.</p>
   </div>
 </section>
 
@@ -202,7 +237,7 @@
       <div class="card"><h3>Files</h3><ul class="rules">
         <li>Every file is outlined SVG. No fonts needed.</li>
         <li>For a sign shop, open in Illustrator and Save As EPS or PDF.</li>
-        <li>Change the master and run <code>build_logos.py</code>; never hand-edit the variants.</li>
+        <li>Never redraw, retype or hand-edit a logo file. Ask for the version you need.</li>
       </ul></div>
     </div>
     <h3 style="margin-top:36px">Don't</h3>
@@ -213,7 +248,7 @@
       <div class="tile dont"><div class="art on-photo"><img src="logo/superior-logo-light.svg" alt=""></div><div class="cap">Put the light logo on a busy photo (use the plate)</div></div>
     </div>
     <ul class="rules no" style="margin-top:18px">
-      <li>Never add the phone number to the logo. Set it beside or below the logo.</li>
+      <li>Never add the phone number or website to the logo. Set them beside or below it.</li>
       <li>Never use the Bobcat cat head, the John Deere deer, or "Bobcat" in the name. They're registered trademarks of other companies.</li>
       <li>Never use the old chrome badge or the AI-generated version anywhere new. Retire them as trucks and signs get redone.</li>
     </ul>
@@ -225,7 +260,7 @@
   <div class="wrap">
     <div class="eyebrow">05 · Color</div>
     <h2>Heritage, quietly</h2>
-    <p class="lede muted">His orange and a deep forest green, used small and deliberately, on charcoal and warm neutrals. No lime, no chrome, no gradients.</p>
+    <p class="lede muted">Superior orange and a deep forest green, used small and deliberately, on charcoal and warm neutrals. No lime, no chrome, no gradients.</p>
     <div class="grid g4" style="margin-top:22px">
       <div class="sw"><div class="chip" style="background:#E5641E;color:#1E2326">Superior Orange</div><div class="meta"><b>orange</b><code>#E5641E</code> · wordmark, buttons, accents</div></div>
       <div class="sw"><div class="chip" style="background:#243006;color:#fff">Forest</div><div class="meta"><b>forest</b><code>#243006</code> · tree and field on light</div></div>
@@ -246,7 +281,7 @@
       <div style="flex:5;background:#243006">Forest</div>
     </div>
     <p class="muted" style="font-size:.9rem">Orange is for the thing to act on: the wordmark, the primary button, a thin rule. Forest belongs to the logo and the occasional accent. Never use either as a large background.</p>
-    <h3 style="margin-top:32px">Contrast rules (WCAG 2.2 AA)</h3>
+    <h3 class="contrast-head" style="margin-top:32px">Contrast rules (WCAG 2.2 AA)</h3>
     <div class="scroll card" style="padding:4px 14px">
       <table>
         <thead><tr><th>Pairing</th><th>Sample</th><th>Ratio</th><th>Use</th></tr></thead>
@@ -293,10 +328,10 @@
     <div class="eyebrow">07 · Applications</div>
     <h2>Where it lives</h2>
     <div class="grid g4" style="margin-top:12px">
-      <div class="app"><div class="scene" style="background:#E3E6E1"><div class="door"><img src="logo/superior-logo-plate.svg" alt=""></div></div><div class="cap"><b>Truck door</b> · logo plate, about 24" wide</div></div>
+      <div class="app"><div class="scene" style="background:#E3E6E1"><div class="door"><img src="logo/superior-logo-plate.svg" alt=""><span>superiorlandsite.com</span></div></div><div class="cap"><b>Truck door</b> · logo plate about 24" wide, website below</div></div>
       <div class="app"><div class="scene" style="background:#E3E6E1"><div class="hat"><img src="logo/superior-mark-light.svg" alt=""></div></div><div class="cap"><b>Hard hat</b> · mark, color or 1-color</div></div>
       <div class="app"><div class="scene" style="background:#E3E6E1"><div class="webhdr"><img src="logo/superior-wordmark-dark.svg" alt=""><i>REQUEST A BID</i></div></div><div class="cap"><b>Website header</b> · wordmark, dark</div></div>
-      <div class="app"><div class="scene" style="background:#C9D6C0;padding-bottom:30px"><div class="sign"><img src="logo/superior-lockup-stacked-light.svg" alt=""><span>937-539-3002</span></div></div><div class="cap"><b>Job-site sign</b> · stacked lockup, phone below</div></div>
+      <div class="app"><div class="scene" style="background:#C9D6C0;padding-bottom:30px"><div class="sign"><img src="logo/superior-lockup-stacked-light.svg" alt=""><span>SUPERIORLANDSITE.COM</span></div></div><div class="cap"><b>Job-site sign</b> · stacked lockup, website below</div></div>
     </div>
   </div>
 </section>
@@ -340,9 +375,9 @@
     <div class="eyebrow">09 · Files</div>
     <h2>Where everything is</h2>
     <div class="grid g3">
-      <div class="card"><h3>Logo</h3><p class="muted" style="margin:0"><code>brand/logo/</code> holds 22 outlined SVGs plus PNG previews. The <a href="logo/README.md">README</a> covers which file to use where.</p></div>
-      <div class="card"><h3>Master and build</h3><p class="muted" style="margin:0"><code>brand/2026-superior-new-logo.svg</code> is the source. <code>brand/tools/build_logos.py</code> regenerates every variant, the favicon and the site logos.</p></div>
-      <div class="card"><h3>Web tokens</h3><p class="muted" style="margin:0"><code>brand/tokens.css</code>, mirrored in <code>src/styles/global.css</code>: every color above as a Tailwind token.</p></div>
+      <div class="card"><h3>The logo package</h3><p class="muted" style="margin:0">Every version on these pages (logo, mark, wordmark and both lockups, in light, dark, plate, black and white) as outlined SVG, with PNG previews. Ask for the package; never pull the logo off the website or Facebook.</p></div>
+      <div class="card"><h3>For sign shops</h3><p class="muted" style="margin:0">The plate files include a white contour keyline that follows the logo's outline, ready to contour-cut. Open any SVG in Illustrator and save as EPS or PDF if your equipment needs it.</p></div>
+      <div class="card"><h3>For printers and embroiderers</h3><p class="muted" style="margin:0">Use the hex values in section 05. For thread or vinyl, match to the closest stock color and send a proof before running the job.</p></div>
     </div>
   </div>
 </section>
